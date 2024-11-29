@@ -34,7 +34,7 @@ void DaemonMain(const std::string &programName, const std::vector<std::string> &
             if (bpfObject == progObject) {
                 int progFd = CU::Bpf::OpenObject(CU::Format("{}/{}", bpf_path, bpfObject));
                 if (progFd >= 0) {
-                    return CU::Bpf::ProgAttechTracePoint(progFd, tracePoint);
+                    return CU::Bpf::ProgAttachTracePoint(progFd, tracePoint);
                 }
             }
         }
