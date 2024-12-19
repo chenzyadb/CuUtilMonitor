@@ -5,7 +5,6 @@
 #include "CuFormat.h"
 #include "cu_bpf_def.h"
 #include <unistd.h>
-#include <linux/bpf.h>
 #include <linux/perf_event.h>
 #include <sys/syscall.h>
 #include <sys/resource.h>
@@ -16,30 +15,22 @@ namespace CU
     {
         inline int CreateMap(
             bpf_map_type mapType,
-            const std::string &name,
             uint32_t keySize,
             uint32_t valSize,
             uint32_t maxEntries,
             uint32_t mapFlags
         ) {
-            if (name.length() >= BPF_OBJ_NAME_LEN) {
-                return -1;
-            }
-
             bpf_attr attr{};
             attr.map_type = mapType;
             attr.key_size = keySize;
             attr.value_size = valSize;
             attr.max_entries = maxEntries;
             attr.map_flags = mapFlags;
-            std::strncpy(attr.map_name, name.data(), name.length());
-
             return static_cast<int>(syscall(__NR_bpf, BPF_MAP_CREATE, std::addressof(attr), sizeof(attr)));
         }
 
         inline int LoadProgram(
             bpf_prog_type progType,
-            const std::string &name,
             const bpf_insn* bpfInsns,
             uint32_t progLen,
             const std::string &license
@@ -58,10 +49,6 @@ namespace CU
                 return 0;
             };
 
-            if (name.length() >= BPF_OBJ_NAME_LEN) {
-                return -1;
-            }
-
             auto insnCount = progLen / sizeof(bpf_insn);
             if (insnCount > BPF_MAXINSNS) {
                 return -1;
@@ -73,8 +60,6 @@ namespace CU
             attr.license = reinterpret_cast<uint64_t>(license.data());
             attr.insns = reinterpret_cast<uint64_t>(bpfInsns);
             attr.insn_cnt = insnCount;
-            std::strncpy(attr.prog_name, name.data(), name.length());
-
             return static_cast<int>(syscall(__NR_bpf, BPF_PROG_LOAD, std::addressof(attr), sizeof(attr)));
         }
 

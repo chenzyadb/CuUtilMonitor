@@ -46,9 +46,9 @@ void DaemonMain(const std::string &programName, const std::vector<std::string> &
 
     for (const auto &tracePoint : tracePoints) {
         if (attachToTracePoint(programName, tracePoint) >= 0) {
-            CU::Logger::Info("Attach program \"{}\" to trace point \"{}\" succeed.", programName, tracePoint);
+            CU::Logger::Info("The attachment of program \"{}\" to tracepoint \"{}\" succeeded.", programName, tracePoint);
         } else {
-            CU::Logger::Warn("Attach program \"{}\" to trace point \"{}\" failed.", programName, tracePoint);
+            CU::Logger::Warn("The attachment of program \"{}\" to tracepoint \"{}\" failed.", programName, tracePoint);
         }
     }
 

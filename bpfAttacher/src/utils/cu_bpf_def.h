@@ -57,7 +57,7 @@ typedef struct {
         return bpf_map_remove_elem(&map_name, key);                                                                   \
     }
 
-#define CU_DEFINE_BPF_PROG(tracepoint_name, func_name) CU_SEC("bpf_prog_" tracepoint_name) int func_name
+#define CU_DEFINE_BPF_PROG(sec_name, func_name) CU_SEC("bpf_prog_" sec_name) int func_name
 
 static unsigned long long (*bpf_ktime_get_ns)(void) = (unsigned long long(*)(void))BPF_FUNC_ktime_get_ns;
 

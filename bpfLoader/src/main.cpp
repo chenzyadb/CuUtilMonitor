@@ -110,8 +110,8 @@ int LoadProg(const std::string &path)
         for (const auto &mapSection : mapSections) {
             auto bpfMapName = getBpfMapName(mapSection);
             auto bpfMapDef = reinterpret_cast<const cu_bpf_map_def*>(mapSection.data.data());
-            int mapFd = CU::Bpf::CreateMap(bpfMapDef->type, bpfMapName.substr(0, (BPF_OBJ_NAME_LEN - 1)), 
-                bpfMapDef->key_size, bpfMapDef->value_size, bpfMapDef->max_entries, bpfMapDef->map_flags);
+            int mapFd = CU::Bpf::CreateMap(bpfMapDef->type, bpfMapDef->key_size, bpfMapDef->value_size,
+                bpfMapDef->max_entries, bpfMapDef->map_flags);
             if (mapFd < 0) {
                 CU::Println("[-] Failed to create map \"{}\".", bpfMapName);
                 return -1;
@@ -136,8 +136,8 @@ int LoadProg(const std::string &path)
             auto bpfProgType = getBpfProgType(progSection);
             auto bpfProgName = getBpfProgName(progSection);
             auto progInsns = getProgInsns(sections, progSection, bpfMaps);
-            int progFd = CU::Bpf::LoadProgram(bpfProgType, bpfProgName.substr(0, (BPF_OBJ_NAME_LEN - 1)), 
-                reinterpret_cast<const bpf_insn*>(progInsns.data()), progInsns.size(), license);
+            int progFd = CU::Bpf::LoadProgram(bpfProgType, reinterpret_cast<const bpf_insn*>(progInsns.data()),
+                progInsns.size(), license);
             if (progFd < 0) {
                 CU::Println("[-] Failed to load program \"{}\".", bpfProgName);
                 return -1;
