@@ -32,13 +32,15 @@ int LoadProg(const std::string &path)
     };
     static const auto getBpfProgType = [](const CU::Elf::Section &section) -> bpf_prog_type {
         static const std::unordered_map<std::string, bpf_prog_type> progTypesMap = {
-            {"bpf_prog_kprobe", BPF_PROG_TYPE_KPROBE},
-            {"bpf_prog_tracepoint", BPF_PROG_TYPE_TRACEPOINT},
             {"bpf_prog_skfilter", BPF_PROG_TYPE_SOCKET_FILTER},
-            {"bpf_prog_cgroupskb", BPF_PROG_TYPE_CGROUP_SKB},
+            {"bpf_prog_kprobe", BPF_PROG_TYPE_KPROBE},
+            {"bpf_prog_uprobe", BPF_PROG_TYPE_KPROBE},
             {"bpf_prog_schedcls", BPF_PROG_TYPE_SCHED_CLS},
-            {"bpf_prog_cgroupsock", BPF_PROG_TYPE_CGROUP_SOCK},
-            {"bpf_prog_xdp", BPF_PROG_TYPE_XDP}
+            {"bpf_prog_tracepoint", BPF_PROG_TYPE_TRACEPOINT},
+            {"bpf_prog_xdp", BPF_PROG_TYPE_XDP},
+            {"bpf_prog_perf_event", BPF_PROG_TYPE_PERF_EVENT},
+            {"bpf_prog_cgroupskb", BPF_PROG_TYPE_CGROUP_SKB},
+            {"bpf_prog_cgroupsock", BPF_PROG_TYPE_CGROUP_SOCK}
         };
         for (const auto &[name, type] : progTypesMap) {
             if (CU::StrStartsWith(section.name, name)) {
@@ -149,7 +151,11 @@ int LoadProg(const std::string &path)
                 return -1;
             }
 
-            CU::Bpf::PinObject(progFd, bpfProgPath);
+            if (CU::Bpf::PinObject(progFd, bpfProgPath) < 0) {
+                CU::Println("[-] Failed to pin object at \"{}\".", bpfProgPath);
+                return -1;
+            }
+
             CU::Println("[+] Successfully loaded program \"{}\".", bpfProgName);
         }
     }
