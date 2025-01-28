@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__LINUX_OPENVSWITCH_H
 #define _UAPI__LINUX_OPENVSWITCH_H 1
 #include <linux/types.h>
@@ -43,6 +31,8 @@ enum ovs_datapath_attr {
   OVS_DP_ATTR_USER_FEATURES,
   OVS_DP_ATTR_PAD,
   OVS_DP_ATTR_MASKS_CACHE_SIZE,
+  OVS_DP_ATTR_PER_CPU_PIDS,
+  OVS_DP_ATTR_IFINDEX,
   __OVS_DP_ATTR_MAX
 };
 #define OVS_DP_ATTR_MAX (__OVS_DP_ATTR_MAX - 1)
@@ -72,6 +62,7 @@ struct ovs_vport_stats {
 #define OVS_DP_F_UNALIGNED (1 << 0)
 #define OVS_DP_F_VPORT_PIDS (1 << 1)
 #define OVS_DP_F_TC_RECIRC_SHARING (1 << 2)
+#define OVS_DP_F_DISPATCH_UPCALL_PER_CPU (1 << 3)
 #define OVSP_LOCAL ((__u32) 0)
 #define OVS_PACKET_FAMILY "ovs_packet"
 #define OVS_PACKET_VERSION 0x1
@@ -128,9 +119,16 @@ enum ovs_vport_attr {
   OVS_VPORT_ATTR_PAD,
   OVS_VPORT_ATTR_IFINDEX,
   OVS_VPORT_ATTR_NETNSID,
+  OVS_VPORT_ATTR_UPCALL_STATS,
   __OVS_VPORT_ATTR_MAX
 };
 #define OVS_VPORT_ATTR_MAX (__OVS_VPORT_ATTR_MAX - 1)
+enum ovs_vport_upcall_attr {
+  OVS_VPORT_UPCALL_ATTR_SUCCESS,
+  OVS_VPORT_UPCALL_ATTR_FAIL,
+  __OVS_VPORT_UPCALL_ATTR_MAX
+};
+#define OVS_VPORT_UPCALL_ATTR_MAX (__OVS_VPORT_UPCALL_ATTR_MAX - 1)
 enum {
   OVS_VXLAN_EXT_UNSPEC,
   OVS_VXLAN_EXT_GBP,
@@ -188,6 +186,10 @@ enum ovs_key_attr {
   OVS_KEY_ATTR_CT_ORIG_TUPLE_IPV4,
   OVS_KEY_ATTR_CT_ORIG_TUPLE_IPV6,
   OVS_KEY_ATTR_NSH,
+  OVS_KEY_ATTR_PACKET_TYPE,
+  OVS_KEY_ATTR_ND_EXTENSIONS,
+  OVS_KEY_ATTR_TUNNEL_INFO,
+  OVS_KEY_ATTR_IPV6_EXTHDRS,
   __OVS_KEY_ATTR_MAX
 };
 #define OVS_KEY_ATTR_MAX (__OVS_KEY_ATTR_MAX - 1)
@@ -242,6 +244,9 @@ struct ovs_key_ipv6 {
   __u8 ipv6_tclass;
   __u8 ipv6_hlimit;
   __u8 ipv6_frag;
+};
+struct ovs_key_ipv6_exthdrs {
+  __u16 hdrs;
 };
 struct ovs_key_tcp {
   __be16 tcp_src;
@@ -379,6 +384,7 @@ struct ovs_action_push_vlan {
 };
 enum ovs_hash_alg {
   OVS_HASH_ALG_L4,
+  OVS_HASH_ALG_SYM_L4,
 };
 struct ovs_action_hash {
   __u32 hash_alg;
@@ -448,6 +454,7 @@ enum ovs_action_attr {
   OVS_ACTION_ATTR_CHECK_PKT_LEN,
   OVS_ACTION_ATTR_ADD_MPLS,
   OVS_ACTION_ATTR_DEC_TTL,
+  OVS_ACTION_ATTR_DROP,
   __OVS_ACTION_ATTR_MAX,
 };
 #define OVS_ACTION_ATTR_MAX (__OVS_ACTION_ATTR_MAX - 1)

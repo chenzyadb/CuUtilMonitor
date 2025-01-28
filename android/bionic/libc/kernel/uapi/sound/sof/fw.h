@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __INCLUDE_UAPI_SOF_FW_H__
 #define __INCLUDE_UAPI_SOF_FW_H__
 #include <linux/types.h>
@@ -46,7 +34,7 @@ struct snd_sof_blk_hdr {
   enum snd_sof_fw_blk_type type;
   __u32 size;
   __u32 offset;
-} __packed;
+} __attribute__((__packed__));
 enum snd_sof_fw_mod_type {
   SOF_FW_BASE = 0,
   SOF_FW_MODULE = 1,
@@ -55,11 +43,11 @@ struct snd_sof_mod_hdr {
   enum snd_sof_fw_mod_type type;
   __u32 size;
   __u32 num_blocks;
-} __packed;
+} __attribute__((__packed__));
 struct snd_sof_fw_header {
   unsigned char sig[SND_SOF_FW_SIG_SIZE];
   __u32 file_size;
   __u32 num_modules;
   __u32 abi;
-} __packed;
+} __attribute__((__packed__));
 #endif

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _NET_TIMESTAMPING_H
 #define _NET_TIMESTAMPING_H
 #include <linux/types.h>
@@ -36,14 +24,26 @@ enum {
   SOF_TIMESTAMPING_OPT_STATS = (1 << 12),
   SOF_TIMESTAMPING_OPT_PKTINFO = (1 << 13),
   SOF_TIMESTAMPING_OPT_TX_SWHW = (1 << 14),
-  SOF_TIMESTAMPING_LAST = SOF_TIMESTAMPING_OPT_TX_SWHW,
+  SOF_TIMESTAMPING_BIND_PHC = (1 << 15),
+  SOF_TIMESTAMPING_OPT_ID_TCP = (1 << 16),
+  SOF_TIMESTAMPING_LAST = SOF_TIMESTAMPING_OPT_ID_TCP,
   SOF_TIMESTAMPING_MASK = (SOF_TIMESTAMPING_LAST - 1) | SOF_TIMESTAMPING_LAST
 };
 #define SOF_TIMESTAMPING_TX_RECORD_MASK (SOF_TIMESTAMPING_TX_HARDWARE | SOF_TIMESTAMPING_TX_SOFTWARE | SOF_TIMESTAMPING_TX_SCHED | SOF_TIMESTAMPING_TX_ACK)
+struct so_timestamping {
+  int flags;
+  int bind_phc;
+};
 struct hwtstamp_config {
   int flags;
   int tx_type;
   int rx_filter;
+};
+enum hwtstamp_flags {
+  HWTSTAMP_FLAG_BONDED_PHC_INDEX = (1 << 0),
+#define HWTSTAMP_FLAG_BONDED_PHC_INDEX HWTSTAMP_FLAG_BONDED_PHC_INDEX
+  HWTSTAMP_FLAG_LAST = HWTSTAMP_FLAG_BONDED_PHC_INDEX,
+  HWTSTAMP_FLAG_MASK = (HWTSTAMP_FLAG_LAST - 1) | HWTSTAMP_FLAG_LAST
 };
 enum hwtstamp_tx_types {
   HWTSTAMP_TX_OFF,

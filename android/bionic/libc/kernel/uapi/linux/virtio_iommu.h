@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_VIRTIO_IOMMU_H
 #define _UAPI_LINUX_VIRTIO_IOMMU_H
 #include <linux/types.h>
@@ -25,6 +13,7 @@
 #define VIRTIO_IOMMU_F_BYPASS 3
 #define VIRTIO_IOMMU_F_PROBE 4
 #define VIRTIO_IOMMU_F_MMIO 5
+#define VIRTIO_IOMMU_F_BYPASS_CONFIG 6
 struct virtio_iommu_range_64 {
   __le64 start;
   __le64 end;
@@ -38,6 +27,8 @@ struct virtio_iommu_config {
   struct virtio_iommu_range_64 input_range;
   struct virtio_iommu_range_32 domain_range;
   __le32 probe_size;
+  __u8 bypass;
+  __u8 reserved[3];
 };
 #define VIRTIO_IOMMU_T_ATTACH 0x01
 #define VIRTIO_IOMMU_T_DETACH 0x02
@@ -61,11 +52,13 @@ struct virtio_iommu_req_tail {
   __u8 status;
   __u8 reserved[3];
 };
+#define VIRTIO_IOMMU_ATTACH_F_BYPASS (1 << 0)
 struct virtio_iommu_req_attach {
   struct virtio_iommu_req_head head;
   __le32 domain;
   __le32 endpoint;
-  __u8 reserved[8];
+  __le32 flags;
+  __u8 reserved[4];
   struct virtio_iommu_req_tail tail;
 };
 struct virtio_iommu_req_detach {

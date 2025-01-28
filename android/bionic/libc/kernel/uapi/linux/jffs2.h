@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __LINUX_JFFS2_H__
 #define __LINUX_JFFS2_H__
 #include <linux/types.h>
@@ -86,7 +74,7 @@ struct jffs2_raw_dirent {
   __u8 unused[2];
   jint32_t node_crc;
   jint32_t name_crc;
-  __u8 name[0];
+  __u8 name[];
 };
 struct jffs2_raw_inode {
   jint16_t magic;
@@ -110,7 +98,7 @@ struct jffs2_raw_inode {
   jint16_t flags;
   jint32_t data_crc;
   jint32_t node_crc;
-  __u8 data[0];
+  __u8 data[];
 };
 struct jffs2_raw_xattr {
   jint16_t magic;
@@ -124,7 +112,7 @@ struct jffs2_raw_xattr {
   jint16_t value_len;
   jint32_t data_crc;
   jint32_t node_crc;
-  __u8 data[0];
+  __u8 data[];
 } __attribute__((packed));
 struct jffs2_raw_xref {
   jint16_t magic;
@@ -146,7 +134,7 @@ struct jffs2_raw_summary {
   jint32_t padded;
   jint32_t sum_crc;
   jint32_t node_crc;
-  jint32_t sum[0];
+  jint32_t sum[];
 };
 union jffs2_node_union {
   struct jffs2_raw_inode i;

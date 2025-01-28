@@ -1,23 +1,11 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
-#ifndef _ASM_X86_UNISTD_X32_H
-#define _ASM_X86_UNISTD_X32_H 1
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
+#ifndef _UAPI_ASM_UNISTD_X32_H
+#define _UAPI_ASM_UNISTD_X32_H
 #define __NR_read (__X32_SYSCALL_BIT + 0)
 #define __NR_write (__X32_SYSCALL_BIT + 1)
 #define __NR_open (__X32_SYSCALL_BIT + 2)
@@ -325,6 +313,24 @@
 #define __NR_process_madvise (__X32_SYSCALL_BIT + 440)
 #define __NR_epoll_pwait2 (__X32_SYSCALL_BIT + 441)
 #define __NR_mount_setattr (__X32_SYSCALL_BIT + 442)
+#define __NR_quotactl_fd (__X32_SYSCALL_BIT + 443)
+#define __NR_landlock_create_ruleset (__X32_SYSCALL_BIT + 444)
+#define __NR_landlock_add_rule (__X32_SYSCALL_BIT + 445)
+#define __NR_landlock_restrict_self (__X32_SYSCALL_BIT + 446)
+#define __NR_memfd_secret (__X32_SYSCALL_BIT + 447)
+#define __NR_process_mrelease (__X32_SYSCALL_BIT + 448)
+#define __NR_futex_waitv (__X32_SYSCALL_BIT + 449)
+#define __NR_set_mempolicy_home_node (__X32_SYSCALL_BIT + 450)
+#define __NR_cachestat (__X32_SYSCALL_BIT + 451)
+#define __NR_fchmodat2 (__X32_SYSCALL_BIT + 452)
+#define __NR_futex_wake (__X32_SYSCALL_BIT + 454)
+#define __NR_futex_wait (__X32_SYSCALL_BIT + 455)
+#define __NR_futex_requeue (__X32_SYSCALL_BIT + 456)
+#define __NR_statmount (__X32_SYSCALL_BIT + 457)
+#define __NR_listmount (__X32_SYSCALL_BIT + 458)
+#define __NR_lsm_get_self_attr (__X32_SYSCALL_BIT + 459)
+#define __NR_lsm_set_self_attr (__X32_SYSCALL_BIT + 460)
+#define __NR_lsm_list_modules (__X32_SYSCALL_BIT + 461)
 #define __NR_rt_sigaction (__X32_SYSCALL_BIT + 512)
 #define __NR_rt_sigreturn (__X32_SYSCALL_BIT + 513)
 #define __NR_ioctl (__X32_SYSCALL_BIT + 514)

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_IF_BRIDGE_H
 #define _UAPI_LINUX_IF_BRIDGE_H
 #include <linux/types.h>
@@ -108,6 +96,7 @@ enum {
   IFLA_BRIDGE_VLAN_TUNNEL_INFO,
   IFLA_BRIDGE_MRP,
   IFLA_BRIDGE_CFM,
+  IFLA_BRIDGE_MST,
   __IFLA_BRIDGE_MAX,
 };
 #define IFLA_BRIDGE_MAX (__IFLA_BRIDGE_MAX - 1)
@@ -384,6 +373,19 @@ enum {
   __IFLA_BRIDGE_CFM_CC_PEER_STATUS_MAX,
 };
 #define IFLA_BRIDGE_CFM_CC_PEER_STATUS_MAX (__IFLA_BRIDGE_CFM_CC_PEER_STATUS_MAX - 1)
+enum {
+  IFLA_BRIDGE_MST_UNSPEC,
+  IFLA_BRIDGE_MST_ENTRY,
+  __IFLA_BRIDGE_MST_MAX,
+};
+#define IFLA_BRIDGE_MST_MAX (__IFLA_BRIDGE_MST_MAX - 1)
+enum {
+  IFLA_BRIDGE_MST_ENTRY_UNSPEC,
+  IFLA_BRIDGE_MST_ENTRY_MSTI,
+  IFLA_BRIDGE_MST_ENTRY_STATE,
+  __IFLA_BRIDGE_MST_ENTRY_MAX,
+};
+#define IFLA_BRIDGE_MST_ENTRY_MAX (__IFLA_BRIDGE_MST_ENTRY_MAX - 1)
 struct bridge_stp_xstats {
   __u64 transition_blk;
   __u64 transition_fwd;
@@ -405,9 +407,11 @@ enum {
 };
 #define BRIDGE_VLANDB_DUMP_MAX (__BRIDGE_VLANDB_DUMP_MAX - 1)
 #define BRIDGE_VLANDB_DUMPF_STATS (1 << 0)
+#define BRIDGE_VLANDB_DUMPF_GLOBAL (1 << 1)
 enum {
   BRIDGE_VLANDB_UNSPEC,
   BRIDGE_VLANDB_ENTRY,
+  BRIDGE_VLANDB_GLOBAL_OPTIONS,
   __BRIDGE_VLANDB_MAX,
 };
 #define BRIDGE_VLANDB_MAX (__BRIDGE_VLANDB_MAX - 1)
@@ -418,6 +422,10 @@ enum {
   BRIDGE_VLANDB_ENTRY_STATE,
   BRIDGE_VLANDB_ENTRY_TUNNEL_INFO,
   BRIDGE_VLANDB_ENTRY_STATS,
+  BRIDGE_VLANDB_ENTRY_MCAST_ROUTER,
+  BRIDGE_VLANDB_ENTRY_MCAST_N_GROUPS,
+  BRIDGE_VLANDB_ENTRY_MCAST_MAX_GROUPS,
+  BRIDGE_VLANDB_ENTRY_NEIGH_SUPPRESS,
   __BRIDGE_VLANDB_ENTRY_MAX,
 };
 #define BRIDGE_VLANDB_ENTRY_MAX (__BRIDGE_VLANDB_ENTRY_MAX - 1)
@@ -438,6 +446,29 @@ enum {
   __BRIDGE_VLANDB_STATS_MAX,
 };
 #define BRIDGE_VLANDB_STATS_MAX (__BRIDGE_VLANDB_STATS_MAX - 1)
+enum {
+  BRIDGE_VLANDB_GOPTS_UNSPEC,
+  BRIDGE_VLANDB_GOPTS_ID,
+  BRIDGE_VLANDB_GOPTS_RANGE,
+  BRIDGE_VLANDB_GOPTS_MCAST_SNOOPING,
+  BRIDGE_VLANDB_GOPTS_MCAST_IGMP_VERSION,
+  BRIDGE_VLANDB_GOPTS_MCAST_MLD_VERSION,
+  BRIDGE_VLANDB_GOPTS_MCAST_LAST_MEMBER_CNT,
+  BRIDGE_VLANDB_GOPTS_MCAST_STARTUP_QUERY_CNT,
+  BRIDGE_VLANDB_GOPTS_MCAST_LAST_MEMBER_INTVL,
+  BRIDGE_VLANDB_GOPTS_PAD,
+  BRIDGE_VLANDB_GOPTS_MCAST_MEMBERSHIP_INTVL,
+  BRIDGE_VLANDB_GOPTS_MCAST_QUERIER_INTVL,
+  BRIDGE_VLANDB_GOPTS_MCAST_QUERY_INTVL,
+  BRIDGE_VLANDB_GOPTS_MCAST_QUERY_RESPONSE_INTVL,
+  BRIDGE_VLANDB_GOPTS_MCAST_STARTUP_QUERY_INTVL,
+  BRIDGE_VLANDB_GOPTS_MCAST_QUERIER,
+  BRIDGE_VLANDB_GOPTS_MCAST_ROUTER_PORTS,
+  BRIDGE_VLANDB_GOPTS_MCAST_QUERIER_STATE,
+  BRIDGE_VLANDB_GOPTS_MSTI,
+  __BRIDGE_VLANDB_GOPTS_MAX
+};
+#define BRIDGE_VLANDB_GOPTS_MAX (__BRIDGE_VLANDB_GOPTS_MAX - 1)
 enum {
   MDBA_UNSPEC,
   MDBA_MDB,
@@ -464,6 +495,11 @@ enum {
   MDBA_MDB_EATTR_GROUP_MODE,
   MDBA_MDB_EATTR_SOURCE,
   MDBA_MDB_EATTR_RTPROT,
+  MDBA_MDB_EATTR_DST,
+  MDBA_MDB_EATTR_DST_PORT,
+  MDBA_MDB_EATTR_VNI,
+  MDBA_MDB_EATTR_IFINDEX,
+  MDBA_MDB_EATTR_SRC_VNI,
   __MDBA_MDB_EATTR_MAX
 };
 #define MDBA_MDB_EATTR_MAX (__MDBA_MDB_EATTR_MAX - 1)
@@ -496,6 +532,9 @@ enum {
   MDBA_ROUTER_PATTR_UNSPEC,
   MDBA_ROUTER_PATTR_TIMER,
   MDBA_ROUTER_PATTR_TYPE,
+  MDBA_ROUTER_PATTR_INET_TIMER,
+  MDBA_ROUTER_PATTR_INET6_TIMER,
+  MDBA_ROUTER_PATTR_VID,
   __MDBA_ROUTER_PATTR_MAX
 };
 #define MDBA_ROUTER_PATTR_MAX (__MDBA_ROUTER_PATTR_MAX - 1)
@@ -531,11 +570,39 @@ enum {
 };
 #define MDBA_SET_ENTRY_MAX (__MDBA_SET_ENTRY_MAX - 1)
 enum {
+  MDBA_GET_ENTRY_UNSPEC,
+  MDBA_GET_ENTRY,
+  MDBA_GET_ENTRY_ATTRS,
+  __MDBA_GET_ENTRY_MAX,
+};
+#define MDBA_GET_ENTRY_MAX (__MDBA_GET_ENTRY_MAX - 1)
+enum {
   MDBE_ATTR_UNSPEC,
   MDBE_ATTR_SOURCE,
+  MDBE_ATTR_SRC_LIST,
+  MDBE_ATTR_GROUP_MODE,
+  MDBE_ATTR_RTPROT,
+  MDBE_ATTR_DST,
+  MDBE_ATTR_DST_PORT,
+  MDBE_ATTR_VNI,
+  MDBE_ATTR_IFINDEX,
+  MDBE_ATTR_SRC_VNI,
+  MDBE_ATTR_STATE_MASK,
   __MDBE_ATTR_MAX,
 };
 #define MDBE_ATTR_MAX (__MDBE_ATTR_MAX - 1)
+enum {
+  MDBE_SRC_LIST_UNSPEC,
+  MDBE_SRC_LIST_ENTRY,
+  __MDBE_SRC_LIST_MAX,
+};
+#define MDBE_SRC_LIST_MAX (__MDBE_SRC_LIST_MAX - 1)
+enum {
+  MDBE_SRCATTR_UNSPEC,
+  MDBE_SRCATTR_ADDRESS,
+  __MDBE_SRCATTR_MAX,
+};
+#define MDBE_SRCATTR_MAX (__MDBE_SRCATTR_MAX - 1)
 enum {
   BRIDGE_XSTATS_UNSPEC,
   BRIDGE_XSTATS_VLAN,
@@ -570,10 +637,24 @@ struct br_mcast_stats {
 };
 enum br_boolopt_id {
   BR_BOOLOPT_NO_LL_LEARN,
+  BR_BOOLOPT_MCAST_VLAN_SNOOPING,
+  BR_BOOLOPT_MST_ENABLE,
   BR_BOOLOPT_MAX
 };
 struct br_boolopt_multi {
   __u32 optval;
   __u32 optmask;
 };
+enum {
+  BRIDGE_QUERIER_UNSPEC,
+  BRIDGE_QUERIER_IP_ADDRESS,
+  BRIDGE_QUERIER_IP_PORT,
+  BRIDGE_QUERIER_IP_OTHER_TIMER,
+  BRIDGE_QUERIER_PAD,
+  BRIDGE_QUERIER_IPV6_ADDRESS,
+  BRIDGE_QUERIER_IPV6_PORT,
+  BRIDGE_QUERIER_IPV6_OTHER_TIMER,
+  __BRIDGE_QUERIER_MAX
+};
+#define BRIDGE_QUERIER_MAX (__BRIDGE_QUERIER_MAX - 1)
 #endif

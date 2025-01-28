@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_FIEMAP_H
 #define _UAPI_LINUX_FIEMAP_H
 #include <linux/types.h>
@@ -34,7 +22,7 @@ struct fiemap {
   __u32 fm_mapped_extents;
   __u32 fm_extent_count;
   __u32 fm_reserved;
-  struct fiemap_extent fm_extents[0];
+  struct fiemap_extent fm_extents[];
 };
 #define FIEMAP_MAX_OFFSET (~0ULL)
 #define FIEMAP_FLAG_SYNC 0x00000001

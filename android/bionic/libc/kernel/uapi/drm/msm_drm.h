@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __MSM_DRM_H__
 #define __MSM_DRM_H__
 #include "drm.h"
@@ -39,13 +27,23 @@ struct drm_msm_timespec {
 #define MSM_PARAM_MAX_FREQ 0x04
 #define MSM_PARAM_TIMESTAMP 0x05
 #define MSM_PARAM_GMEM_BASE 0x06
-#define MSM_PARAM_NR_RINGS 0x07
+#define MSM_PARAM_PRIORITIES 0x07
 #define MSM_PARAM_PP_PGTABLE 0x08
 #define MSM_PARAM_FAULTS 0x09
+#define MSM_PARAM_SUSPENDS 0x0a
+#define MSM_PARAM_SYSPROF 0x0b
+#define MSM_PARAM_COMM 0x0c
+#define MSM_PARAM_CMDLINE 0x0d
+#define MSM_PARAM_VA_START 0x0e
+#define MSM_PARAM_VA_SIZE 0x0f
+#define MSM_PARAM_HIGHEST_BANK_BIT 0x10
+#define MSM_PARAM_NR_RINGS MSM_PARAM_PRIORITIES
 struct drm_msm_param {
   __u32 pipe;
   __u32 param;
   __u64 value;
+  __u32 len;
+  __u32 pad;
 };
 #define MSM_BO_SCANOUT 0x00000001
 #define MSM_BO_GPU_READONLY 0x00000002
@@ -53,7 +51,8 @@ struct drm_msm_param {
 #define MSM_BO_CACHED 0x00010000
 #define MSM_BO_WC 0x00020000
 #define MSM_BO_UNCACHED 0x00040000
-#define MSM_BO_FLAGS (MSM_BO_SCANOUT | MSM_BO_GPU_READONLY | MSM_BO_CACHED | MSM_BO_WC | MSM_BO_UNCACHED)
+#define MSM_BO_CACHED_COHERENT 0x080000
+#define MSM_BO_FLAGS (MSM_BO_SCANOUT | MSM_BO_GPU_READONLY | MSM_BO_CACHE_MASK)
 struct drm_msm_gem_new {
   __u64 size;
   __u32 flags;
@@ -63,6 +62,10 @@ struct drm_msm_gem_new {
 #define MSM_INFO_GET_IOVA 0x01
 #define MSM_INFO_SET_NAME 0x02
 #define MSM_INFO_GET_NAME 0x03
+#define MSM_INFO_SET_IOVA 0x04
+#define MSM_INFO_GET_FLAGS 0x05
+#define MSM_INFO_SET_METADATA 0x06
+#define MSM_INFO_GET_METADATA 0x07
 struct drm_msm_gem_info {
   __u32 handle;
   __u32 info;
@@ -73,7 +76,8 @@ struct drm_msm_gem_info {
 #define MSM_PREP_READ 0x01
 #define MSM_PREP_WRITE 0x02
 #define MSM_PREP_NOSYNC 0x04
-#define MSM_PREP_FLAGS (MSM_PREP_READ | MSM_PREP_WRITE | MSM_PREP_NOSYNC)
+#define MSM_PREP_BOOST 0x08
+#define MSM_PREP_FLAGS (MSM_PREP_READ | MSM_PREP_WRITE | MSM_PREP_NOSYNC | MSM_PREP_BOOST | 0)
 struct drm_msm_gem_cpu_prep {
   __u32 handle;
   __u32 op;
@@ -84,7 +88,11 @@ struct drm_msm_gem_cpu_fini {
 };
 struct drm_msm_gem_submit_reloc {
   __u32 submit_offset;
+#ifdef __cplusplus
+  __u32 _or;
+#else
   __u32 or;
+#endif
   __s32 shift;
   __u32 reloc_idx;
   __u64 reloc_offset;
@@ -104,7 +112,8 @@ struct drm_msm_gem_submit_cmd {
 #define MSM_SUBMIT_BO_READ 0x0001
 #define MSM_SUBMIT_BO_WRITE 0x0002
 #define MSM_SUBMIT_BO_DUMP 0x0004
-#define MSM_SUBMIT_BO_FLAGS (MSM_SUBMIT_BO_READ | MSM_SUBMIT_BO_WRITE | MSM_SUBMIT_BO_DUMP)
+#define MSM_SUBMIT_BO_NO_IMPLICIT 0x0008
+#define MSM_SUBMIT_BO_FLAGS (MSM_SUBMIT_BO_READ | MSM_SUBMIT_BO_WRITE | MSM_SUBMIT_BO_DUMP | MSM_SUBMIT_BO_NO_IMPLICIT)
 struct drm_msm_gem_submit_bo {
   __u32 flags;
   __u32 handle;
@@ -116,7 +125,8 @@ struct drm_msm_gem_submit_bo {
 #define MSM_SUBMIT_SUDO 0x10000000
 #define MSM_SUBMIT_SYNCOBJ_IN 0x08000000
 #define MSM_SUBMIT_SYNCOBJ_OUT 0x04000000
-#define MSM_SUBMIT_FLAGS (MSM_SUBMIT_NO_IMPLICIT | MSM_SUBMIT_FENCE_FD_IN | MSM_SUBMIT_FENCE_FD_OUT | MSM_SUBMIT_SUDO | MSM_SUBMIT_SYNCOBJ_IN | MSM_SUBMIT_SYNCOBJ_OUT | 0)
+#define MSM_SUBMIT_FENCE_SN_IN 0x02000000
+#define MSM_SUBMIT_FLAGS (MSM_SUBMIT_NO_IMPLICIT | MSM_SUBMIT_FENCE_FD_IN | MSM_SUBMIT_FENCE_FD_OUT | MSM_SUBMIT_SUDO | MSM_SUBMIT_SYNCOBJ_IN | MSM_SUBMIT_SYNCOBJ_OUT | MSM_SUBMIT_FENCE_SN_IN | 0)
 #define MSM_SUBMIT_SYNCOBJ_RESET 0x00000001
 #define MSM_SUBMIT_SYNCOBJ_FLAGS (MSM_SUBMIT_SYNCOBJ_RESET | 0)
 struct drm_msm_gem_submit_syncobj {
@@ -140,9 +150,11 @@ struct drm_msm_gem_submit {
   __u32 syncobj_stride;
   __u32 pad;
 };
+#define MSM_WAIT_FENCE_BOOST 0x00000001
+#define MSM_WAIT_FENCE_FLAGS (MSM_WAIT_FENCE_BOOST | 0)
 struct drm_msm_wait_fence {
   __u32 fence;
-  __u32 pad;
+  __u32 flags;
   struct drm_msm_timespec timeout;
   __u32 queueid;
 };
@@ -169,6 +181,7 @@ struct drm_msm_submitqueue_query {
   __u32 pad;
 };
 #define DRM_MSM_GET_PARAM 0x00
+#define DRM_MSM_SET_PARAM 0x01
 #define DRM_MSM_GEM_NEW 0x02
 #define DRM_MSM_GEM_INFO 0x03
 #define DRM_MSM_GEM_CPU_PREP 0x04
@@ -180,6 +193,7 @@ struct drm_msm_submitqueue_query {
 #define DRM_MSM_SUBMITQUEUE_CLOSE 0x0B
 #define DRM_MSM_SUBMITQUEUE_QUERY 0x0C
 #define DRM_IOCTL_MSM_GET_PARAM DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GET_PARAM, struct drm_msm_param)
+#define DRM_IOCTL_MSM_SET_PARAM DRM_IOW(DRM_COMMAND_BASE + DRM_MSM_SET_PARAM, struct drm_msm_param)
 #define DRM_IOCTL_MSM_GEM_NEW DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GEM_NEW, struct drm_msm_gem_new)
 #define DRM_IOCTL_MSM_GEM_INFO DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GEM_INFO, struct drm_msm_gem_info)
 #define DRM_IOCTL_MSM_GEM_CPU_PREP DRM_IOW(DRM_COMMAND_BASE + DRM_MSM_GEM_CPU_PREP, struct drm_msm_gem_cpu_prep)

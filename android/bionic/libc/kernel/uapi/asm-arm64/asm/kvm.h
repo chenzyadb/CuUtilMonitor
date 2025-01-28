@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __ARM_KVM_H__
 #define __ARM_KVM_H__
 #define KVM_SPSR_EL1 0
@@ -30,11 +18,10 @@
 #include <linux/types.h>
 #include <asm/ptrace.h>
 #include <asm/sve_context.h>
-#define __KVM_HAVE_GUEST_DEBUG
 #define __KVM_HAVE_IRQ_LINE
-#define __KVM_HAVE_READONLY_MEM
 #define __KVM_HAVE_VCPU_EVENTS
 #define KVM_COALESCED_MMIO_PAGE_OFFSET 1
+#define KVM_DIRTY_LOG_PAGE_OFFSET 64
 #define KVM_REG_SIZE(id) (1U << (((id) & KVM_REG_SIZE_MASK) >> KVM_REG_SIZE_SHIFT))
 struct kvm_regs {
   struct user_pt_regs regs;
@@ -51,9 +38,9 @@ struct kvm_regs {
 #define KVM_ARM_TARGET_GENERIC_V8 5
 #define KVM_ARM_NUM_TARGETS 6
 #define KVM_ARM_DEVICE_TYPE_SHIFT 0
-#define KVM_ARM_DEVICE_TYPE_MASK (0xffff << KVM_ARM_DEVICE_TYPE_SHIFT)
+#define KVM_ARM_DEVICE_TYPE_MASK __GENMASK(KVM_ARM_DEVICE_TYPE_SHIFT + 15, KVM_ARM_DEVICE_TYPE_SHIFT)
 #define KVM_ARM_DEVICE_ID_SHIFT 16
-#define KVM_ARM_DEVICE_ID_MASK (0xffff << KVM_ARM_DEVICE_ID_SHIFT)
+#define KVM_ARM_DEVICE_ID_MASK __GENMASK(KVM_ARM_DEVICE_ID_SHIFT + 15, KVM_ARM_DEVICE_ID_SHIFT)
 #define KVM_ARM_DEVICE_VGIC_V2 0
 #define KVM_VGIC_V2_ADDR_TYPE_DIST 0
 #define KVM_VGIC_V2_ADDR_TYPE_CPU 1
@@ -73,6 +60,7 @@ struct kvm_regs {
 #define KVM_ARM_VCPU_SVE 4
 #define KVM_ARM_VCPU_PTRAUTH_ADDRESS 5
 #define KVM_ARM_VCPU_PTRAUTH_GENERIC 6
+#define KVM_ARM_VCPU_HAS_EL2 7
 struct kvm_vcpu_init {
   __u32 target;
   __u32 features[7];
@@ -88,8 +76,10 @@ struct kvm_guest_debug_arch {
   __u64 dbg_wcr[KVM_ARM_MAX_DBG_REGS];
   __u64 dbg_wvr[KVM_ARM_MAX_DBG_REGS];
 };
+#define KVM_DEBUG_ARCH_HSR_HIGH_VALID (1 << 0)
 struct kvm_debug_exit_arch {
   __u32 hsr;
+  __u32 hsr_high;
   __u64 far;
 };
 #define KVM_GUESTDBG_USE_SW_BP (1 << 16)
@@ -97,6 +87,9 @@ struct kvm_debug_exit_arch {
 struct kvm_sync_regs {
   __u64 device_irq_level;
 };
+#define KVM_ARM_DEV_EL1_VTIMER (1 << 0)
+#define KVM_ARM_DEV_EL1_PTIMER (1 << 1)
+#define KVM_ARM_DEV_PMU (1 << 2)
 struct kvm_pmu_event_filter {
   __u16 base_event;
   __u16 nevents;
@@ -115,6 +108,19 @@ struct kvm_vcpu_events {
   } exception;
   __u32 reserved[12];
 };
+struct kvm_arm_copy_mte_tags {
+  __u64 guest_ipa;
+  __u64 length;
+  void  * addr;
+  __u64 flags;
+  __u64 reserved[2];
+};
+struct kvm_arm_counter_offset {
+  __u64 counter_offset;
+  __u64 reserved;
+};
+#define KVM_ARM_TAGS_TO_GUEST 0
+#define KVM_ARM_TAGS_FROM_GUEST 1
 #define KVM_REG_ARM_COPROC_MASK 0x000000000FFF0000
 #define KVM_REG_ARM_COPROC_SHIFT 16
 #define KVM_REG_ARM_CORE (0x0010 << KVM_REG_ARM_COPROC_SHIFT)
@@ -158,6 +164,10 @@ struct kvm_vcpu_events {
 #define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_2_AVAIL 2
 #define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_2_NOT_REQUIRED 3
 #define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_2_ENABLED (1U << 4)
+#define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_3 KVM_REG_ARM_FW_REG(3)
+#define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_3_NOT_AVAIL 0
+#define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_3_AVAIL 1
+#define KVM_REG_ARM_SMCCC_ARCH_WORKAROUND_3_NOT_REQUIRED 2
 #define KVM_REG_ARM64_SVE (0x15 << KVM_REG_ARM_COPROC_SHIFT)
 #define KVM_REG_ARM64_SVE_ZREG_BASE 0
 #define KVM_REG_ARM64_SVE_PREG_BASE 0x400
@@ -172,6 +182,23 @@ struct kvm_vcpu_events {
 #define KVM_ARM64_SVE_VQ_MAX __SVE_VQ_MAX
 #define KVM_REG_ARM64_SVE_VLS (KVM_REG_ARM64 | KVM_REG_ARM64_SVE | KVM_REG_SIZE_U512 | 0xffff)
 #define KVM_ARM64_SVE_VLS_WORDS ((KVM_ARM64_SVE_VQ_MAX - KVM_ARM64_SVE_VQ_MIN) / 64 + 1)
+#define KVM_REG_ARM_FW_FEAT_BMAP (0x0016 << KVM_REG_ARM_COPROC_SHIFT)
+#define KVM_REG_ARM_FW_FEAT_BMAP_REG(r) (KVM_REG_ARM64 | KVM_REG_SIZE_U64 | KVM_REG_ARM_FW_FEAT_BMAP | ((r) & 0xffff))
+#define KVM_REG_ARM_STD_BMAP KVM_REG_ARM_FW_FEAT_BMAP_REG(0)
+enum {
+  KVM_REG_ARM_STD_BIT_TRNG_V1_0 = 0,
+};
+#define KVM_REG_ARM_STD_HYP_BMAP KVM_REG_ARM_FW_FEAT_BMAP_REG(1)
+enum {
+  KVM_REG_ARM_STD_HYP_BIT_PV_TIME = 0,
+};
+#define KVM_REG_ARM_VENDOR_HYP_BMAP KVM_REG_ARM_FW_FEAT_BMAP_REG(2)
+enum {
+  KVM_REG_ARM_VENDOR_HYP_BIT_FUNC_FEAT = 0,
+  KVM_REG_ARM_VENDOR_HYP_BIT_PTP = 1,
+};
+#define KVM_ARM_VM_SMCCC_CTRL 0
+#define KVM_ARM_VM_SMCCC_FILTER 0
 #define KVM_DEV_ARM_VGIC_GRP_ADDR 0
 #define KVM_DEV_ARM_VGIC_GRP_DIST_REGS 1
 #define KVM_DEV_ARM_VGIC_GRP_CPU_REGS 2
@@ -201,9 +228,12 @@ struct kvm_vcpu_events {
 #define KVM_ARM_VCPU_PMU_V3_IRQ 0
 #define KVM_ARM_VCPU_PMU_V3_INIT 1
 #define KVM_ARM_VCPU_PMU_V3_FILTER 2
+#define KVM_ARM_VCPU_PMU_V3_SET_PMU 3
 #define KVM_ARM_VCPU_TIMER_CTRL 1
 #define KVM_ARM_VCPU_TIMER_IRQ_VTIMER 0
 #define KVM_ARM_VCPU_TIMER_IRQ_PTIMER 1
+#define KVM_ARM_VCPU_TIMER_IRQ_HVTIMER 2
+#define KVM_ARM_VCPU_TIMER_IRQ_HPTIMER 3
 #define KVM_ARM_VCPU_PVTIME_CTRL 2
 #define KVM_ARM_VCPU_PVTIME_IPA 0
 #define KVM_ARM_IRQ_VCPU2_SHIFT 28
@@ -231,5 +261,28 @@ struct kvm_vcpu_events {
 #define KVM_PSCI_RET_NI PSCI_RET_NOT_SUPPORTED
 #define KVM_PSCI_RET_INVAL PSCI_RET_INVALID_PARAMS
 #define KVM_PSCI_RET_DENIED PSCI_RET_DENIED
+#define KVM_SYSTEM_EVENT_RESET_FLAG_PSCI_RESET2 (1ULL << 0)
+#define KVM_EXIT_FAIL_ENTRY_CPU_UNSUPPORTED (1ULL << 0)
+enum kvm_smccc_filter_action {
+  KVM_SMCCC_FILTER_HANDLE = 0,
+  KVM_SMCCC_FILTER_DENY,
+  KVM_SMCCC_FILTER_FWD_TO_USER,
+};
+struct kvm_smccc_filter {
+  __u32 base;
+  __u32 nr_functions;
+  __u8 action;
+  __u8 pad[15];
+};
+#define KVM_HYPERCALL_EXIT_SMC (1U << 0)
+#define KVM_HYPERCALL_EXIT_16BIT (1U << 1)
+#define KVM_ARM_FEATURE_ID_RANGE_IDX(op0,op1,crn,crm,op2) ({ __u64 __op1 = (op1) & 3; __op1 -= (__op1 == 3); (__op1 << 6 | ((crm) & 7) << 3 | (op2)); })
+#define KVM_ARM_FEATURE_ID_RANGE 0
+#define KVM_ARM_FEATURE_ID_RANGE_SIZE (3 * 8 * 8)
+struct reg_mask_range {
+  __u64 addr;
+  __u32 range;
+  __u32 reserved[13];
+};
 #endif
 #endif

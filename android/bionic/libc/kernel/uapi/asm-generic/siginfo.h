@@ -1,28 +1,16 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_ASM_GENERIC_SIGINFO_H
 #define _UAPI_ASM_GENERIC_SIGINFO_H
 #include <linux/compiler.h>
 #include <linux/types.h>
 typedef union sigval {
   int sival_int;
-  void __user * sival_ptr;
+  void  * sival_ptr;
 } sigval_t;
 #define SI_MAX_SIZE 128
 #ifndef __ARCH_SI_BAND_T
@@ -58,27 +46,25 @@ union __sifields {
     __ARCH_SI_CLOCK_T _stime;
   } _sigchld;
   struct {
-    void __user * _addr;
-#ifdef __ARCH_SI_TRAPNO
-    int _trapno;
-#endif
-#ifdef __ia64__
-    int _imm;
-    unsigned int _flags;
-    unsigned long _isr;
-#endif
+    void  * _addr;
 #define __ADDR_BND_PKEY_PAD (__alignof__(void *) < sizeof(short) ? sizeof(short) : __alignof__(void *))
     union {
+      int _trapno;
       short _addr_lsb;
       struct {
         char _dummy_bnd[__ADDR_BND_PKEY_PAD];
-        void __user * _lower;
-        void __user * _upper;
+        void  * _lower;
+        void  * _upper;
       } _addr_bnd;
       struct {
         char _dummy_pkey[__ADDR_BND_PKEY_PAD];
         __u32 _pkey;
       } _addr_pkey;
+      struct {
+        unsigned long _data;
+        __u32 _type;
+        __u32 _flags;
+      } _perf;
     };
   } _sigfault;
   struct {
@@ -86,7 +72,7 @@ union __sifields {
     int _fd;
   } _sigpoll;
   struct {
-    void __user * _call_addr;
+    void  * _call_addr;
     int _syscall;
     unsigned int _arch;
   } _sigsys;
@@ -116,13 +102,14 @@ typedef struct siginfo {
 #define si_int _sifields._rt._sigval.sival_int
 #define si_ptr _sifields._rt._sigval.sival_ptr
 #define si_addr _sifields._sigfault._addr
-#ifdef __ARCH_SI_TRAPNO
 #define si_trapno _sifields._sigfault._trapno
-#endif
 #define si_addr_lsb _sifields._sigfault._addr_lsb
 #define si_lower _sifields._sigfault._addr_bnd._lower
 #define si_upper _sifields._sigfault._addr_bnd._upper
 #define si_pkey _sifields._sigfault._addr_pkey._pkey
+#define si_perf_data _sifields._sigfault._perf._data
+#define si_perf_type _sifields._sigfault._perf._type
+#define si_perf_flags _sifields._sigfault._perf._flags
 #define si_band _sifields._sigpoll._band
 #define si_fd _sifields._sigpoll._fd
 #define si_call_addr _sifields._sigsys._call_addr
@@ -181,7 +168,8 @@ typedef struct siginfo {
 #define SEGV_ADIPERR 7
 #define SEGV_MTEAERR 8
 #define SEGV_MTESERR 9
-#define NSIGSEGV 9
+#define SEGV_CPERR 10
+#define NSIGSEGV 10
 #define BUS_ADRALN 1
 #define BUS_ADRERR 2
 #define BUS_OBJERR 3
@@ -193,7 +181,9 @@ typedef struct siginfo {
 #define TRAP_BRANCH 3
 #define TRAP_HWBKPT 4
 #define TRAP_UNK 5
-#define NSIGTRAP 5
+#define TRAP_PERF 6
+#define NSIGTRAP 6
+#define TRAP_PERF_FLAG_ASYNC (1u << 0)
 #define CLD_EXITED 1
 #define CLD_KILLED 2
 #define CLD_DUMPED 3

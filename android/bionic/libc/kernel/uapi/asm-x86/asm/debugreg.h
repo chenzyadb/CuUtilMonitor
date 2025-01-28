@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_ASM_X86_DEBUGREG_H
 #define _UAPI_ASM_X86_DEBUGREG_H
 #define DR_FIRSTADDR 0
@@ -28,6 +16,7 @@
 #define DR_TRAP2 (0x4)
 #define DR_TRAP3 (0x8)
 #define DR_TRAP_BITS (DR_TRAP0 | DR_TRAP1 | DR_TRAP2 | DR_TRAP3)
+#define DR_BUS_LOCK (0x800)
 #define DR_STEP (0x4000)
 #define DR_SWITCH (0x8000)
 #define DR_CONTROL_SHIFT 16

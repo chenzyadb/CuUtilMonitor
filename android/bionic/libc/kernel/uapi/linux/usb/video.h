@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __LINUX_USB_VIDEO_H
 #define __LINUX_USB_VIDEO_H
 #include <linux/types.h>
@@ -139,6 +127,32 @@
 #define UVC_CONTROL_CAP_DISABLED (1 << 2)
 #define UVC_CONTROL_CAP_AUTOUPDATE (1 << 3)
 #define UVC_CONTROL_CAP_ASYNCHRONOUS (1 << 4)
+enum uvc_color_primaries_values {
+  UVC_COLOR_PRIMARIES_UNSPECIFIED,
+  UVC_COLOR_PRIMARIES_BT_709_SRGB,
+  UVC_COLOR_PRIMARIES_BT_470_2_M,
+  UVC_COLOR_PRIMARIES_BT_470_2_B_G,
+  UVC_COLOR_PRIMARIES_SMPTE_170M,
+  UVC_COLOR_PRIMARIES_SMPTE_240M,
+};
+enum uvc_transfer_characteristics_values {
+  UVC_TRANSFER_CHARACTERISTICS_UNSPECIFIED,
+  UVC_TRANSFER_CHARACTERISTICS_BT_709,
+  UVC_TRANSFER_CHARACTERISTICS_BT_470_2_M,
+  UVC_TRANSFER_CHARACTERISTICS_BT_470_2_B_G,
+  UVC_TRANSFER_CHARACTERISTICS_SMPTE_170M,
+  UVC_TRANSFER_CHARACTERISTICS_SMPTE_240M,
+  UVC_TRANSFER_CHARACTERISTICS_LINEAR,
+  UVC_TRANSFER_CHARACTERISTICS_SRGB,
+};
+enum uvc_matrix_coefficients {
+  UVC_MATRIX_COEFFICIENTS_UNSPECIFIED,
+  UVC_MATRIX_COEFFICIENTS_BT_709,
+  UVC_MATRIX_COEFFICIENTS_FCC,
+  UVC_MATRIX_COEFFICIENTS_BT_470_2_B_G,
+  UVC_MATRIX_COEFFICIENTS_SMPTE_170M,
+  UVC_MATRIX_COEFFICIENTS_SMPTE_240M,
+};
 struct uvc_descriptor_header {
   __u8 bLength;
   __u8 bDescriptorType;
@@ -217,8 +231,9 @@ struct uvc_processing_unit_descriptor {
   __u8 bControlSize;
   __u8 bmControls[2];
   __u8 iProcessing;
+  __u8 bmVideoStandards;
 } __attribute__((__packed__));
-#define UVC_DT_PROCESSING_UNIT_SIZE(n) (9 + (n))
+#define UVC_DT_PROCESSING_UNIT_SIZE(n) (10 + (n))
 struct uvc_extension_unit_descriptor {
   __u8 bLength;
   __u8 bDescriptorType;
@@ -315,7 +330,7 @@ struct uvc_format_uncompressed {
   __u8 bDefaultFrameIndex;
   __u8 bAspectRatioX;
   __u8 bAspectRatioY;
-  __u8 bmInterfaceFlags;
+  __u8 bmInterlaceFlags;
   __u8 bCopyProtect;
 } __attribute__((__packed__));
 #define UVC_DT_FORMAT_UNCOMPRESSED_SIZE 27
@@ -348,7 +363,7 @@ struct uvc_format_mjpeg {
   __u8 bDefaultFrameIndex;
   __u8 bAspectRatioX;
   __u8 bAspectRatioY;
-  __u8 bmInterfaceFlags;
+  __u8 bmInterlaceFlags;
   __u8 bCopyProtect;
 } __attribute__((__packed__));
 #define UVC_DT_FORMAT_MJPEG_SIZE 11

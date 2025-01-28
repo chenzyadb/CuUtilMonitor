@@ -33,7 +33,7 @@ typedef struct {
 } cu_bpf_map_def;
 
 #define CU_DEFINE_BPF_MAP(map_name, map_type, key_type, value_type, max_entries_num)                                  \
-    const cu_bpf_map_def CU_SEC("bpf_map_" #map_name) map_name = {                                                     \
+    const cu_bpf_map_def CU_SEC("bpf_map_" #map_name) map_name = {                                                    \
         .type = BPF_MAP_TYPE_##map_type,                                                                              \
         .key_size = sizeof(key_type),                                                                                 \
         .value_size = sizeof(value_type),                                                                             \
@@ -41,18 +41,18 @@ typedef struct {
         .map_flags = 0                                                                                                \
     };                                                                                                                \
                                                                                                                       \
-    static CU_INLINE __UNUSED int set_##map_name##_elem                                                              \
+    static CU_INLINE __UNUSED int set_##map_name##_elem                                                               \
         (const key_type* key, const value_type* value, unsigned long long flags)                                      \
     {                                                                                                                 \
         return bpf_map_set_elem(&map_name, key, value, flags);                                                        \
     }                                                                                                                 \
                                                                                                                       \
-    static CU_INLINE __UNUSED value_type* get_##map_name##_elem(const key_type* key)                                 \
+    static CU_INLINE __UNUSED value_type* get_##map_name##_elem(const key_type* key)                                  \
     {                                                                                                                 \
         return bpf_map_get_elem(&map_name, key);                                                                      \
     }                                                                                                                 \
                                                                                                                       \
-    static CU_INLINE __UNUSED int remove_##map_name##_elem(const key_type* key)                                      \
+    static CU_INLINE __UNUSED int remove_##map_name##_elem(const key_type* key)                                       \
     {                                                                                                                 \
         return bpf_map_remove_elem(&map_name, key);                                                                   \
     }

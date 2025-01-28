@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_THERMAL_H
 #define _UAPI_LINUX_THERMAL_H
 #define THERMAL_NAME_LENGTH 20
@@ -54,6 +42,10 @@ enum thermal_genl_attr {
   THERMAL_GENL_ATTR_CDEV_MAX_STATE,
   THERMAL_GENL_ATTR_CDEV_NAME,
   THERMAL_GENL_ATTR_GOV_NAME,
+  THERMAL_GENL_ATTR_CPU_CAPABILITY,
+  THERMAL_GENL_ATTR_CPU_CAPABILITY_ID,
+  THERMAL_GENL_ATTR_CPU_CAPABILITY_PERFORMANCE,
+  THERMAL_GENL_ATTR_CPU_CAPABILITY_EFFICIENCY,
   __THERMAL_GENL_ATTR_MAX,
 };
 #define THERMAL_GENL_ATTR_MAX (__THERMAL_GENL_ATTR_MAX - 1)
@@ -77,6 +69,7 @@ enum thermal_genl_event {
   THERMAL_GENL_EVENT_CDEV_DELETE,
   THERMAL_GENL_EVENT_CDEV_STATE_UPDATE,
   THERMAL_GENL_EVENT_TZ_GOV_CHANGE,
+  THERMAL_GENL_EVENT_CPU_CAPABILITY_CHANGE,
   __THERMAL_GENL_EVENT_MAX,
 };
 #define THERMAL_GENL_EVENT_MAX (__THERMAL_GENL_EVENT_MAX - 1)

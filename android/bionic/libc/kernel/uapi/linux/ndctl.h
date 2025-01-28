@@ -1,54 +1,42 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __NDCTL_H__
 #define __NDCTL_H__
 #include <linux/types.h>
 struct nd_cmd_dimm_flags {
   __u32 status;
   __u32 flags;
-} __packed;
+} __attribute__((__packed__));
 struct nd_cmd_get_config_size {
   __u32 status;
   __u32 config_size;
   __u32 max_xfer;
-} __packed;
+} __attribute__((__packed__));
 struct nd_cmd_get_config_data_hdr {
   __u32 in_offset;
   __u32 in_length;
   __u32 status;
-  __u8 out_buf[0];
-} __packed;
+  __u8 out_buf[];
+} __attribute__((__packed__));
 struct nd_cmd_set_config_hdr {
   __u32 in_offset;
   __u32 in_length;
-  __u8 in_buf[0];
-} __packed;
+  __u8 in_buf[];
+} __attribute__((__packed__));
 struct nd_cmd_vendor_hdr {
   __u32 opcode;
   __u32 in_length;
-  __u8 in_buf[0];
-} __packed;
+  __u8 in_buf[];
+} __attribute__((__packed__));
 struct nd_cmd_vendor_tail {
   __u32 status;
   __u32 out_length;
-  __u8 out_buf[0];
-} __packed;
+  __u8 out_buf[];
+} __attribute__((__packed__));
 struct nd_cmd_ars_cap {
   __u64 address;
   __u64 length;
@@ -57,7 +45,7 @@ struct nd_cmd_ars_cap {
   __u32 clear_err_unit;
   __u16 flags;
   __u16 reserved;
-} __packed;
+} __attribute__((__packed__));
 struct nd_cmd_ars_start {
   __u64 address;
   __u64 length;
@@ -66,7 +54,7 @@ struct nd_cmd_ars_start {
   __u8 reserved[5];
   __u32 status;
   __u32 scrub_time;
-} __packed;
+} __attribute__((__packed__));
 struct nd_cmd_ars_status {
   __u32 status;
   __u32 out_length;
@@ -82,15 +70,15 @@ struct nd_cmd_ars_status {
     __u32 reserved;
     __u64 err_address;
     __u64 length;
-  } __packed records[0];
-} __packed;
+  } __attribute__((__packed__)) records[];
+} __attribute__((__packed__));
 struct nd_cmd_clear_error {
   __u64 address;
   __u64 length;
   __u32 status;
   __u8 reserved[4];
   __u64 cleared;
-} __packed;
+} __attribute__((__packed__));
 enum {
   ND_CMD_IMPLEMENTED = 0,
   ND_CMD_ARS_CAP = 1,
@@ -129,7 +117,6 @@ enum {
 #define ND_DEVICE_REGION_BLK 3
 #define ND_DEVICE_NAMESPACE_IO 4
 #define ND_DEVICE_NAMESPACE_PMEM 5
-#define ND_DEVICE_NAMESPACE_BLK 6
 #define ND_DEVICE_DAX_PMEM 7
 enum nd_driver_flags {
   ND_DRIVER_DIMM = 1 << ND_DEVICE_DIMM,
@@ -137,7 +124,6 @@ enum nd_driver_flags {
   ND_DRIVER_REGION_BLK = 1 << ND_DEVICE_REGION_BLK,
   ND_DRIVER_NAMESPACE_IO = 1 << ND_DEVICE_NAMESPACE_IO,
   ND_DRIVER_NAMESPACE_PMEM = 1 << ND_DEVICE_NAMESPACE_PMEM,
-  ND_DRIVER_NAMESPACE_BLK = 1 << ND_DEVICE_NAMESPACE_BLK,
   ND_DRIVER_DAX_PMEM = 1 << ND_DEVICE_DAX_PMEM,
 };
 enum ars_masks {

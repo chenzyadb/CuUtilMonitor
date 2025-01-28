@@ -27,63 +27,39 @@
 
 __BEGIN_DECLS
 
-struct statvfs {
-  /** Block size. */
-  unsigned long f_bsize;
-  /** Fragment size. */
-  unsigned long f_frsize;
-  /** Total size of filesystem in `f_frsize` blocks. */
-  fsblkcnt_t f_blocks;
-  /** Number of free blocks. */
-  fsblkcnt_t f_bfree;
-  /** Number of free blocks for non-root. */
-  fsblkcnt_t f_bavail;
-  /** Number of inodes. */
-  fsfilcnt_t f_files;
-  /** Number of free inodes. */
-  fsfilcnt_t f_ffree;
-  /** Number of free inodes for non-root. */
-  fsfilcnt_t f_favail;
-  /** Filesystem id. */
-  unsigned long f_fsid;
-  /** Mount flags. (See `ST_` constants.) */
-  unsigned long f_flag;
-  /** Maximum filename length. */
-  unsigned long f_namemax;
+#define __STATVFS64_BODY \
+  /** Block size. */ \
+  unsigned long f_bsize; \
+  /** Fragment size. */ \
+  unsigned long f_frsize; \
+  /** Total size of filesystem in `f_frsize` blocks. */ \
+  fsblkcnt_t f_blocks; \
+  /** Number of free blocks. */ \
+  fsblkcnt_t f_bfree; \
+  /** Number of free blocks for non-root. */ \
+  fsblkcnt_t f_bavail; \
+  /** Number of inodes. */ \
+  fsfilcnt_t f_files; \
+  /** Number of free inodes. */ \
+  fsfilcnt_t f_ffree; \
+  /** Number of free inodes for non-root. */ \
+  fsfilcnt_t f_favail; \
+  /** Filesystem id. */ \
+  unsigned long f_fsid; \
+  /** Mount flags. (See `ST_` constants.) */ \
+  unsigned long f_flag; \
+  /** Maximum filename length. */ \
+  unsigned long f_namemax; \
 
 #if defined(__LP64__)
-  uint32_t __f_reserved[6];
+#define __STATVFS64_CODA uint32_t __f_reserved[6];
+#else
+#define __STATVFS64_CODA
 #endif
-};
 
-struct statvfs64 {
-  /** Block size. */
-  unsigned long f_bsize;
-  /** Fragment size. */
-  unsigned long f_frsize;
-  /** Total size of filesystem in `f_frsize` blocks. */
-  fsblkcnt_t f_blocks;
-  /** Number of free blocks. */
-  fsblkcnt_t f_bfree;
-  /** Number of free blocks for non-root. */
-  fsblkcnt_t f_bavail;
-  /** Number of inodes. */
-  fsfilcnt_t f_files;
-  /** Number of free inodes. */
-  fsfilcnt_t f_ffree;
-  /** Number of free inodes for non-root. */
-  fsfilcnt_t f_favail;
-  /** Filesystem id. */
-  unsigned long f_fsid;
-  /** Mount flags. (See `ST_` constants.) */
-  unsigned long f_flag;
-  /** Maximum filename length. */
-  unsigned long f_namemax;
+struct statvfs { __STATVFS64_BODY __STATVFS64_CODA };
 
-#if defined(__LP64__)
-  uint32_t __f_reserved[6];
-#endif
-};
+struct statvfs64 { __STATVFS64_BODY __STATVFS64_CODA };
 
 /** Flag for `f_flag` in `struct statvfs`: mounted read-only. */
 #define ST_RDONLY      0x0001
@@ -112,8 +88,8 @@ struct statvfs64 {
 /** Flag for `f_flag` in `struct statvfs`: see `MS_RELATIME`. */
 #define ST_RELATIME    0x1000
 
-#if __ANDROID_API__ >= 19
-// These functions are implemented as static inlines before API level 19.
+/** Flag for `f_flag` in `struct statvfs`: don't follow symlinks. */
+#define ST_NOSYMFOLLOW 0x2000
 
 /**
  * [statvfs(3)](http://man7.org/linux/man-pages/man3/statvfs.3.html)
@@ -121,7 +97,7 @@ struct statvfs64 {
  *
  * Returns 0 on success, and returns -1 and sets `errno` on failure.
  */
-int statvfs(const char* __path, struct statvfs* __buf) __INTRODUCED_IN(19);
+int statvfs(const char* _Nonnull __path, struct statvfs* _Nonnull __buf);
 
 /**
  * [fstatvfs(3)](http://man7.org/linux/man-pages/man3/fstatvfs.3.html)
@@ -129,21 +105,12 @@ int statvfs(const char* __path, struct statvfs* __buf) __INTRODUCED_IN(19);
  *
  * Returns 0 on success, and returns -1 and sets `errno` on failure.
  */
-int fstatvfs(int __fd, struct statvfs* __buf) __INTRODUCED_IN(19);
+int fstatvfs(int __fd, struct statvfs* _Nonnull __buf);
 
-#endif
-
-#if __ANDROID_API__ >= 21
-// These functions are implemented as static inlines before API level 21.
-
-/** Equivalent to statvfs(). */
-int statvfs64(const char* __path, struct statvfs64* __buf) __INTRODUCED_IN(21);
+/** Equivalent to statvfs() . */
+int statvfs64(const char* _Nonnull __path, struct statvfs64* _Nonnull __buf);
 
 /** Equivalent to fstatvfs(). */
-int fstatvfs64(int __fd, struct statvfs64* __buf) __INTRODUCED_IN(21);
-
-#endif
+int fstatvfs64(int __fd, struct statvfs64* _Nonnull __buf);
 
 __END_DECLS
-
-#include <android/legacy_sys_statvfs_inlines.h>

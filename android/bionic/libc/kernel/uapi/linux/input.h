@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_INPUT_H
 #define _UAPI_INPUT_H
 #include <sys/time.h>
@@ -125,6 +113,7 @@ struct input_mask {
 #define BUS_RMI 0x1D
 #define BUS_CEC 0x1E
 #define BUS_INTEL_ISHTP 0x1F
+#define BUS_AMD_SFH 0x20
 #define MT_TOOL_FINGER 0x00
 #define MT_TOOL_PEN 0x01
 #define MT_TOOL_PALM 0x02
@@ -172,7 +161,7 @@ struct ff_periodic_effect {
   __u16 phase;
   struct ff_envelope envelope;
   __u32 custom_len;
-  __s16 __user * custom_data;
+  __s16  * custom_data;
 };
 struct ff_rumble_effect {
   __u16 strong_magnitude;

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__LINUX_BPF_H__
 #define _UAPI__LINUX_BPF_H__
 #include <linux/types.h>
@@ -23,6 +11,7 @@
 #define BPF_JMP32 0x06
 #define BPF_ALU64 0x07
 #define BPF_DW 0x18
+#define BPF_MEMSX 0x80
 #define BPF_ATOMIC 0xc0
 #define BPF_XADD 0xc0
 #define BPF_MOV 0xb0
@@ -39,11 +28,15 @@
 #define BPF_JSGE 0x70
 #define BPF_JSLT 0xc0
 #define BPF_JSLE 0xd0
+#define BPF_JCOND 0xe0
 #define BPF_CALL 0x80
 #define BPF_EXIT 0x90
 #define BPF_FETCH 0x01
 #define BPF_XCHG (0xe0 | BPF_FETCH)
 #define BPF_CMPXCHG (0xf0 | BPF_FETCH)
+enum bpf_cond_pseudo_jmp {
+  BPF_MAY_GOTO = 0,
+};
 enum {
   BPF_REG_0 = 0,
   BPF_REG_1,
@@ -70,14 +63,41 @@ struct bpf_lpm_trie_key {
   __u32 prefixlen;
   __u8 data[0];
 };
+struct bpf_lpm_trie_key_hdr {
+  __u32 prefixlen;
+};
+struct bpf_lpm_trie_key_u8 {
+  union {
+    struct bpf_lpm_trie_key_hdr hdr;
+    __u32 prefixlen;
+  };
+  __u8 data[];
+};
 struct bpf_cgroup_storage_key {
   __u64 cgroup_inode_id;
   __u32 attach_type;
+};
+enum bpf_cgroup_iter_order {
+  BPF_CGROUP_ITER_ORDER_UNSPEC = 0,
+  BPF_CGROUP_ITER_SELF_ONLY,
+  BPF_CGROUP_ITER_DESCENDANTS_PRE,
+  BPF_CGROUP_ITER_DESCENDANTS_POST,
+  BPF_CGROUP_ITER_ANCESTORS_UP,
 };
 union bpf_iter_link_info {
   struct {
     __u32 map_fd;
   } map;
+  struct {
+    enum bpf_cgroup_iter_order order;
+    __u32 cgroup_fd;
+    __u64 cgroup_id;
+  } cgroup;
+  struct {
+    __u32 tid;
+    __u32 pid;
+    __u32 pid_fd;
+  } task;
 };
 enum bpf_cmd {
   BPF_MAP_CREATE,
@@ -91,6 +111,7 @@ enum bpf_cmd {
   BPF_PROG_ATTACH,
   BPF_PROG_DETACH,
   BPF_PROG_TEST_RUN,
+  BPF_PROG_RUN = BPF_PROG_TEST_RUN,
   BPF_PROG_GET_NEXT_ID,
   BPF_MAP_GET_NEXT_ID,
   BPF_PROG_GET_FD_BY_ID,
@@ -116,6 +137,8 @@ enum bpf_cmd {
   BPF_ITER_CREATE,
   BPF_LINK_DETACH,
   BPF_PROG_BIND_MAP,
+  BPF_TOKEN_CREATE,
+  __MAX_BPF_CMD,
 };
 enum bpf_map_type {
   BPF_MAP_TYPE_UNSPEC,
@@ -137,9 +160,11 @@ enum bpf_map_type {
   BPF_MAP_TYPE_CPUMAP,
   BPF_MAP_TYPE_XSKMAP,
   BPF_MAP_TYPE_SOCKHASH,
-  BPF_MAP_TYPE_CGROUP_STORAGE,
+  BPF_MAP_TYPE_CGROUP_STORAGE_DEPRECATED,
+  BPF_MAP_TYPE_CGROUP_STORAGE = BPF_MAP_TYPE_CGROUP_STORAGE_DEPRECATED,
   BPF_MAP_TYPE_REUSEPORT_SOCKARRAY,
-  BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE,
+  BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE_DEPRECATED,
+  BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE = BPF_MAP_TYPE_PERCPU_CGROUP_STORAGE_DEPRECATED,
   BPF_MAP_TYPE_QUEUE,
   BPF_MAP_TYPE_STACK,
   BPF_MAP_TYPE_SK_STORAGE,
@@ -148,6 +173,11 @@ enum bpf_map_type {
   BPF_MAP_TYPE_RINGBUF,
   BPF_MAP_TYPE_INODE_STORAGE,
   BPF_MAP_TYPE_TASK_STORAGE,
+  BPF_MAP_TYPE_BLOOM_FILTER,
+  BPF_MAP_TYPE_USER_RINGBUF,
+  BPF_MAP_TYPE_CGRP_STORAGE,
+  BPF_MAP_TYPE_ARENA,
+  __MAX_BPF_MAP_TYPE
 };
 enum bpf_prog_type {
   BPF_PROG_TYPE_UNSPEC,
@@ -181,6 +211,9 @@ enum bpf_prog_type {
   BPF_PROG_TYPE_EXT,
   BPF_PROG_TYPE_LSM,
   BPF_PROG_TYPE_SK_LOOKUP,
+  BPF_PROG_TYPE_SYSCALL,
+  BPF_PROG_TYPE_NETFILTER,
+  __MAX_BPF_PROG_TYPE
 };
 enum bpf_attach_type {
   BPF_CGROUP_INET_INGRESS,
@@ -221,6 +254,24 @@ enum bpf_attach_type {
   BPF_XDP_CPUMAP,
   BPF_SK_LOOKUP,
   BPF_XDP,
+  BPF_SK_SKB_VERDICT,
+  BPF_SK_REUSEPORT_SELECT,
+  BPF_SK_REUSEPORT_SELECT_OR_MIGRATE,
+  BPF_PERF_EVENT,
+  BPF_TRACE_KPROBE_MULTI,
+  BPF_LSM_CGROUP,
+  BPF_STRUCT_OPS,
+  BPF_NETFILTER,
+  BPF_TCX_INGRESS,
+  BPF_TCX_EGRESS,
+  BPF_TRACE_UPROBE_MULTI,
+  BPF_CGROUP_UNIX_CONNECT,
+  BPF_CGROUP_UNIX_SENDMSG,
+  BPF_CGROUP_UNIX_RECVMSG,
+  BPF_CGROUP_UNIX_GETPEERNAME,
+  BPF_CGROUP_UNIX_GETSOCKNAME,
+  BPF_NETKIT_PRIMARY,
+  BPF_NETKIT_PEER,
   __MAX_BPF_ATTACH_TYPE
 };
 #define MAX_BPF_ATTACH_TYPE __MAX_BPF_ATTACH_TYPE
@@ -232,20 +283,58 @@ enum bpf_link_type {
   BPF_LINK_TYPE_ITER = 4,
   BPF_LINK_TYPE_NETNS = 5,
   BPF_LINK_TYPE_XDP = 6,
-  MAX_BPF_LINK_TYPE,
+  BPF_LINK_TYPE_PERF_EVENT = 7,
+  BPF_LINK_TYPE_KPROBE_MULTI = 8,
+  BPF_LINK_TYPE_STRUCT_OPS = 9,
+  BPF_LINK_TYPE_NETFILTER = 10,
+  BPF_LINK_TYPE_TCX = 11,
+  BPF_LINK_TYPE_UPROBE_MULTI = 12,
+  BPF_LINK_TYPE_NETKIT = 13,
+  __MAX_BPF_LINK_TYPE,
+};
+#define MAX_BPF_LINK_TYPE __MAX_BPF_LINK_TYPE
+enum bpf_perf_event_type {
+  BPF_PERF_EVENT_UNSPEC = 0,
+  BPF_PERF_EVENT_UPROBE = 1,
+  BPF_PERF_EVENT_URETPROBE = 2,
+  BPF_PERF_EVENT_KPROBE = 3,
+  BPF_PERF_EVENT_KRETPROBE = 4,
+  BPF_PERF_EVENT_TRACEPOINT = 5,
+  BPF_PERF_EVENT_EVENT = 6,
 };
 #define BPF_F_ALLOW_OVERRIDE (1U << 0)
 #define BPF_F_ALLOW_MULTI (1U << 1)
 #define BPF_F_REPLACE (1U << 2)
+#define BPF_F_BEFORE (1U << 3)
+#define BPF_F_AFTER (1U << 4)
+#define BPF_F_ID (1U << 5)
+#define BPF_F_LINK BPF_F_LINK
 #define BPF_F_STRICT_ALIGNMENT (1U << 0)
 #define BPF_F_ANY_ALIGNMENT (1U << 1)
 #define BPF_F_TEST_RND_HI32 (1U << 2)
 #define BPF_F_TEST_STATE_FREQ (1U << 3)
 #define BPF_F_SLEEPABLE (1U << 4)
+#define BPF_F_XDP_HAS_FRAGS (1U << 5)
+#define BPF_F_XDP_DEV_BOUND_ONLY (1U << 6)
+#define BPF_F_TEST_REG_INVARIANTS (1U << 7)
+enum {
+  BPF_F_KPROBE_MULTI_RETURN = (1U << 0)
+};
+enum {
+  BPF_F_UPROBE_MULTI_RETURN = (1U << 0)
+};
+#define BPF_F_NETFILTER_IP_DEFRAG (1U << 0)
 #define BPF_PSEUDO_MAP_FD 1
+#define BPF_PSEUDO_MAP_IDX 5
 #define BPF_PSEUDO_MAP_VALUE 2
+#define BPF_PSEUDO_MAP_IDX_VALUE 6
 #define BPF_PSEUDO_BTF_ID 3
+#define BPF_PSEUDO_FUNC 4
 #define BPF_PSEUDO_CALL 1
+#define BPF_PSEUDO_KFUNC_CALL 2
+enum bpf_addr_space_cast {
+  BPF_ADDR_SPACE_CAST = 1,
+};
 enum {
   BPF_ANY = 0,
   BPF_NOEXIST = 1,
@@ -266,9 +355,16 @@ enum {
   BPF_F_MMAPABLE = (1U << 10),
   BPF_F_PRESERVE_ELEMS = (1U << 11),
   BPF_F_INNER_MAP = (1U << 12),
+  BPF_F_LINK = (1U << 13),
+  BPF_F_PATH_FD = (1U << 14),
+  BPF_F_VTYPE_BTF_OBJ_FD = (1U << 15),
+  BPF_F_TOKEN_FD = (1U << 16),
+  BPF_F_SEGV_ON_FAULT = (1U << 17),
+  BPF_F_NO_USER_CONV = (1U << 18),
 };
 #define BPF_F_QUERY_EFFECTIVE (1U << 0)
 #define BPF_F_TEST_RUN_ON_CPU (1U << 0)
+#define BPF_F_TEST_XDP_LIVE_FRAMES (1U << 1)
 enum bpf_stats_type {
   BPF_STATS_RUN_TIME = 0,
 };
@@ -302,6 +398,9 @@ union bpf_attr {
     __u32 btf_key_type_id;
     __u32 btf_value_type_id;
     __u32 btf_vmlinux_value_type_id;
+    __u64 map_extra;
+    __s32 value_type_btf_obj_fd;
+    __s32 map_token_fd;
   };
   struct {
     __u32 map_fd;
@@ -347,18 +446,33 @@ union bpf_attr {
       __u32 attach_prog_fd;
       __u32 attach_btf_obj_fd;
     };
+    __u32 core_relo_cnt;
+    __aligned_u64 fd_array;
+    __aligned_u64 core_relos;
+    __u32 core_relo_rec_size;
+    __u32 log_true_size;
+    __s32 prog_token_fd;
   };
   struct {
     __aligned_u64 pathname;
     __u32 bpf_fd;
     __u32 file_flags;
+    __s32 path_fd;
   };
   struct {
-    __u32 target_fd;
+    union {
+      __u32 target_fd;
+      __u32 target_ifindex;
+    };
     __u32 attach_bpf_fd;
     __u32 attach_type;
     __u32 attach_flags;
     __u32 replace_bpf_fd;
+    union {
+      __u32 relative_fd;
+      __u32 relative_id;
+    };
+    __u64 expected_revision;
   };
   struct {
     __u32 prog_fd;
@@ -375,6 +489,7 @@ union bpf_attr {
     __aligned_u64 ctx_out;
     __u32 flags;
     __u32 cpu;
+    __u32 batch_size;
   } test;
   struct {
     union {
@@ -393,12 +508,23 @@ union bpf_attr {
     __aligned_u64 info;
   } info;
   struct {
-    __u32 target_fd;
+    union {
+      __u32 target_fd;
+      __u32 target_ifindex;
+    };
     __u32 attach_type;
     __u32 query_flags;
     __u32 attach_flags;
     __aligned_u64 prog_ids;
-    __u32 prog_cnt;
+    union {
+      __u32 prog_cnt;
+      __u32 count;
+    };
+    __u32 : 32;
+    __aligned_u64 prog_attach_flags;
+    __aligned_u64 link_ids;
+    __aligned_u64 link_attach_flags;
+    __u64 revision;
   } query;
   struct {
     __u64 name;
@@ -410,6 +536,9 @@ union bpf_attr {
     __u32 btf_size;
     __u32 btf_log_size;
     __u32 btf_log_level;
+    __u32 btf_log_true_size;
+    __u32 btf_flags;
+    __s32 btf_token_fd;
   };
   struct {
     __u32 pid;
@@ -423,7 +552,10 @@ union bpf_attr {
     __u64 probe_addr;
   } task_fd_query;
   struct {
-    __u32 prog_fd;
+    union {
+      __u32 prog_fd;
+      __u32 map_fd;
+    };
     union {
       __u32 target_fd;
       __u32 target_ifindex;
@@ -436,13 +568,62 @@ union bpf_attr {
         __aligned_u64 iter_info;
         __u32 iter_info_len;
       };
+      struct {
+        __u64 bpf_cookie;
+      } perf_event;
+      struct {
+        __u32 flags;
+        __u32 cnt;
+        __aligned_u64 syms;
+        __aligned_u64 addrs;
+        __aligned_u64 cookies;
+      } kprobe_multi;
+      struct {
+        __u32 target_btf_id;
+        __u64 cookie;
+      } tracing;
+      struct {
+        __u32 pf;
+        __u32 hooknum;
+        __s32 priority;
+        __u32 flags;
+      } netfilter;
+      struct {
+        union {
+          __u32 relative_fd;
+          __u32 relative_id;
+        };
+        __u64 expected_revision;
+      } tcx;
+      struct {
+        __aligned_u64 path;
+        __aligned_u64 offsets;
+        __aligned_u64 ref_ctr_offsets;
+        __aligned_u64 cookies;
+        __u32 cnt;
+        __u32 flags;
+        __u32 pid;
+      } uprobe_multi;
+      struct {
+        union {
+          __u32 relative_fd;
+          __u32 relative_id;
+        };
+        __u64 expected_revision;
+      } netkit;
     };
   } link_create;
   struct {
     __u32 link_fd;
-    __u32 new_prog_fd;
+    union {
+      __u32 new_prog_fd;
+      __u32 new_map_fd;
+    };
     __u32 flags;
-    __u32 old_prog_fd;
+    union {
+      __u32 old_prog_fd;
+      __u32 old_map_fd;
+    };
   } link_update;
   struct {
     __u32 link_fd;
@@ -459,11 +640,17 @@ union bpf_attr {
     __u32 map_fd;
     __u32 flags;
   } prog_bind_map;
+  struct {
+    __u32 flags;
+    __u32 bpffs_fd;
+  } token_create;
 } __attribute__((aligned(8)));
-#define __BPF_FUNC_MAPPER(FN) FN(unspec), FN(map_lookup_elem), FN(map_update_elem), FN(map_delete_elem), FN(probe_read), FN(ktime_get_ns), FN(trace_printk), FN(get_prandom_u32), FN(get_smp_processor_id), FN(skb_store_bytes), FN(l3_csum_replace), FN(l4_csum_replace), FN(tail_call), FN(clone_redirect), FN(get_current_pid_tgid), FN(get_current_uid_gid), FN(get_current_comm), FN(get_cgroup_classid), FN(skb_vlan_push), FN(skb_vlan_pop), FN(skb_get_tunnel_key), FN(skb_set_tunnel_key), FN(perf_event_read), FN(redirect), FN(get_route_realm), FN(perf_event_output), FN(skb_load_bytes), FN(get_stackid), FN(csum_diff), FN(skb_get_tunnel_opt), FN(skb_set_tunnel_opt), FN(skb_change_proto), FN(skb_change_type), FN(skb_under_cgroup), FN(get_hash_recalc), FN(get_current_task), FN(probe_write_user), FN(current_task_under_cgroup), FN(skb_change_tail), FN(skb_pull_data), FN(csum_update), FN(set_hash_invalid), FN(get_numa_node_id), FN(skb_change_head), FN(xdp_adjust_head), FN(probe_read_str), FN(get_socket_cookie), FN(get_socket_uid), FN(set_hash), FN(setsockopt), FN(skb_adjust_room), FN(redirect_map), FN(sk_redirect_map), FN(sock_map_update), FN(xdp_adjust_meta), FN(perf_event_read_value), FN(perf_prog_read_value), FN(getsockopt), FN(override_return), FN(sock_ops_cb_flags_set), FN(msg_redirect_map), FN(msg_apply_bytes), FN(msg_cork_bytes), FN(msg_pull_data), FN(bind), FN(xdp_adjust_tail), FN(skb_get_xfrm_state), FN(get_stack), FN(skb_load_bytes_relative), FN(fib_lookup), FN(sock_hash_update), FN(msg_redirect_hash), FN(sk_redirect_hash), FN(lwt_push_encap), FN(lwt_seg6_store_bytes), FN(lwt_seg6_adjust_srh), FN(lwt_seg6_action), FN(rc_repeat), FN(rc_keydown), FN(skb_cgroup_id), FN(get_current_cgroup_id), FN(get_local_storage), FN(sk_select_reuseport), FN(skb_ancestor_cgroup_id), FN(sk_lookup_tcp), FN(sk_lookup_udp), FN(sk_release), FN(map_push_elem), FN(map_pop_elem), FN(map_peek_elem), FN(msg_push_data), FN(msg_pop_data), FN(rc_pointer_rel), FN(spin_lock), FN(spin_unlock), FN(sk_fullsock), FN(tcp_sock), FN(skb_ecn_set_ce), FN(get_listener_sock), FN(skc_lookup_tcp), FN(tcp_check_syncookie), FN(sysctl_get_name), FN(sysctl_get_current_value), FN(sysctl_get_new_value), FN(sysctl_set_new_value), FN(strtol), FN(strtoul), FN(sk_storage_get), FN(sk_storage_delete), FN(send_signal), FN(tcp_gen_syncookie), FN(skb_output), FN(probe_read_user), FN(probe_read_kernel), FN(probe_read_user_str), FN(probe_read_kernel_str), FN(tcp_send_ack), FN(send_signal_thread), FN(jiffies64), FN(read_branch_records), FN(get_ns_current_pid_tgid), FN(xdp_output), FN(get_netns_cookie), FN(get_current_ancestor_cgroup_id), FN(sk_assign), FN(ktime_get_boot_ns), FN(seq_printf), FN(seq_write), FN(sk_cgroup_id), FN(sk_ancestor_cgroup_id), FN(ringbuf_output), FN(ringbuf_reserve), FN(ringbuf_submit), FN(ringbuf_discard), FN(ringbuf_query), FN(csum_level), FN(skc_to_tcp6_sock), FN(skc_to_tcp_sock), FN(skc_to_tcp_timewait_sock), FN(skc_to_tcp_request_sock), FN(skc_to_udp6_sock), FN(get_task_stack), FN(load_hdr_opt), FN(store_hdr_opt), FN(reserve_hdr_opt), FN(inode_storage_get), FN(inode_storage_delete), FN(d_path), FN(copy_from_user), FN(snprintf_btf), FN(seq_printf_btf), FN(skb_cgroup_classid), FN(redirect_neigh), FN(per_cpu_ptr), FN(this_cpu_ptr), FN(redirect_peer), FN(task_storage_get), FN(task_storage_delete), FN(get_current_task_btf), FN(bprm_opts_set), FN(ktime_get_coarse_ns), FN(ima_inode_hash), FN(sock_from_file), FN(check_mtu),
-#define __BPF_ENUM_FN(x) BPF_FUNC_ ##x
+#define ___BPF_FUNC_MAPPER(FN,ctx...) FN(unspec, 0, ##ctx) FN(map_lookup_elem, 1, ##ctx) FN(map_update_elem, 2, ##ctx) FN(map_delete_elem, 3, ##ctx) FN(probe_read, 4, ##ctx) FN(ktime_get_ns, 5, ##ctx) FN(trace_printk, 6, ##ctx) FN(get_prandom_u32, 7, ##ctx) FN(get_smp_processor_id, 8, ##ctx) FN(skb_store_bytes, 9, ##ctx) FN(l3_csum_replace, 10, ##ctx) FN(l4_csum_replace, 11, ##ctx) FN(tail_call, 12, ##ctx) FN(clone_redirect, 13, ##ctx) FN(get_current_pid_tgid, 14, ##ctx) FN(get_current_uid_gid, 15, ##ctx) FN(get_current_comm, 16, ##ctx) FN(get_cgroup_classid, 17, ##ctx) FN(skb_vlan_push, 18, ##ctx) FN(skb_vlan_pop, 19, ##ctx) FN(skb_get_tunnel_key, 20, ##ctx) FN(skb_set_tunnel_key, 21, ##ctx) FN(perf_event_read, 22, ##ctx) FN(redirect, 23, ##ctx) FN(get_route_realm, 24, ##ctx) FN(perf_event_output, 25, ##ctx) FN(skb_load_bytes, 26, ##ctx) FN(get_stackid, 27, ##ctx) FN(csum_diff, 28, ##ctx) FN(skb_get_tunnel_opt, 29, ##ctx) FN(skb_set_tunnel_opt, 30, ##ctx) FN(skb_change_proto, 31, ##ctx) FN(skb_change_type, 32, ##ctx) FN(skb_under_cgroup, 33, ##ctx) FN(get_hash_recalc, 34, ##ctx) FN(get_current_task, 35, ##ctx) FN(probe_write_user, 36, ##ctx) FN(current_task_under_cgroup, 37, ##ctx) FN(skb_change_tail, 38, ##ctx) FN(skb_pull_data, 39, ##ctx) FN(csum_update, 40, ##ctx) FN(set_hash_invalid, 41, ##ctx) FN(get_numa_node_id, 42, ##ctx) FN(skb_change_head, 43, ##ctx) FN(xdp_adjust_head, 44, ##ctx) FN(probe_read_str, 45, ##ctx) FN(get_socket_cookie, 46, ##ctx) FN(get_socket_uid, 47, ##ctx) FN(set_hash, 48, ##ctx) FN(setsockopt, 49, ##ctx) FN(skb_adjust_room, 50, ##ctx) FN(redirect_map, 51, ##ctx) FN(sk_redirect_map, 52, ##ctx) FN(sock_map_update, 53, ##ctx) FN(xdp_adjust_meta, 54, ##ctx) FN(perf_event_read_value, 55, ##ctx) FN(perf_prog_read_value, 56, ##ctx) FN(getsockopt, 57, ##ctx) FN(override_return, 58, ##ctx) FN(sock_ops_cb_flags_set, 59, ##ctx) FN(msg_redirect_map, 60, ##ctx) FN(msg_apply_bytes, 61, ##ctx) FN(msg_cork_bytes, 62, ##ctx) FN(msg_pull_data, 63, ##ctx) FN(bind, 64, ##ctx) FN(xdp_adjust_tail, 65, ##ctx) FN(skb_get_xfrm_state, 66, ##ctx) FN(get_stack, 67, ##ctx) FN(skb_load_bytes_relative, 68, ##ctx) FN(fib_lookup, 69, ##ctx) FN(sock_hash_update, 70, ##ctx) FN(msg_redirect_hash, 71, ##ctx) FN(sk_redirect_hash, 72, ##ctx) FN(lwt_push_encap, 73, ##ctx) FN(lwt_seg6_store_bytes, 74, ##ctx) FN(lwt_seg6_adjust_srh, 75, ##ctx) FN(lwt_seg6_action, 76, ##ctx) FN(rc_repeat, 77, ##ctx) FN(rc_keydown, 78, ##ctx) FN(skb_cgroup_id, 79, ##ctx) FN(get_current_cgroup_id, 80, ##ctx) FN(get_local_storage, 81, ##ctx) FN(sk_select_reuseport, 82, ##ctx) FN(skb_ancestor_cgroup_id, 83, ##ctx) FN(sk_lookup_tcp, 84, ##ctx) FN(sk_lookup_udp, 85, ##ctx) FN(sk_release, 86, ##ctx) FN(map_push_elem, 87, ##ctx) FN(map_pop_elem, 88, ##ctx) FN(map_peek_elem, 89, ##ctx) FN(msg_push_data, 90, ##ctx) FN(msg_pop_data, 91, ##ctx) FN(rc_pointer_rel, 92, ##ctx) FN(spin_lock, 93, ##ctx) FN(spin_unlock, 94, ##ctx) FN(sk_fullsock, 95, ##ctx) FN(tcp_sock, 96, ##ctx) FN(skb_ecn_set_ce, 97, ##ctx) FN(get_listener_sock, 98, ##ctx) FN(skc_lookup_tcp, 99, ##ctx) FN(tcp_check_syncookie, 100, ##ctx) FN(sysctl_get_name, 101, ##ctx) FN(sysctl_get_current_value, 102, ##ctx) FN(sysctl_get_new_value, 103, ##ctx) FN(sysctl_set_new_value, 104, ##ctx) FN(strtol, 105, ##ctx) FN(strtoul, 106, ##ctx) FN(sk_storage_get, 107, ##ctx) FN(sk_storage_delete, 108, ##ctx) FN(send_signal, 109, ##ctx) FN(tcp_gen_syncookie, 110, ##ctx) FN(skb_output, 111, ##ctx) FN(probe_read_user, 112, ##ctx) FN(probe_read_kernel, 113, ##ctx) FN(probe_read_user_str, 114, ##ctx) FN(probe_read_kernel_str, 115, ##ctx) FN(tcp_send_ack, 116, ##ctx) FN(send_signal_thread, 117, ##ctx) FN(jiffies64, 118, ##ctx) FN(read_branch_records, 119, ##ctx) FN(get_ns_current_pid_tgid, 120, ##ctx) FN(xdp_output, 121, ##ctx) FN(get_netns_cookie, 122, ##ctx) FN(get_current_ancestor_cgroup_id, 123, ##ctx) FN(sk_assign, 124, ##ctx) FN(ktime_get_boot_ns, 125, ##ctx) FN(seq_printf, 126, ##ctx) FN(seq_write, 127, ##ctx) FN(sk_cgroup_id, 128, ##ctx) FN(sk_ancestor_cgroup_id, 129, ##ctx) FN(ringbuf_output, 130, ##ctx) FN(ringbuf_reserve, 131, ##ctx) FN(ringbuf_submit, 132, ##ctx) FN(ringbuf_discard, 133, ##ctx) FN(ringbuf_query, 134, ##ctx) FN(csum_level, 135, ##ctx) FN(skc_to_tcp6_sock, 136, ##ctx) FN(skc_to_tcp_sock, 137, ##ctx) FN(skc_to_tcp_timewait_sock, 138, ##ctx) FN(skc_to_tcp_request_sock, 139, ##ctx) FN(skc_to_udp6_sock, 140, ##ctx) FN(get_task_stack, 141, ##ctx) FN(load_hdr_opt, 142, ##ctx) FN(store_hdr_opt, 143, ##ctx) FN(reserve_hdr_opt, 144, ##ctx) FN(inode_storage_get, 145, ##ctx) FN(inode_storage_delete, 146, ##ctx) FN(d_path, 147, ##ctx) FN(copy_from_user, 148, ##ctx) FN(snprintf_btf, 149, ##ctx) FN(seq_printf_btf, 150, ##ctx) FN(skb_cgroup_classid, 151, ##ctx) FN(redirect_neigh, 152, ##ctx) FN(per_cpu_ptr, 153, ##ctx) FN(this_cpu_ptr, 154, ##ctx) FN(redirect_peer, 155, ##ctx) FN(task_storage_get, 156, ##ctx) FN(task_storage_delete, 157, ##ctx) FN(get_current_task_btf, 158, ##ctx) FN(bprm_opts_set, 159, ##ctx) FN(ktime_get_coarse_ns, 160, ##ctx) FN(ima_inode_hash, 161, ##ctx) FN(sock_from_file, 162, ##ctx) FN(check_mtu, 163, ##ctx) FN(for_each_map_elem, 164, ##ctx) FN(snprintf, 165, ##ctx) FN(sys_bpf, 166, ##ctx) FN(btf_find_by_name_kind, 167, ##ctx) FN(sys_close, 168, ##ctx) FN(timer_init, 169, ##ctx) FN(timer_set_callback, 170, ##ctx) FN(timer_start, 171, ##ctx) FN(timer_cancel, 172, ##ctx) FN(get_func_ip, 173, ##ctx) FN(get_attach_cookie, 174, ##ctx) FN(task_pt_regs, 175, ##ctx) FN(get_branch_snapshot, 176, ##ctx) FN(trace_vprintk, 177, ##ctx) FN(skc_to_unix_sock, 178, ##ctx) FN(kallsyms_lookup_name, 179, ##ctx) FN(find_vma, 180, ##ctx) FN(loop, 181, ##ctx) FN(strncmp, 182, ##ctx) FN(get_func_arg, 183, ##ctx) FN(get_func_ret, 184, ##ctx) FN(get_func_arg_cnt, 185, ##ctx) FN(get_retval, 186, ##ctx) FN(set_retval, 187, ##ctx) FN(xdp_get_buff_len, 188, ##ctx) FN(xdp_load_bytes, 189, ##ctx) FN(xdp_store_bytes, 190, ##ctx) FN(copy_from_user_task, 191, ##ctx) FN(skb_set_tstamp, 192, ##ctx) FN(ima_file_hash, 193, ##ctx) FN(kptr_xchg, 194, ##ctx) FN(map_lookup_percpu_elem, 195, ##ctx) FN(skc_to_mptcp_sock, 196, ##ctx) FN(dynptr_from_mem, 197, ##ctx) FN(ringbuf_reserve_dynptr, 198, ##ctx) FN(ringbuf_submit_dynptr, 199, ##ctx) FN(ringbuf_discard_dynptr, 200, ##ctx) FN(dynptr_read, 201, ##ctx) FN(dynptr_write, 202, ##ctx) FN(dynptr_data, 203, ##ctx) FN(tcp_raw_gen_syncookie_ipv4, 204, ##ctx) FN(tcp_raw_gen_syncookie_ipv6, 205, ##ctx) FN(tcp_raw_check_syncookie_ipv4, 206, ##ctx) FN(tcp_raw_check_syncookie_ipv6, 207, ##ctx) FN(ktime_get_tai_ns, 208, ##ctx) FN(user_ringbuf_drain, 209, ##ctx) FN(cgrp_storage_get, 210, ##ctx) FN(cgrp_storage_delete, 211, ##ctx)
+#define __BPF_FUNC_MAPPER_APPLY(name,value,FN) FN(name),
+#define __BPF_FUNC_MAPPER(FN) ___BPF_FUNC_MAPPER(__BPF_FUNC_MAPPER_APPLY, FN)
+#define __BPF_ENUM_FN(x,y) BPF_FUNC_ ##x = y,
 enum bpf_func_id {
-  __BPF_FUNC_MAPPER(__BPF_ENUM_FN) __BPF_FUNC_MAX_ID,
+  ___BPF_FUNC_MAPPER(__BPF_ENUM_FN) __BPF_FUNC_MAX_ID,
 };
 #undef __BPF_ENUM_FN
 enum {
@@ -495,6 +682,10 @@ enum {
   BPF_F_ZERO_CSUM_TX = (1ULL << 1),
   BPF_F_DONT_FRAGMENT = (1ULL << 2),
   BPF_F_SEQ_NUMBER = (1ULL << 3),
+  BPF_F_NO_TUNNEL_KEY = (1ULL << 4),
+};
+enum {
+  BPF_F_TUNINFO_FLAGS = (1ULL << 4),
 };
 enum {
   BPF_F_INDEX_MASK = 0xffffffffULL,
@@ -517,6 +708,9 @@ enum {
   BPF_F_ADJ_ROOM_ENCAP_L4_GRE = (1ULL << 3),
   BPF_F_ADJ_ROOM_ENCAP_L4_UDP = (1ULL << 4),
   BPF_F_ADJ_ROOM_NO_CSUM_RESET = (1ULL << 5),
+  BPF_F_ADJ_ROOM_ENCAP_L2_ETH = (1ULL << 6),
+  BPF_F_ADJ_ROOM_DECAP_L3_IPV4 = (1ULL << 7),
+  BPF_F_ADJ_ROOM_DECAP_L3_IPV6 = (1ULL << 8),
 };
 enum {
   BPF_ADJ_ROOM_ENCAP_L2_MASK = 0xff,
@@ -568,8 +762,16 @@ enum bpf_lwt_encap_mode {
 enum {
   BPF_F_BPRM_SECUREEXEC = (1ULL << 0),
 };
+enum {
+  BPF_F_BROADCAST = (1ULL << 3),
+  BPF_F_EXCLUDE_INGRESS = (1ULL << 4),
+};
 #define __bpf_md_ptr(type,name) union { type name; __u64 : 64; \
 } __attribute__((aligned(8)))
+enum {
+  BPF_SKB_TSTAMP_UNSPEC,
+  BPF_SKB_TSTAMP_DELIVERY_MONO,
+};
 struct __sk_buff {
   __u32 len;
   __u32 pkt_type;
@@ -603,6 +805,9 @@ struct __sk_buff {
   __u32 gso_segs;
   __bpf_md_ptr(struct bpf_sock *, sk);
   __u32 gso_size;
+  __u8 tstamp_type;
+  __u32 : 24;
+  __u64 hwtstamp;
 };
 struct bpf_tunnel_key {
   __u32 tunnel_id;
@@ -612,8 +817,15 @@ struct bpf_tunnel_key {
   };
   __u8 tunnel_tos;
   __u8 tunnel_ttl;
-  __u16 tunnel_ext;
+  union {
+    __u16 tunnel_ext;
+    __be16 tunnel_flags;
+  };
   __u32 tunnel_label;
+  union {
+    __u32 local_ipv4;
+    __u32 local_ipv6[4];
+  };
 };
 struct bpf_xfrm_state {
   __u32 reqid;
@@ -630,6 +842,7 @@ enum bpf_ret_code {
   BPF_DROP = 2,
   BPF_REDIRECT = 7,
   BPF_LWT_REROUTE = 128,
+  BPF_FLOW_DISSECTOR_CONTINUE = 129,
 };
 struct bpf_sock {
   __u32 bound_dev_if;
@@ -641,7 +854,8 @@ struct bpf_sock {
   __u32 src_ip4;
   __u32 src_ip6[4];
   __u32 src_port;
-  __u32 dst_port;
+  __be16 dst_port;
+  __u16 : 16;
   __u32 dst_ip4;
   __u32 dst_ip6[4];
   __u32 state;
@@ -690,6 +904,12 @@ struct bpf_sock_tuple {
       __be16 dport;
     } ipv6;
   };
+};
+enum tcx_action_base {
+  TCX_NEXT = - 1,
+  TCX_PASS = 0,
+  TCX_DROP = 2,
+  TCX_REDIRECT = 7,
 };
 struct bpf_xdp_sock {
   __u32 queue_id;
@@ -749,6 +969,8 @@ struct sk_reuseport_md {
   __u32 ip_protocol;
   __u32 bind_inany;
   __u32 hash;
+  __bpf_md_ptr(struct bpf_sock *, sk);
+  __bpf_md_ptr(struct bpf_sock *, migrating_sk);
 };
 #define BPF_TAG_SIZE 8
 struct bpf_prog_info {
@@ -788,6 +1010,9 @@ struct bpf_prog_info {
   __u64 run_time_ns;
   __u64 run_cnt;
   __u64 recursion_misses;
+  __u32 verified_insns;
+  __u32 attach_btf_obj_id;
+  __u32 attach_btf_id;
 } __attribute__((aligned(8)));
 struct bpf_map_info {
   __u32 type;
@@ -804,6 +1029,8 @@ struct bpf_map_info {
   __u32 btf_id;
   __u32 btf_key_type_id;
   __u32 btf_value_type_id;
+  __u32 btf_vmlinux_id;
+  __u64 map_extra;
 } __attribute__((aligned(8)));
 struct bpf_btf_info {
   __aligned_u64 btf;
@@ -824,6 +1051,8 @@ struct bpf_link_info {
     } raw_tracepoint;
     struct {
       __u32 attach_type;
+      __u32 target_obj_id;
+      __u32 target_btf_id;
     } tracing;
     struct {
       __u64 cgroup_id;
@@ -837,6 +1066,16 @@ struct bpf_link_info {
           __u32 map_id;
         } map;
       };
+      union {
+        struct {
+          __u64 cgroup_id;
+          __u32 order;
+        } cgroup;
+        struct {
+          __u32 tid;
+          __u32 pid;
+        } task;
+      };
     } iter;
     struct {
       __u32 netns_ino;
@@ -845,6 +1084,72 @@ struct bpf_link_info {
     struct {
       __u32 ifindex;
     } xdp;
+    struct {
+      __u32 map_id;
+    } struct_ops;
+    struct {
+      __u32 pf;
+      __u32 hooknum;
+      __s32 priority;
+      __u32 flags;
+    } netfilter;
+    struct {
+      __aligned_u64 addrs;
+      __u32 count;
+      __u32 flags;
+      __u64 missed;
+      __aligned_u64 cookies;
+    } kprobe_multi;
+    struct {
+      __aligned_u64 path;
+      __aligned_u64 offsets;
+      __aligned_u64 ref_ctr_offsets;
+      __aligned_u64 cookies;
+      __u32 path_size;
+      __u32 count;
+      __u32 flags;
+      __u32 pid;
+    } uprobe_multi;
+    struct {
+      __u32 type;
+      __u32 : 32;
+      union {
+        struct {
+          __aligned_u64 file_name;
+          __u32 name_len;
+          __u32 offset;
+          __u64 cookie;
+        } uprobe;
+        struct {
+          __aligned_u64 func_name;
+          __u32 name_len;
+          __u32 offset;
+          __u64 addr;
+          __u64 missed;
+          __u64 cookie;
+        } kprobe;
+        struct {
+          __aligned_u64 tp_name;
+          __u32 name_len;
+          __u32 : 32;
+          __u64 cookie;
+        } tracepoint;
+        struct {
+          __u64 config;
+          __u32 type;
+          __u32 : 32;
+          __u64 cookie;
+        } event;
+      };
+    } perf_event;
+    struct {
+      __u32 ifindex;
+      __u32 attach_type;
+    } tcx;
+    struct {
+      __u32 ifindex;
+      __u32 attach_type;
+    } netkit;
   };
 } __attribute__((aligned(8)));
 struct bpf_sock_addr {
@@ -904,6 +1209,7 @@ struct bpf_sock_ops {
   __bpf_md_ptr(void *, skb_data_end);
   __u32 skb_len;
   __u32 skb_tcp_flags;
+  __u64 skb_hwtstamp;
 };
 enum {
   BPF_SOCK_OPS_RTO_CB_FLAG = (1 << 0),
@@ -946,6 +1252,7 @@ enum {
   BPF_TCP_LISTEN,
   BPF_TCP_CLOSING,
   BPF_TCP_NEW_SYN_RECV,
+  BPF_TCP_BOUND_INACTIVE,
   BPF_TCP_MAX_STATES
 };
 enum {
@@ -989,6 +1296,9 @@ struct bpf_raw_tracepoint_args {
 enum {
   BPF_FIB_LOOKUP_DIRECT = (1U << 0),
   BPF_FIB_LOOKUP_OUTPUT = (1U << 1),
+  BPF_FIB_LOOKUP_SKIP_NEIGH = (1U << 2),
+  BPF_FIB_LOOKUP_TBID = (1U << 3),
+  BPF_FIB_LOOKUP_SRC = (1U << 4),
 };
 enum {
   BPF_FIB_LKUP_RET_SUCCESS,
@@ -1000,6 +1310,7 @@ enum {
   BPF_FIB_LKUP_RET_UNSUPP_LWT,
   BPF_FIB_LKUP_RET_NO_NEIGH,
   BPF_FIB_LKUP_RET_FRAG_NEEDED,
+  BPF_FIB_LKUP_RET_NO_SRC_ADDR,
 };
 struct bpf_fib_lookup {
   __u8 family;
@@ -1024,8 +1335,13 @@ struct bpf_fib_lookup {
     __be32 ipv4_dst;
     __u32 ipv6_dst[4];
   };
-  __be16 h_vlan_proto;
-  __be16 h_vlan_TCI;
+  union {
+    struct {
+      __be16 h_vlan_proto;
+      __be16 h_vlan_TCI;
+    };
+    __u32 tbid;
+  };
   __u8 smac[6];
   __u8 dmac[6];
 };
@@ -1096,6 +1412,27 @@ struct bpf_line_info {
 struct bpf_spin_lock {
   __u32 val;
 };
+struct bpf_timer {
+  __u64 __opaque[2];
+} __attribute__((aligned(8)));
+struct bpf_dynptr {
+  __u64 __opaque[2];
+} __attribute__((aligned(8)));
+struct bpf_list_head {
+  __u64 __opaque[2];
+} __attribute__((aligned(8)));
+struct bpf_list_node {
+  __u64 __opaque[3];
+} __attribute__((aligned(8)));
+struct bpf_rb_root {
+  __u64 __opaque[2];
+} __attribute__((aligned(8)));
+struct bpf_rb_node {
+  __u64 __opaque[4];
+} __attribute__((aligned(8)));
+struct bpf_refcount {
+  __u32 __opaque[1];
+} __attribute__((aligned(4)));
 struct bpf_sysctl {
   __u32 write;
   __u32 file_pos;
@@ -1114,15 +1451,20 @@ struct bpf_pidns_info {
   __u32 tgid;
 };
 struct bpf_sk_lookup {
-  __bpf_md_ptr(struct bpf_sock *, sk);
+  union {
+    __bpf_md_ptr(struct bpf_sock *, sk);
+    __u64 cookie;
+  };
   __u32 family;
   __u32 protocol;
   __u32 remote_ip4;
   __u32 remote_ip6[4];
-  __u32 remote_port;
+  __be16 remote_port;
+  __u16 : 16;
   __u32 local_ip4;
   __u32 local_ip6[4];
   __u32 local_port;
+  __u32 ingress_ifindex;
 };
 struct btf_ptr {
   void * ptr;
@@ -1135,4 +1477,32 @@ enum {
   BTF_F_PTR_RAW = (1ULL << 2),
   BTF_F_ZERO = (1ULL << 3),
 };
+enum bpf_core_relo_kind {
+  BPF_CORE_FIELD_BYTE_OFFSET = 0,
+  BPF_CORE_FIELD_BYTE_SIZE = 1,
+  BPF_CORE_FIELD_EXISTS = 2,
+  BPF_CORE_FIELD_SIGNED = 3,
+  BPF_CORE_FIELD_LSHIFT_U64 = 4,
+  BPF_CORE_FIELD_RSHIFT_U64 = 5,
+  BPF_CORE_TYPE_ID_LOCAL = 6,
+  BPF_CORE_TYPE_ID_TARGET = 7,
+  BPF_CORE_TYPE_EXISTS = 8,
+  BPF_CORE_TYPE_SIZE = 9,
+  BPF_CORE_ENUMVAL_EXISTS = 10,
+  BPF_CORE_ENUMVAL_VALUE = 11,
+  BPF_CORE_TYPE_MATCHES = 12,
+};
+struct bpf_core_relo {
+  __u32 insn_off;
+  __u32 type_id;
+  __u32 access_str_off;
+  enum bpf_core_relo_kind kind;
+};
+enum {
+  BPF_F_TIMER_ABS = (1ULL << 0),
+  BPF_F_TIMER_CPU_PIN = (1ULL << 1),
+};
+struct bpf_iter_num {
+  __u64 __opaque[1];
+} __attribute__((aligned(8)));
 #endif

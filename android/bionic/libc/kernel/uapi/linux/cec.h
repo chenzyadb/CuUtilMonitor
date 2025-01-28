@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _CEC_UAPI_H
 #define _CEC_UAPI_H
 #include <linux/types.h>
@@ -262,7 +250,7 @@ struct cec_event {
 #define CEC_OP_REC_SEQ_WEDNESDAY 0x08
 #define CEC_OP_REC_SEQ_THURSDAY 0x10
 #define CEC_OP_REC_SEQ_FRIDAY 0x20
-#define CEC_OP_REC_SEQ_SATERDAY 0x40
+#define CEC_OP_REC_SEQ_SATURDAY 0x40
 #define CEC_OP_REC_SEQ_ONCE_ONLY 0x00
 #define CEC_MSG_CLEAR_DIGITAL_TIMER 0x99
 #define CEC_MSG_CLEAR_EXT_TIMER 0xa1
@@ -340,6 +328,7 @@ struct cec_event {
 #define CEC_OP_FEAT_DEV_HAS_SET_AUDIO_RATE 0x08
 #define CEC_OP_FEAT_DEV_SINK_HAS_ARC_TX 0x04
 #define CEC_OP_FEAT_DEV_SOURCE_HAS_ARC_RX 0x02
+#define CEC_OP_FEAT_DEV_HAS_SET_AUDIO_VOLUME_LEVEL 0x01
 #define CEC_MSG_GIVE_FEATURES 0xa5
 #define CEC_MSG_DECK_CONTROL 0x42
 #define CEC_OP_DECK_CTL_MODE_SKIP_FWD 1
@@ -554,6 +543,7 @@ struct cec_event {
 #define CEC_MSG_SYSTEM_AUDIO_MODE_STATUS 0x7e
 #define CEC_OP_AUD_FMT_ID_CEA861 0
 #define CEC_OP_AUD_FMT_ID_CEA861_CXT 1
+#define CEC_MSG_SET_AUDIO_VOLUME_LEVEL 0x73
 #define CEC_MSG_SET_AUDIO_RATE 0x9a
 #define CEC_OP_AUD_RATE_OFF 0
 #define CEC_OP_AUD_RATE_WIDE_STD 1

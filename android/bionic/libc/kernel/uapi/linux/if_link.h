@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_IF_LINK_H
 #define _UAPI_LINUX_IF_LINK_H
 #include <linux/types.h>
@@ -71,6 +59,18 @@ struct rtnl_link_stats64 {
   __u64 rx_compressed;
   __u64 tx_compressed;
   __u64 rx_nohandler;
+  __u64 rx_otherhost_dropped;
+};
+struct rtnl_hw_stats64 {
+  __u64 rx_packets;
+  __u64 tx_packets;
+  __u64 rx_bytes;
+  __u64 tx_bytes;
+  __u64 rx_errors;
+  __u64 tx_errors;
+  __u64 rx_dropped;
+  __u64 tx_dropped;
+  __u64 multicast;
 };
 struct rtnl_link_ifmap {
   __u64 mem_start;
@@ -148,6 +148,16 @@ enum {
   IFLA_ALT_IFNAME,
   IFLA_PERM_ADDRESS,
   IFLA_PROTO_DOWN_REASON,
+  IFLA_PARENT_DEV_NAME,
+  IFLA_PARENT_DEV_BUS_NAME,
+  IFLA_GRO_MAX_SIZE,
+  IFLA_TSO_MAX_SIZE,
+  IFLA_TSO_MAX_SEGS,
+  IFLA_ALLMULTI,
+  IFLA_DEVLINK_PORT,
+  IFLA_GSO_IPV4_MAX_SIZE,
+  IFLA_GRO_IPV4_MAX_SIZE,
+  IFLA_DPLL_PIN,
   __IFLA_MAX
 };
 #define IFLA_MAX (__IFLA_MAX - 1)
@@ -176,6 +186,7 @@ enum {
   IFLA_INET6_ICMP6STATS,
   IFLA_INET6_TOKEN,
   IFLA_INET6_ADDR_GEN_MODE,
+  IFLA_INET6_RA_MTU,
   __IFLA_INET6_MAX
 };
 #define IFLA_INET6_MAX (__IFLA_INET6_MAX - 1)
@@ -233,6 +244,9 @@ enum {
   IFLA_BR_MCAST_MLD_VERSION,
   IFLA_BR_VLAN_STATS_PER_PORT,
   IFLA_BR_MULTI_BOOLOPT,
+  IFLA_BR_MCAST_QUERIER_STATE,
+  IFLA_BR_FDB_N_LEARNED,
+  IFLA_BR_FDB_MAX_LEARNED,
   __IFLA_BR_MAX,
 };
 #define IFLA_BR_MAX (__IFLA_BR_MAX - 1)
@@ -284,6 +298,12 @@ enum {
   IFLA_BRPORT_MRP_IN_OPEN,
   IFLA_BRPORT_MCAST_EHT_HOSTS_LIMIT,
   IFLA_BRPORT_MCAST_EHT_HOSTS_CNT,
+  IFLA_BRPORT_LOCKED,
+  IFLA_BRPORT_MAB,
+  IFLA_BRPORT_MCAST_N_GROUPS,
+  IFLA_BRPORT_MCAST_MAX_GROUPS,
+  IFLA_BRPORT_NEIGH_VLAN_SUPPRESS,
+  IFLA_BRPORT_BACKUP_NHID,
   __IFLA_BRPORT_MAX
 };
 #define IFLA_BRPORT_MAX (__IFLA_BRPORT_MAX - 1)
@@ -337,6 +357,7 @@ enum {
   IFLA_MACVLAN_MACADDR_COUNT,
   IFLA_MACVLAN_BC_QUEUE_LEN,
   IFLA_MACVLAN_BC_QUEUE_LEN_USED,
+  IFLA_MACVLAN_BC_CUTOFF,
   __IFLA_MACVLAN_MAX,
 };
 #define IFLA_MACVLAN_MAX (__IFLA_MACVLAN_MAX - 1)
@@ -354,6 +375,7 @@ enum macvlan_macaddr_mode {
   MACVLAN_MACADDR_SET,
 };
 #define MACVLAN_FLAG_NOPROMISC 1
+#define MACVLAN_FLAG_NODST 2
 enum {
   IFLA_VRF_UNSPEC,
   IFLA_VRF_TABLE,
@@ -390,6 +412,7 @@ enum {
   IFLA_XFRM_UNSPEC,
   IFLA_XFRM_LINK,
   IFLA_XFRM_IF_ID,
+  IFLA_XFRM_COLLECT_METADATA,
   __IFLA_XFRM_MAX
 };
 #define IFLA_XFRM_MAX (__IFLA_XFRM_MAX - 1)
@@ -422,6 +445,64 @@ enum ipvlan_mode {
 };
 #define IPVLAN_F_PRIVATE 0x01
 #define IPVLAN_F_VEPA 0x02
+struct tunnel_msg {
+  __u8 family;
+  __u8 flags;
+  __u16 reserved2;
+  __u32 ifindex;
+};
+enum netkit_action {
+  NETKIT_NEXT = - 1,
+  NETKIT_PASS = 0,
+  NETKIT_DROP = 2,
+  NETKIT_REDIRECT = 7,
+};
+enum netkit_mode {
+  NETKIT_L2,
+  NETKIT_L3,
+};
+enum {
+  IFLA_NETKIT_UNSPEC,
+  IFLA_NETKIT_PEER_INFO,
+  IFLA_NETKIT_PRIMARY,
+  IFLA_NETKIT_POLICY,
+  IFLA_NETKIT_PEER_POLICY,
+  IFLA_NETKIT_MODE,
+  __IFLA_NETKIT_MAX,
+};
+#define IFLA_NETKIT_MAX (__IFLA_NETKIT_MAX - 1)
+#define TUNNEL_MSG_FLAG_STATS 0x01
+#define TUNNEL_MSG_VALID_USER_FLAGS TUNNEL_MSG_FLAG_STATS
+enum {
+  VNIFILTER_ENTRY_STATS_UNSPEC,
+  VNIFILTER_ENTRY_STATS_RX_BYTES,
+  VNIFILTER_ENTRY_STATS_RX_PKTS,
+  VNIFILTER_ENTRY_STATS_RX_DROPS,
+  VNIFILTER_ENTRY_STATS_RX_ERRORS,
+  VNIFILTER_ENTRY_STATS_TX_BYTES,
+  VNIFILTER_ENTRY_STATS_TX_PKTS,
+  VNIFILTER_ENTRY_STATS_TX_DROPS,
+  VNIFILTER_ENTRY_STATS_TX_ERRORS,
+  VNIFILTER_ENTRY_STATS_PAD,
+  __VNIFILTER_ENTRY_STATS_MAX
+};
+#define VNIFILTER_ENTRY_STATS_MAX (__VNIFILTER_ENTRY_STATS_MAX - 1)
+enum {
+  VXLAN_VNIFILTER_ENTRY_UNSPEC,
+  VXLAN_VNIFILTER_ENTRY_START,
+  VXLAN_VNIFILTER_ENTRY_END,
+  VXLAN_VNIFILTER_ENTRY_GROUP,
+  VXLAN_VNIFILTER_ENTRY_GROUP6,
+  VXLAN_VNIFILTER_ENTRY_STATS,
+  __VXLAN_VNIFILTER_ENTRY_MAX
+};
+#define VXLAN_VNIFILTER_ENTRY_MAX (__VXLAN_VNIFILTER_ENTRY_MAX - 1)
+enum {
+  VXLAN_VNIFILTER_UNSPEC,
+  VXLAN_VNIFILTER_ENTRY,
+  __VXLAN_VNIFILTER_MAX
+};
+#define VXLAN_VNIFILTER_MAX (__VXLAN_VNIFILTER_MAX - 1)
 enum {
   IFLA_VXLAN_UNSPEC,
   IFLA_VXLAN_ID,
@@ -453,6 +534,9 @@ enum {
   IFLA_VXLAN_GPE,
   IFLA_VXLAN_TTL_INHERIT,
   IFLA_VXLAN_DF,
+  IFLA_VXLAN_VNIFILTER,
+  IFLA_VXLAN_LOCALBYPASS,
+  IFLA_VXLAN_LABEL_POLICY,
   __IFLA_VXLAN_MAX
 };
 #define IFLA_VXLAN_MAX (__IFLA_VXLAN_MAX - 1)
@@ -466,6 +550,12 @@ enum ifla_vxlan_df {
   VXLAN_DF_INHERIT,
   __VXLAN_DF_END,
   VXLAN_DF_MAX = __VXLAN_DF_END - 1,
+};
+enum ifla_vxlan_label_policy {
+  VXLAN_LABEL_FIXED = 0,
+  VXLAN_LABEL_INHERIT = 1,
+  __VXLAN_LABEL_END,
+  VXLAN_LABEL_MAX = __VXLAN_LABEL_END - 1,
 };
 enum {
   IFLA_GENEVE_UNSPEC,
@@ -482,6 +572,7 @@ enum {
   IFLA_GENEVE_LABEL,
   IFLA_GENEVE_TTL_INHERIT,
   IFLA_GENEVE_DF,
+  IFLA_GENEVE_INNER_PROTO_INHERIT,
   __IFLA_GENEVE_MAX
 };
 #define IFLA_GENEVE_MAX (__IFLA_GENEVE_MAX - 1)
@@ -517,6 +608,8 @@ enum {
   IFLA_GTP_FD1,
   IFLA_GTP_PDP_HASHSIZE,
   IFLA_GTP_ROLE,
+  IFLA_GTP_CREATE_SOCKETS,
+  IFLA_GTP_RESTART_COUNT,
   __IFLA_GTP_MAX,
 };
 #define IFLA_GTP_MAX (__IFLA_GTP_MAX - 1)
@@ -550,6 +643,10 @@ enum {
   IFLA_BOND_AD_ACTOR_SYSTEM,
   IFLA_BOND_TLB_DYNAMIC_LB,
   IFLA_BOND_PEER_NOTIF_DELAY,
+  IFLA_BOND_AD_LACP_ACTIVE,
+  IFLA_BOND_MISSED_MAX,
+  IFLA_BOND_NS_IP6_TARGET,
+  IFLA_BOND_COUPLED_CONTROL,
   __IFLA_BOND_MAX,
 };
 #define IFLA_BOND_MAX (__IFLA_BOND_MAX - 1)
@@ -573,6 +670,7 @@ enum {
   IFLA_BOND_SLAVE_AD_AGGREGATOR_ID,
   IFLA_BOND_SLAVE_AD_ACTOR_OPER_PORT_STATE,
   IFLA_BOND_SLAVE_AD_PARTNER_OPER_PORT_STATE,
+  IFLA_BOND_SLAVE_PRIO,
   __IFLA_BOND_SLAVE_MAX,
 };
 #define IFLA_BOND_SLAVE_MAX (__IFLA_BOND_SLAVE_MAX - 1)
@@ -769,6 +867,13 @@ enum {
 #define IFLA_STATS_MAX (__IFLA_STATS_MAX - 1)
 #define IFLA_STATS_FILTER_BIT(ATTR) (1 << (ATTR - 1))
 enum {
+  IFLA_STATS_GETSET_UNSPEC,
+  IFLA_STATS_GET_FILTERS,
+  IFLA_STATS_SET_OFFLOAD_XSTATS_L3_STATS,
+  __IFLA_STATS_GETSET_MAX,
+};
+#define IFLA_STATS_GETSET_MAX (__IFLA_STATS_GETSET_MAX - 1)
+enum {
   LINK_XSTATS_TYPE_UNSPEC,
   LINK_XSTATS_TYPE_BRIDGE,
   LINK_XSTATS_TYPE_BOND,
@@ -778,9 +883,18 @@ enum {
 enum {
   IFLA_OFFLOAD_XSTATS_UNSPEC,
   IFLA_OFFLOAD_XSTATS_CPU_HIT,
+  IFLA_OFFLOAD_XSTATS_HW_S_INFO,
+  IFLA_OFFLOAD_XSTATS_L3_STATS,
   __IFLA_OFFLOAD_XSTATS_MAX
 };
 #define IFLA_OFFLOAD_XSTATS_MAX (__IFLA_OFFLOAD_XSTATS_MAX - 1)
+enum {
+  IFLA_OFFLOAD_XSTATS_HW_S_INFO_UNSPEC,
+  IFLA_OFFLOAD_XSTATS_HW_S_INFO_REQUEST,
+  IFLA_OFFLOAD_XSTATS_HW_S_INFO_USED,
+  __IFLA_OFFLOAD_XSTATS_HW_S_INFO_MAX,
+};
+#define IFLA_OFFLOAD_XSTATS_HW_S_INFO_MAX (__IFLA_OFFLOAD_XSTATS_HW_S_INFO_MAX - 1)
 #define XDP_FLAGS_UPDATE_IF_NOEXIST (1U << 0)
 #define XDP_FLAGS_SKB_MODE (1U << 1)
 #define XDP_FLAGS_DRV_MODE (1U << 2)
@@ -835,6 +949,8 @@ enum {
 #define RMNET_FLAGS_INGRESS_MAP_COMMANDS (1U << 1)
 #define RMNET_FLAGS_INGRESS_MAP_CKSUMV4 (1U << 2)
 #define RMNET_FLAGS_EGRESS_MAP_CKSUMV4 (1U << 3)
+#define RMNET_FLAGS_INGRESS_MAP_CKSUMV5 (1U << 4)
+#define RMNET_FLAGS_EGRESS_MAP_CKSUMV5 (1U << 5)
 enum {
   IFLA_RMNET_UNSPEC,
   IFLA_RMNET_MUX_ID,
@@ -846,4 +962,17 @@ struct ifla_rmnet_flags {
   __u32 flags;
   __u32 mask;
 };
+enum {
+  IFLA_MCTP_UNSPEC,
+  IFLA_MCTP_NET,
+  __IFLA_MCTP_MAX,
+};
+#define IFLA_MCTP_MAX (__IFLA_MCTP_MAX - 1)
+enum {
+  IFLA_DSA_UNSPEC,
+  IFLA_DSA_CONDUIT,
+  IFLA_DSA_MASTER = IFLA_DSA_CONDUIT,
+  __IFLA_DSA_MAX,
+};
+#define IFLA_DSA_MAX (__IFLA_DSA_MAX - 1)
 #endif

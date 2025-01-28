@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _ASM_GENERIC_FCNTL_H
 #define _ASM_GENERIC_FCNTL_H
 #include <bits/flock64.h>
@@ -78,7 +66,6 @@
 #define __O_TMPFILE 020000000
 #endif
 #define O_TMPFILE (__O_TMPFILE | O_DIRECTORY)
-#define O_TMPFILE_MASK (__O_TMPFILE | O_DIRECTORY | O_CREAT)
 #ifndef O_NDELAY
 #define O_NDELAY O_NONBLOCK
 #endif
@@ -100,7 +87,7 @@
 #define F_SETSIG 10
 #define F_GETSIG 11
 #endif
-#ifndef __LP64__
+#if __BITS_PER_LONG == 32
 #ifndef F_GETLK64
 #define F_GETLK64 12
 #define F_SETLK64 13
@@ -144,13 +131,5 @@ struct f_owner_ex {
 #define LOCK_RW 192
 #define F_LINUX_SPECIFIC_BASE 1024
 #ifndef HAVE_ARCH_STRUCT_FLOCK
-#ifndef __ARCH_FLOCK_PAD
-#define __ARCH_FLOCK_PAD
-#endif
-#endif
-#ifndef HAVE_ARCH_STRUCT_FLOCK64
-#ifndef __ARCH_FLOCK64_PAD
-#define __ARCH_FLOCK64_PAD
-#endif
 #endif
 #endif

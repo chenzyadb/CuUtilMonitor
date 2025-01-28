@@ -1,24 +1,13 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_IP_H
 #define _UAPI_LINUX_IP_H
 #include <linux/types.h>
+#include <linux/stddef.h>
 #include <asm/byteorder.h>
 #define IPTOS_TOS_MASK 0x1E
 #define IPTOS_TOS(tos) ((tos) & IPTOS_TOS_MASK)
@@ -86,8 +75,9 @@ struct iphdr {
   __u8 ttl;
   __u8 protocol;
   __sum16 check;
-  __be32 saddr;
+  __struct_group(, addrs,, __be32 saddr;
   __be32 daddr;
+ );
 };
 struct ip_auth_hdr {
   __u8 nexthdr;
@@ -95,12 +85,12 @@ struct ip_auth_hdr {
   __be16 reserved;
   __be32 spi;
   __be32 seq_no;
-  __u8 auth_data[0];
+  __u8 auth_data[];
 };
 struct ip_esp_hdr {
   __be32 spi;
   __be32 seq_no;
-  __u8 enc_data[0];
+  __u8 enc_data[];
 };
 struct ip_comp_hdr {
   __u8 nexthdr;
@@ -146,6 +136,7 @@ enum {
   IPV4_DEVCONF_DROP_UNICAST_IN_L2_MULTICAST,
   IPV4_DEVCONF_DROP_GRATUITOUS_ARP,
   IPV4_DEVCONF_BC_FORWARDING,
+  IPV4_DEVCONF_ARP_EVICT_NOCARRIER,
   __IPV4_DEVCONF_MAX
 };
 #define IPV4_DEVCONF_MAX (__IPV4_DEVCONF_MAX - 1)

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_ZORRO_H
 #define _UAPI_LINUX_ZORRO_H
 #include <linux/types.h>
@@ -42,7 +30,7 @@ struct Node {
   __u8 ln_Type;
   __s8 ln_Pri;
   __be32 ln_Name;
-} __packed;
+} __attribute__((__packed__));
 struct ExpansionRom {
   __u8 er_Type;
   __u8 er_Product;
@@ -55,7 +43,7 @@ struct ExpansionRom {
   __u8 er_Reserved0d;
   __u8 er_Reserved0e;
   __u8 er_Reserved0f;
-} __packed;
+} __attribute__((__packed__));
 #define ERT_TYPEMASK 0xc0
 #define ERT_ZORROII 0xc0
 #define ERT_ZORROIII 0x80
@@ -73,6 +61,6 @@ struct ConfigDev {
   __be32 cd_Driver;
   __be32 cd_NextCD;
   __be32 cd_Unused[4];
-} __packed;
+} __attribute__((__packed__));
 #define ZORRO_NUM_AUTO 16
 #endif

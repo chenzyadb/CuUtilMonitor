@@ -1,25 +1,14 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_IPV6_H
 #define _UAPI_IPV6_H
 #include <linux/libc-compat.h>
 #include <linux/types.h>
+#include <linux/stddef.h>
 #include <linux/in6.h>
 #include <asm/byteorder.h>
 #define IPV6_MIN_MTU 1280
@@ -61,7 +50,7 @@ struct ipv6_opt_hdr {
 struct rt0_hdr {
   struct ipv6_rt_hdr rt_hdr;
   __u32 reserved;
-  struct in6_addr addr[0];
+  struct in6_addr addr[];
 #define rt0_type rt_hdr.type
 };
 struct rt2_hdr {
@@ -87,8 +76,9 @@ struct ipv6hdr {
   __be16 payload_len;
   __u8 nexthdr;
   __u8 hop_limit;
-  struct in6_addr saddr;
+  __struct_group(, addrs,, struct in6_addr saddr;
   struct in6_addr daddr;
+ );
 };
 enum {
   DEVCONF_FORWARDING = 0,
@@ -144,6 +134,12 @@ enum {
   DEVCONF_NDISC_TCLASS,
   DEVCONF_RPL_SEG_ENABLED,
   DEVCONF_RA_DEFRTR_METRIC,
+  DEVCONF_IOAM6_ENABLED,
+  DEVCONF_IOAM6_ID,
+  DEVCONF_IOAM6_ID_WIDE,
+  DEVCONF_NDISC_EVICT_NOCARRIER,
+  DEVCONF_ACCEPT_UNTRACKED_NA,
+  DEVCONF_ACCEPT_RA_MIN_LFT,
   DEVCONF_MAX
 };
 #endif

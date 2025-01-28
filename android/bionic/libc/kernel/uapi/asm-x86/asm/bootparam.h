@@ -1,32 +1,12 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _ASM_X86_BOOTPARAM_H
 #define _ASM_X86_BOOTPARAM_H
-#define SETUP_NONE 0
-#define SETUP_E820_EXT 1
-#define SETUP_DTB 2
-#define SETUP_PCI 3
-#define SETUP_EFI 4
-#define SETUP_APPLE_PROPERTIES 5
-#define SETUP_JAILHOUSE 6
-#define SETUP_INDIRECT (1 << 31)
-#define SETUP_TYPE_MAX (SETUP_INDIRECT | SETUP_JAILHOUSE)
+#include <asm/setup_data.h>
 #define RAMDISK_IMAGE_START_MASK 0x07FF
 #define RAMDISK_PROMPT_FLAG 0x8000
 #define RAMDISK_LOAD_FLAG 0x4000
@@ -42,6 +22,7 @@
 #define XLF_EFI_KEXEC (1 << 4)
 #define XLF_5LEVEL (1 << 5)
 #define XLF_5LEVEL_ENABLED (1 << 6)
+#define XLF_MEM_ENCRYPTION (1 << 7)
 #ifndef __ASSEMBLY__
 #include <linux/types.h>
 #include <linux/screen_info.h>
@@ -49,18 +30,6 @@
 #include <linux/edd.h>
 #include <asm/ist.h>
 #include <video/edid.h>
-struct setup_data {
-  __u64 next;
-  __u32 type;
-  __u32 len;
-  __u8 data[0];
-};
-struct setup_indirect {
-  __u32 type;
-  __u32 reserved;
-  __u64 len;
-  __u64 addr;
-};
 struct setup_header {
   __u8 setup_sects;
   __u16 root_flags;
@@ -123,30 +92,7 @@ struct efi_info {
   __u32 efi_memmap_hi;
 };
 #define E820_MAX_ENTRIES_ZEROPAGE 128
-struct boot_e820_entry {
-  __u64 addr;
-  __u64 size;
-  __u32 type;
-} __attribute__((packed));
 #define JAILHOUSE_SETUP_REQUIRED_VERSION 1
-struct jailhouse_setup_data {
-  struct {
-    __u16 version;
-    __u16 compatible_version;
-  } __attribute__((packed)) hdr;
-  struct {
-    __u16 pm_timer_address;
-    __u16 num_cpus;
-    __u64 pci_mmconfig_base;
-    __u32 tsc_khz;
-    __u32 apic_khz;
-    __u8 standard_ioapic;
-    __u8 cpu_ids[255];
-  } __attribute__((packed)) v1;
-  struct {
-    __u32 flags;
-  } __attribute__((packed)) v2;
-} __attribute__((packed));
 struct boot_params {
   struct screen_info screen_info;
   struct apm_bios_info apm_bios_info;
@@ -162,7 +108,8 @@ struct boot_params {
   __u32 ext_ramdisk_image;
   __u32 ext_ramdisk_size;
   __u32 ext_cmd_line_ptr;
-  __u8 _pad4[116];
+  __u8 _pad4[112];
+  __u32 cc_blob_address;
   struct edid_info edid_info;
   struct efi_info efi_info;
   __u32 alt_mem_k;

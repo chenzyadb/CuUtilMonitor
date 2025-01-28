@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__ASM_PTRACE_H
 #define _UAPI__ASM_PTRACE_H
 #include <linux/types.h>
@@ -111,7 +99,7 @@ struct user_sve_header {
 #define SVE_PT_SVE_FPSR_OFFSET(vq) ((SVE_PT_SVE_FFR_OFFSET(vq) + SVE_PT_SVE_FFR_SIZE(vq) + (__SVE_VQ_BYTES - 1)) / __SVE_VQ_BYTES * __SVE_VQ_BYTES)
 #define SVE_PT_SVE_FPCR_OFFSET(vq) (SVE_PT_SVE_FPSR_OFFSET(vq) + SVE_PT_SVE_FPSR_SIZE)
 #define SVE_PT_SVE_SIZE(vq,flags) ((SVE_PT_SVE_FPCR_OFFSET(vq) + SVE_PT_SVE_FPCR_SIZE - SVE_PT_SVE_OFFSET + (__SVE_VQ_BYTES - 1)) / __SVE_VQ_BYTES * __SVE_VQ_BYTES)
-#define SVE_PT_SIZE(vq,flags) (((flags) & SVE_PT_REGS_MASK) == SVE_PT_REGS_SVE ? SVE_PT_SVE_OFFSET + SVE_PT_SVE_SIZE(vq, flags) : SVE_PT_FPSIMD_OFFSET + SVE_PT_FPSIMD_SIZE(vq, flags))
+#define SVE_PT_SIZE(vq,flags) (((flags) & SVE_PT_REGS_MASK) == SVE_PT_REGS_SVE ? SVE_PT_SVE_OFFSET + SVE_PT_SVE_SIZE(vq, flags) : ((((flags) & SVE_PT_REGS_MASK) == SVE_PT_REGS_FPSIMD ? SVE_PT_FPSIMD_OFFSET + SVE_PT_FPSIMD_SIZE(vq, flags) : SVE_PT_REGS_OFFSET)))
 struct user_pac_mask {
   __u64 data_mask;
   __u64 insn_mask;
@@ -125,5 +113,19 @@ struct user_pac_address_keys {
 struct user_pac_generic_keys {
   __uint128_t apgakey;
 };
+struct user_za_header {
+  __u32 size;
+  __u32 max_size;
+  __u16 vl;
+  __u16 max_vl;
+  __u16 flags;
+  __u16 __reserved;
+};
+#define ZA_PT_VL_INHERIT ((1 << 17) >> 16)
+#define ZA_PT_VL_ONEXEC ((1 << 18) >> 16)
+#define ZA_PT_ZA_OFFSET ((sizeof(struct user_za_header) + (__SVE_VQ_BYTES - 1)) / __SVE_VQ_BYTES * __SVE_VQ_BYTES)
+#define ZA_PT_ZAV_OFFSET(vq,n) (ZA_PT_ZA_OFFSET + ((vq * __SVE_VQ_BYTES) * n))
+#define ZA_PT_ZA_SIZE(vq) ((vq * __SVE_VQ_BYTES) * (vq * __SVE_VQ_BYTES))
+#define ZA_PT_SIZE(vq) (ZA_PT_ZA_OFFSET + ZA_PT_ZA_SIZE(vq))
 #endif
 #endif

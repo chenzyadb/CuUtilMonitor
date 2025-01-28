@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __PSP_SEV_USER_H__
 #define __PSP_SEV_USER_H__
 #include <linux/types.h>
@@ -29,9 +17,13 @@ enum {
   SEV_PEK_CERT_IMPORT,
   SEV_GET_ID,
   SEV_GET_ID2,
+  SNP_PLATFORM_STATUS,
+  SNP_COMMIT,
+  SNP_SET_CONFIG,
   SEV_MAX,
 };
 typedef enum {
+  SEV_RET_NO_FW_CALL = - 1,
   SEV_RET_SUCCESS = 0,
   SEV_RET_INVALID_PLATFORM_STATE,
   SEV_RET_INVALID_GUEST_STATE,
@@ -57,6 +49,13 @@ typedef enum {
   SEV_RET_INVALID_PARAM,
   SEV_RET_RESOURCE_LIMIT,
   SEV_RET_SECURE_DATA_INVALID,
+  SEV_RET_INVALID_KEY = 0x27,
+  SEV_RET_INVALID_PAGE_SIZE,
+  SEV_RET_INVALID_PAGE_STATE,
+  SEV_RET_INVALID_MDATA_ENTRY,
+  SEV_RET_INVALID_PAGE_OWNER,
+  SEV_RET_INVALID_PAGE_AEAD_OFLOW,
+  SEV_RET_RMP_INIT_REQUIRED,
   SEV_RET_MAX,
 } sev_ret_code;
 struct sev_user_data_status {
@@ -66,37 +65,59 @@ struct sev_user_data_status {
   __u32 flags;
   __u8 build;
   __u32 guest_count;
-} __packed;
+} __attribute__((__packed__));
 #define SEV_STATUS_FLAGS_CONFIG_ES 0x0100
 struct sev_user_data_pek_csr {
   __u64 address;
   __u32 length;
-} __packed;
+} __attribute__((__packed__));
 struct sev_user_data_pek_cert_import {
   __u64 pek_cert_address;
   __u32 pek_cert_len;
   __u64 oca_cert_address;
   __u32 oca_cert_len;
-} __packed;
+} __attribute__((__packed__));
 struct sev_user_data_pdh_cert_export {
   __u64 pdh_cert_address;
   __u32 pdh_cert_len;
   __u64 cert_chain_address;
   __u32 cert_chain_len;
-} __packed;
+} __attribute__((__packed__));
 struct sev_user_data_get_id {
   __u8 socket1[64];
   __u8 socket2[64];
-} __packed;
+} __attribute__((__packed__));
 struct sev_user_data_get_id2 {
   __u64 address;
   __u32 length;
-} __packed;
+} __attribute__((__packed__));
+struct sev_user_data_snp_status {
+  __u8 api_major;
+  __u8 api_minor;
+  __u8 state;
+  __u8 is_rmp_initialized : 1;
+  __u8 rsvd : 7;
+  __u32 build_id;
+  __u32 mask_chip_id : 1;
+  __u32 mask_chip_key : 1;
+  __u32 vlek_en : 1;
+  __u32 rsvd1 : 29;
+  __u32 guest_count;
+  __u64 current_tcb_version;
+  __u64 reported_tcb_version;
+} __attribute__((__packed__));
+struct sev_user_data_snp_config {
+  __u64 reported_tcb;
+  __u32 mask_chip_id : 1;
+  __u32 mask_chip_key : 1;
+  __u32 rsvd : 30;
+  __u8 rsvd1[52];
+} __attribute__((__packed__));
 struct sev_issue_cmd {
   __u32 cmd;
   __u64 data;
   __u32 error;
-} __packed;
+} __attribute__((__packed__));
 #define SEV_IOC_TYPE 'S'
 #define SEV_ISSUE_CMD _IOWR(SEV_IOC_TYPE, 0x0, struct sev_issue_cmd)
 #endif

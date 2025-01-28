@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef RDMA_USER_RXE_H
 #define RDMA_USER_RXE_H
 #include <linux/types.h>
@@ -52,7 +40,7 @@ struct rxe_av {
 };
 struct rxe_send_wr {
   __aligned_u64 wr_id;
-  __u32 num_sge;
+  __u32 reserved;
   __u32 opcode;
   __u32 send_flags;
   union {
@@ -60,6 +48,13 @@ struct rxe_send_wr {
     __u32 invalidate_rkey;
   } ex;
   union {
+    struct {
+      __aligned_u64 remote_addr;
+      __u32 length;
+      __u32 rkey;
+      __u8 type;
+      __u8 level;
+    } flush;
     struct {
       __aligned_u64 remote_addr;
       __u32 rkey;
@@ -76,15 +71,19 @@ struct rxe_send_wr {
       __u32 remote_qpn;
       __u32 remote_qkey;
       __u16 pkey_index;
+      __u16 reserved;
+      __u32 ah_num;
+      __u32 pad[4];
+      struct rxe_av av;
     } ud;
     struct {
-      union {
-        struct ib_mr * mr;
-        __aligned_u64 reserved;
-      };
-      __u32 key;
+      __aligned_u64 addr;
+      __aligned_u64 length;
+      __u32 mr_lkey;
+      __u32 mw_rkey;
+      __u32 rkey;
       __u32 access;
-    } reg;
+    } mw;
   } wr;
 };
 struct rxe_sge {
@@ -105,13 +104,13 @@ struct rxe_dma_info {
   __u32 sge_offset;
   __u32 reserved;
   union {
-    __u8 inline_data[0];
-    struct rxe_sge sge[0];
+    __DECLARE_FLEX_ARRAY(__u8, inline_data);
+    __DECLARE_FLEX_ARRAY(__u8, atomic_wr);
+    __DECLARE_FLEX_ARRAY(struct rxe_sge, sge);
   };
 };
 struct rxe_send_wqe {
   struct rxe_send_wr wr;
-  struct rxe_av av;
   __u32 status;
   __u32 state;
   __aligned_u64 iova;
@@ -125,9 +124,13 @@ struct rxe_send_wqe {
 };
 struct rxe_recv_wqe {
   __aligned_u64 wr_id;
-  __u32 num_sge;
+  __u32 reserved;
   __u32 padding;
   struct rxe_dma_info dma;
+};
+struct rxe_create_ah_resp {
+  __u32 ah_num;
+  __u32 reserved;
 };
 struct rxe_create_cq_resp {
   struct mminfo mi;

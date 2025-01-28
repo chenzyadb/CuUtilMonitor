@@ -26,17 +26,15 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYS_USER_H_
-#define _SYS_USER_H_
+#pragma once
 
 #include <sys/cdefs.h>
 #include <stddef.h> /* For size_t. */
 #include <stdint.h>
 
-__BEGIN_DECLS
+#include <bits/page_size.h>
 
-#define PAGE_SIZE 4096
-#define PAGE_MASK (~(PAGE_SIZE - 1))
+__BEGIN_DECLS
 
 #if defined(__i386__)
 
@@ -233,6 +231,11 @@ struct user_fpsimd_struct {
   uint32_t fpcr;
 };
 
+#elif defined(__riscv)
+
+// This space deliberately left blank for now.
+// No other libcs have any riscv64-specific structs.
+
 #else
 
 #error "Unsupported architecture."
@@ -240,5 +243,3 @@ struct user_fpsimd_struct {
 #endif
 
 __END_DECLS
-
-#endif  /* _SYS_USER_H_ */

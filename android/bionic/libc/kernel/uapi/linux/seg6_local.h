@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_SEG6_LOCAL_H
 #define _UAPI_LINUX_SEG6_LOCAL_H
 #include <linux/seg6.h>
@@ -30,6 +18,8 @@ enum {
   SEG6_LOCAL_OIF,
   SEG6_LOCAL_BPF,
   SEG6_LOCAL_VRFTABLE,
+  SEG6_LOCAL_COUNTERS,
+  SEG6_LOCAL_FLAVORS,
   __SEG6_LOCAL_MAX,
 };
 #define SEG6_LOCAL_MAX (__SEG6_LOCAL_MAX - 1)
@@ -50,6 +40,7 @@ enum {
   SEG6_LOCAL_ACTION_END_AS = 13,
   SEG6_LOCAL_ACTION_END_AM = 14,
   SEG6_LOCAL_ACTION_END_BPF = 15,
+  SEG6_LOCAL_ACTION_END_DT46 = 16,
   __SEG6_LOCAL_ACTION_MAX,
 };
 #define SEG6_LOCAL_ACTION_MAX (__SEG6_LOCAL_ACTION_MAX - 1)
@@ -60,4 +51,30 @@ enum {
   __SEG6_LOCAL_BPF_PROG_MAX,
 };
 #define SEG6_LOCAL_BPF_PROG_MAX (__SEG6_LOCAL_BPF_PROG_MAX - 1)
+enum {
+  SEG6_LOCAL_CNT_UNSPEC,
+  SEG6_LOCAL_CNT_PAD,
+  SEG6_LOCAL_CNT_PACKETS,
+  SEG6_LOCAL_CNT_BYTES,
+  SEG6_LOCAL_CNT_ERRORS,
+  __SEG6_LOCAL_CNT_MAX,
+};
+#define SEG6_LOCAL_CNT_MAX (__SEG6_LOCAL_CNT_MAX - 1)
+enum {
+  SEG6_LOCAL_FLV_UNSPEC,
+  SEG6_LOCAL_FLV_OPERATION,
+  SEG6_LOCAL_FLV_LCBLOCK_BITS,
+  SEG6_LOCAL_FLV_LCNODE_FN_BITS,
+  __SEG6_LOCAL_FLV_MAX,
+};
+#define SEG6_LOCAL_FLV_MAX (__SEG6_LOCAL_FLV_MAX - 1)
+enum {
+  SEG6_LOCAL_FLV_OP_UNSPEC,
+  SEG6_LOCAL_FLV_OP_PSP,
+  SEG6_LOCAL_FLV_OP_USP,
+  SEG6_LOCAL_FLV_OP_USD,
+  SEG6_LOCAL_FLV_OP_NEXT_CSID,
+  __SEG6_LOCAL_FLV_OP_MAX
+};
+#define SEG6_LOCAL_FLV_OP_MAX (__SEG6_LOCAL_FLV_OP_MAX - 1)
 #endif

@@ -1,26 +1,14 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _SCSI_GENERIC_H
 #define _SCSI_GENERIC_H
 #include <linux/compiler.h>
 typedef struct sg_iovec {
-  void __user * iov_base;
+  void  * iov_base;
   size_t iov_len;
 } sg_iovec_t;
 typedef struct sg_io_hdr {
@@ -30,13 +18,13 @@ typedef struct sg_io_hdr {
   unsigned char mx_sb_len;
   unsigned short iovec_count;
   unsigned int dxfer_len;
-  void __user * dxferp;
-  unsigned char __user * cmdp;
-  void __user * sbp;
+  void  * dxferp;
+  unsigned char  * cmdp;
+  void  * sbp;
   unsigned int timeout;
   unsigned int flags;
   int pack_id;
-  void __user * usr_ptr;
+  void  * usr_ptr;
   unsigned char status;
   unsigned char masked_status;
   unsigned char msg_status;
@@ -66,6 +54,20 @@ typedef struct sg_io_hdr {
 #define SG_INFO_INDIRECT_IO 0x0
 #define SG_INFO_DIRECT_IO 0x2
 #define SG_INFO_MIXED_IO 0x4
+#define DRIVER_SENSE 0x08
+#define driver_byte(result) (((result) >> 24) & 0xff)
+#define GOOD 0x00
+#define CHECK_CONDITION 0x01
+#define CONDITION_GOOD 0x02
+#define BUSY 0x04
+#define INTERMEDIATE_GOOD 0x08
+#define INTERMEDIATE_C_GOOD 0x0a
+#define RESERVATION_CONFLICT 0x0c
+#define COMMAND_TERMINATED 0x11
+#define QUEUE_FULL 0x14
+#define ACA_ACTIVE 0x18
+#define TASK_ABORTED 0x20
+#define sg_status_byte(result) (((result) >> 1) & 0x7f)
 typedef struct sg_scsi_id {
   int host_no;
   int channel;
@@ -82,7 +84,7 @@ typedef struct sg_req_info {
   char sg_io_owned;
   char problem;
   int pack_id;
-  void __user * usr_ptr;
+  void  * usr_ptr;
   unsigned int duration;
   int unused;
 } sg_req_info_t;

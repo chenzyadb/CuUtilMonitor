@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_RKISP1_CONFIG_H
 #define _UAPI_RKISP1_CONFIG_H
 #include <linux/types.h>
@@ -67,6 +55,37 @@
 #define RKISP1_CIF_ISP_HISTOGRAM_WEIGHT_GRIDS_SIZE_V12 81
 #define RKISP1_CIF_ISP_HISTOGRAM_WEIGHT_GRIDS_SIZE RKISP1_CIF_ISP_HISTOGRAM_WEIGHT_GRIDS_SIZE_V12
 #define RKISP1_CIF_ISP_DPCC_METHODS_MAX 3
+#define RKISP1_CIF_ISP_DPCC_MODE_STAGE1_ENABLE (1U << 2)
+#define RKISP1_CIF_ISP_DPCC_OUTPUT_MODE_STAGE1_INCL_G_CENTER (1U << 0)
+#define RKISP1_CIF_ISP_DPCC_OUTPUT_MODE_STAGE1_INCL_RB_CENTER (1U << 1)
+#define RKISP1_CIF_ISP_DPCC_OUTPUT_MODE_STAGE1_G_3X3 (1U << 2)
+#define RKISP1_CIF_ISP_DPCC_OUTPUT_MODE_STAGE1_RB_3X3 (1U << 3)
+#define RKISP1_CIF_ISP_DPCC_SET_USE_STAGE1_USE_SET(n) ((n) << 0)
+#define RKISP1_CIF_ISP_DPCC_SET_USE_STAGE1_USE_FIX_SET (1U << 3)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_PG_GREEN_ENABLE (1U << 0)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_LC_GREEN_ENABLE (1U << 1)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_RO_GREEN_ENABLE (1U << 2)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_RND_GREEN_ENABLE (1U << 3)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_RG_GREEN_ENABLE (1U << 4)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_PG_RED_BLUE_ENABLE (1U << 8)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_LC_RED_BLUE_ENABLE (1U << 9)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_RO_RED_BLUE_ENABLE (1U << 10)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_RND_RED_BLUE_ENABLE (1U << 11)
+#define RKISP1_CIF_ISP_DPCC_METHODS_SET_RG_RED_BLUE_ENABLE (1U << 12)
+#define RKISP1_CIF_ISP_DPCC_LINE_THRESH_G(v) ((v) << 0)
+#define RKISP1_CIF_ISP_DPCC_LINE_THRESH_RB(v) ((v) << 8)
+#define RKISP1_CIF_ISP_DPCC_LINE_MAD_FAC_G(v) ((v) << 0)
+#define RKISP1_CIF_ISP_DPCC_LINE_MAD_FAC_RB(v) ((v) << 8)
+#define RKISP1_CIF_ISP_DPCC_PG_FAC_G(v) ((v) << 0)
+#define RKISP1_CIF_ISP_DPCC_PG_FAC_RB(v) ((v) << 8)
+#define RKISP1_CIF_ISP_DPCC_RND_THRESH_G(v) ((v) << 0)
+#define RKISP1_CIF_ISP_DPCC_RND_THRESH_RB(v) ((v) << 8)
+#define RKISP1_CIF_ISP_DPCC_RG_FAC_G(v) ((v) << 0)
+#define RKISP1_CIF_ISP_DPCC_RG_FAC_RB(v) ((v) << 8)
+#define RKISP1_CIF_ISP_DPCC_RO_LIMITS_n_G(n,v) ((v) << ((n) * 4))
+#define RKISP1_CIF_ISP_DPCC_RO_LIMITS_n_RB(n,v) ((v) << ((n) * 4 + 2))
+#define RKISP1_CIF_ISP_DPCC_RND_OFFS_n_G(n,v) ((v) << ((n) * 4))
+#define RKISP1_CIF_ISP_DPCC_RND_OFFS_n_RB(n,v) ((v) << ((n) * 4 + 2))
 #define RKISP1_CIF_ISP_DPF_MAX_NLF_COEFFS 17
 #define RKISP1_CIF_ISP_DPF_MAX_SPATIAL_COEFFS 6
 #define RKISP1_CIF_ISP_STAT_AWB (1U << 0)
@@ -78,6 +97,7 @@ enum rkisp1_cif_isp_version {
   RKISP1_V11,
   RKISP1_V12,
   RKISP1_V13,
+  RKISP1_V_IMX8MP,
 };
 enum rkisp1_cif_isp_histogram_mode {
   RKISP1_CIF_ISP_HISTOGRAM_MODE_DISABLE,

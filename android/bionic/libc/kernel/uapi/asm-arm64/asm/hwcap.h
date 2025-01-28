@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__ASM_HWCAP_H
 #define _UAPI__ASM_HWCAP_H
 #define HWCAP_FP (1 << 0)
@@ -69,4 +57,48 @@
 #define HWCAP2_RNG (1 << 16)
 #define HWCAP2_BTI (1 << 17)
 #define HWCAP2_MTE (1 << 18)
+#define HWCAP2_ECV (1 << 19)
+#define HWCAP2_AFP (1 << 20)
+#define HWCAP2_RPRES (1 << 21)
+#define HWCAP2_MTE3 (1 << 22)
+#define HWCAP2_SME (1 << 23)
+#define HWCAP2_SME_I16I64 (1 << 24)
+#define HWCAP2_SME_F64F64 (1 << 25)
+#define HWCAP2_SME_I8I32 (1 << 26)
+#define HWCAP2_SME_F16F32 (1 << 27)
+#define HWCAP2_SME_B16F32 (1 << 28)
+#define HWCAP2_SME_F32F32 (1 << 29)
+#define HWCAP2_SME_FA64 (1 << 30)
+#define HWCAP2_WFXT (1UL << 31)
+#define HWCAP2_EBF16 (1UL << 32)
+#define HWCAP2_SVE_EBF16 (1UL << 33)
+#define HWCAP2_CSSC (1UL << 34)
+#define HWCAP2_RPRFM (1UL << 35)
+#define HWCAP2_SVE2P1 (1UL << 36)
+#define HWCAP2_SME2 (1UL << 37)
+#define HWCAP2_SME2P1 (1UL << 38)
+#define HWCAP2_SME_I16I32 (1UL << 39)
+#define HWCAP2_SME_BI32I32 (1UL << 40)
+#define HWCAP2_SME_B16B16 (1UL << 41)
+#define HWCAP2_SME_F16F16 (1UL << 42)
+#define HWCAP2_MOPS (1UL << 43)
+#define HWCAP2_HBC (1UL << 44)
+#define HWCAP2_SVE_B16B16 (1UL << 45)
+#define HWCAP2_LRCPC3 (1UL << 46)
+#define HWCAP2_LSE128 (1UL << 47)
+#define HWCAP2_FPMR (1UL << 48)
+#define HWCAP2_LUT (1UL << 49)
+#define HWCAP2_FAMINMAX (1UL << 50)
+#define HWCAP2_F8CVT (1UL << 51)
+#define HWCAP2_F8FMA (1UL << 52)
+#define HWCAP2_F8DP4 (1UL << 53)
+#define HWCAP2_F8DP2 (1UL << 54)
+#define HWCAP2_F8E4M3 (1UL << 55)
+#define HWCAP2_F8E5M2 (1UL << 56)
+#define HWCAP2_SME_LUTV2 (1UL << 57)
+#define HWCAP2_SME_F8F16 (1UL << 58)
+#define HWCAP2_SME_F8F32 (1UL << 59)
+#define HWCAP2_SME_SF8FMA (1UL << 60)
+#define HWCAP2_SME_SF8DP4 (1UL << 61)
+#define HWCAP2_SME_SF8DP2 (1UL << 62)
 #endif

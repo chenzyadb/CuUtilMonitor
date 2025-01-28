@@ -29,11 +29,11 @@
 #if defined(__BIONIC_FORTIFY)
 
 __BIONIC_FORTIFY_INLINE
-void __bionic_bcopy(const void *src, void* const dst __pass_object_size0, size_t len)
+void __bionic_bcopy(const void * _Nonnull src, void* _Nonnull const dst __pass_object_size0, size_t len)
         __overloadable
         __clang_error_if(__bos_unevaluated_lt(__bos0(dst), len),
                          "'bcopy' called with size bigger than buffer") {
-#if __ANDROID_API__ >= 17 && __BIONIC_FORTIFY_RUNTIME_CHECKS_ENABLED
+#if __BIONIC_FORTIFY_RUNTIME_CHECKS_ENABLED
     size_t bos = __bos0(dst);
     if (!__bos_trivially_ge(bos, len)) {
         __builtin___memmove_chk(dst, src, len, bos);
@@ -44,11 +44,11 @@ void __bionic_bcopy(const void *src, void* const dst __pass_object_size0, size_t
 }
 
 __BIONIC_FORTIFY_INLINE
-void __bionic_bzero(void* const b __pass_object_size0, size_t len)
+void __bionic_bzero(void* _Nonnull const b __pass_object_size0, size_t len)
         __overloadable
         __clang_error_if(__bos_unevaluated_lt(__bos0(b), len),
                          "'bzero' called with size bigger than buffer") {
-#if __ANDROID_API__ >= 17 && __BIONIC_FORTIFY_RUNTIME_CHECKS_ENABLED
+#if __BIONIC_FORTIFY_RUNTIME_CHECKS_ENABLED
     size_t bos = __bos0(b);
     if (!__bos_trivially_ge(bos, len)) {
         __builtin___memset_chk(b, 0, len, bos);

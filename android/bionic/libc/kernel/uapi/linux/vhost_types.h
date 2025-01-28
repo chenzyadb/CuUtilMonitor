@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _LINUX_VHOST_TYPES_H
 #define _LINUX_VHOST_TYPES_H
 #include <linux/types.h>
@@ -38,6 +26,13 @@ struct vhost_vring_addr {
   __u64 used_user_addr;
   __u64 avail_user_addr;
   __u64 log_guest_addr;
+};
+struct vhost_worker_state {
+  unsigned int worker_id;
+};
+struct vhost_vring_worker {
+  unsigned int index;
+  unsigned int worker_id;
 };
 struct vhost_iotlb_msg {
   __u64 iova;
@@ -66,7 +61,7 @@ struct vhost_msg {
 };
 struct vhost_msg_v2 {
   __u32 type;
-  __u32 reserved;
+  __u32 asid;
   union {
     struct vhost_iotlb_msg iotlb;
     __u8 padding[64];
@@ -82,7 +77,7 @@ struct vhost_memory_region {
 struct vhost_memory {
   __u32 nregions;
   __u32 padding;
-  struct vhost_memory_region regions[0];
+  struct vhost_memory_region regions[];
 };
 #define VHOST_SCSI_ABI_VERSION 1
 struct vhost_scsi_target {
@@ -94,7 +89,7 @@ struct vhost_scsi_target {
 struct vhost_vdpa_config {
   __u32 off;
   __u32 len;
-  __u8 buf[0];
+  __u8 buf[];
 };
 struct vhost_vdpa_iova_range {
   __u64 first;
@@ -102,4 +97,12 @@ struct vhost_vdpa_iova_range {
 };
 #define VHOST_F_LOG_ALL 26
 #define VHOST_NET_F_VIRTIO_NET_HDR 27
+#define VHOST_BACKEND_F_IOTLB_MSG_V2 0x1
+#define VHOST_BACKEND_F_IOTLB_BATCH 0x2
+#define VHOST_BACKEND_F_IOTLB_ASID 0x3
+#define VHOST_BACKEND_F_SUSPEND 0x4
+#define VHOST_BACKEND_F_RESUME 0x5
+#define VHOST_BACKEND_F_ENABLE_AFTER_DRIVER_OK 0x6
+#define VHOST_BACKEND_F_DESC_ASID 0x7
+#define VHOST_BACKEND_F_IOTLB_PERSIST 0x8
 #endif

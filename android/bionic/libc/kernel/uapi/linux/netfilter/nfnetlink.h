@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_NFNETLINK_H
 #define _UAPI_NFNETLINK_H
 #include <linux/types.h>
@@ -64,7 +52,8 @@ struct nfgenmsg {
 #define NFNL_SUBSYS_CTHELPER 9
 #define NFNL_SUBSYS_NFTABLES 10
 #define NFNL_SUBSYS_NFT_COMPAT 11
-#define NFNL_SUBSYS_COUNT 12
+#define NFNL_SUBSYS_HOOK 12
+#define NFNL_SUBSYS_COUNT 13
 #define NFNL_MSG_BATCH_BEGIN NLMSG_MIN_TYPE
 #define NFNL_MSG_BATCH_END NLMSG_MIN_TYPE + 1
 enum nfnl_batch_attributes {

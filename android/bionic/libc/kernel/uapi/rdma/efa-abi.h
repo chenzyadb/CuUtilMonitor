@@ -1,24 +1,13 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef EFA_ABI_USER_H
 #define EFA_ABI_USER_H
 #include <linux/types.h>
+#include <rdma/ib_user_ioctl_cmds.h>
 #define EFA_UVERBS_ABI_VERSION 1
 enum {
   EFA_ALLOC_UCONTEXT_CMD_COMP_TX_BATCH = 1 << 0,
@@ -47,11 +36,19 @@ struct efa_ibv_alloc_pd_resp {
   __u16 pdn;
   __u8 reserved_30[2];
 };
+enum {
+  EFA_CREATE_CQ_WITH_COMPLETION_CHANNEL = 1 << 0,
+  EFA_CREATE_CQ_WITH_SGID = 1 << 1,
+};
 struct efa_ibv_create_cq {
   __u32 comp_mask;
   __u32 cq_entry_size;
   __u16 num_sub_cqs;
-  __u8 reserved_50[6];
+  __u8 flags;
+  __u8 reserved_58[5];
+};
+enum {
+  EFA_CREATE_CQ_RESP_DB_OFF = 1 << 0,
 };
 struct efa_ibv_create_cq_resp {
   __u32 comp_mask;
@@ -59,7 +56,9 @@ struct efa_ibv_create_cq_resp {
   __aligned_u64 q_mmap_key;
   __aligned_u64 q_mmap_size;
   __u16 cq_idx;
-  __u8 reserved_d0[6];
+  __u8 reserved_d0[2];
+  __u32 db_off;
+  __aligned_u64 db_mmap_key;
 };
 enum {
   EFA_QP_DRIVER_TYPE_SRD = 0,
@@ -92,6 +91,10 @@ struct efa_ibv_create_ah_resp {
 enum {
   EFA_QUERY_DEVICE_CAPS_RDMA_READ = 1 << 0,
   EFA_QUERY_DEVICE_CAPS_RNR_RETRY = 1 << 1,
+  EFA_QUERY_DEVICE_CAPS_CQ_NOTIFICATIONS = 1 << 2,
+  EFA_QUERY_DEVICE_CAPS_CQ_WITH_SGID = 1 << 3,
+  EFA_QUERY_DEVICE_CAPS_DATA_POLLING_128 = 1 << 4,
+  EFA_QUERY_DEVICE_CAPS_RDMA_WRITE = 1 << 5,
 };
 struct efa_ibv_ex_query_device_resp {
   __u32 comp_mask;
@@ -101,5 +104,20 @@ struct efa_ibv_ex_query_device_resp {
   __u16 max_rq_sge;
   __u32 max_rdma_size;
   __u32 device_caps;
+};
+enum {
+  EFA_QUERY_MR_VALIDITY_RECV_IC_ID = 1 << 0,
+  EFA_QUERY_MR_VALIDITY_RDMA_READ_IC_ID = 1 << 1,
+  EFA_QUERY_MR_VALIDITY_RDMA_RECV_IC_ID = 1 << 2,
+};
+enum efa_query_mr_attrs {
+  EFA_IB_ATTR_QUERY_MR_HANDLE = (1U << UVERBS_ID_NS_SHIFT),
+  EFA_IB_ATTR_QUERY_MR_RESP_IC_ID_VALIDITY,
+  EFA_IB_ATTR_QUERY_MR_RESP_RECV_IC_ID,
+  EFA_IB_ATTR_QUERY_MR_RESP_RDMA_READ_IC_ID,
+  EFA_IB_ATTR_QUERY_MR_RESP_RDMA_RECV_IC_ID,
+};
+enum efa_mr_methods {
+  EFA_IB_METHOD_MR_QUERY = (1U << UVERBS_ID_NS_SHIFT),
 };
 #endif

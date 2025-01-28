@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __ASM_GENERIC_MMAN_COMMON_H
 #define __ASM_GENERIC_MMAN_COMMON_H
 #define PROT_READ 0x1
@@ -60,6 +48,10 @@
 #define MADV_KEEPONFORK 19
 #define MADV_COLD 20
 #define MADV_PAGEOUT 21
+#define MADV_POPULATE_READ 22
+#define MADV_POPULATE_WRITE 23
+#define MADV_DONTNEED_LOCKED 24
+#define MADV_COLLAPSE 25
 #define MAP_FILE 0
 #define PKEY_DISABLE_ACCESS 0x1
 #define PKEY_DISABLE_WRITE 0x2

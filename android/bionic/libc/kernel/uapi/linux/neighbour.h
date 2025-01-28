@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __LINUX_NEIGHBOUR_H
 #define __LINUX_NEIGHBOUR_H
 #include <linux/types.h>
@@ -45,17 +33,22 @@ enum {
   NDA_PROTOCOL,
   NDA_NH_ID,
   NDA_FDB_EXT_ATTRS,
+  NDA_FLAGS_EXT,
+  NDA_NDM_STATE_MASK,
+  NDA_NDM_FLAGS_MASK,
   __NDA_MAX
 };
 #define NDA_MAX (__NDA_MAX - 1)
-#define NTF_USE 0x01
-#define NTF_SELF 0x02
-#define NTF_MASTER 0x04
-#define NTF_PROXY 0x08
-#define NTF_EXT_LEARNED 0x10
-#define NTF_OFFLOADED 0x20
-#define NTF_STICKY 0x40
-#define NTF_ROUTER 0x80
+#define NTF_USE (1 << 0)
+#define NTF_SELF (1 << 1)
+#define NTF_MASTER (1 << 2)
+#define NTF_PROXY (1 << 3)
+#define NTF_EXT_LEARNED (1 << 4)
+#define NTF_OFFLOADED (1 << 5)
+#define NTF_STICKY (1 << 6)
+#define NTF_ROUTER (1 << 7)
+#define NTF_EXT_MANAGED (1 << 0)
+#define NTF_EXT_LOCKED (1 << 1)
 #define NUD_INCOMPLETE 0x01
 #define NUD_REACHABLE 0x02
 #define NUD_STALE 0x04
@@ -104,6 +97,7 @@ enum {
   NDTPA_QUEUE_LENBYTES,
   NDTPA_MCAST_REPROBES,
   NDTPA_PAD,
+  NDTPA_INTERVAL_PROBE_TIME_MS,
   __NDTPA_MAX
 };
 #define NDTPA_MAX (__NDTPA_MAX - 1)

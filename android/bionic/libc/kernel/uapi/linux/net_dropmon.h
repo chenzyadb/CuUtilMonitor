@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __NET_DROPMON_H
 #define __NET_DROPMON_H
 #include <linux/types.h>
@@ -36,11 +24,11 @@ struct net_dm_config_entry {
 };
 struct net_dm_config_msg {
   __u32 entries;
-  struct net_dm_config_entry options[0];
+  struct net_dm_config_entry options[];
 };
 struct net_dm_alert_msg {
   __u32 entries;
-  struct net_dm_drop_point points[0];
+  struct net_dm_drop_point points[];
 };
 struct net_dm_user_msg {
   union {
@@ -87,6 +75,7 @@ enum net_dm_attr {
   NET_DM_ATTR_SW_DROPS,
   NET_DM_ATTR_HW_DROPS,
   NET_DM_ATTR_FLOW_ACTION_COOKIE,
+  NET_DM_ATTR_REASON,
   __NET_DM_ATTR_MAX,
   NET_DM_ATTR_MAX = __NET_DM_ATTR_MAX - 1
 };

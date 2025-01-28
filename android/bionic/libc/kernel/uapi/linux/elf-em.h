@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _LINUX_ELF_EM_H
 #define _LINUX_ELF_EM_H
 #define EM_NONE 0
@@ -61,6 +49,7 @@
 #define EM_RISCV 243
 #define EM_BPF 247
 #define EM_CSKY 252
+#define EM_LOONGARCH 258
 #define EM_FRV 0x5441
 #define EM_ALPHA 0x9026
 #define EM_CYGNUS_M32R 0x9041

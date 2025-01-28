@@ -36,6 +36,7 @@
 #include <linux/in.h>
 #include <linux/in6.h>
 #include <linux/ipv6.h>
+#include <linux/socket.h>
 
 __BEGIN_DECLS
 
@@ -43,7 +44,7 @@ __BEGIN_DECLS
 
 typedef uint16_t in_port_t;
 
-int bindresvport(int __fd, struct sockaddr_in* __sin);
+int bindresvport(int __fd, struct sockaddr_in* _Nullable __sin);
 
 #if __ANDROID_API__ >= 24
 extern const struct in6_addr in6addr_any __INTRODUCED_IN(24);

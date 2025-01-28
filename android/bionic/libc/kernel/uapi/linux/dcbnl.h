@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __LINUX_DCBNL_H__
 #define __LINUX_DCBNL_H__
 #include <linux/types.h>
@@ -99,11 +87,13 @@ struct cee_pfc {
 #define IEEE_8021QAZ_APP_SEL_DGRAM 3
 #define IEEE_8021QAZ_APP_SEL_ANY 4
 #define IEEE_8021QAZ_APP_SEL_DSCP 5
+#define DCB_APP_SEL_PCP 255
 struct dcb_app {
   __u8 selector;
   __u8 priority;
   __u16 protocol;
 };
+#define IEEE_8021QAZ_APP_SEL_MAX 255
 struct dcb_peer_app_info {
   __u8 willing;
   __u8 error;
@@ -178,12 +168,15 @@ enum ieee_attrs {
   DCB_ATTR_IEEE_QCN,
   DCB_ATTR_IEEE_QCN_STATS,
   DCB_ATTR_DCB_BUFFER,
+  DCB_ATTR_DCB_APP_TRUST_TABLE,
+  DCB_ATTR_DCB_REWR_TABLE,
   __DCB_ATTR_IEEE_MAX
 };
 #define DCB_ATTR_IEEE_MAX (__DCB_ATTR_IEEE_MAX - 1)
 enum ieee_attrs_app {
   DCB_ATTR_IEEE_APP_UNSPEC,
   DCB_ATTR_IEEE_APP,
+  DCB_ATTR_DCB_APP,
   __DCB_ATTR_IEEE_APP_MAX
 };
 #define DCB_ATTR_IEEE_APP_MAX (__DCB_ATTR_IEEE_APP_MAX - 1)

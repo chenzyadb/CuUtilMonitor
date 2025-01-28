@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _LINUX_NF_TABLES_H
 #define _LINUX_NF_TABLES_H
 #define NFT_NAME_MAXLEN 256
@@ -86,6 +74,15 @@ enum nf_tables_msg_types {
   NFT_MSG_NEWFLOWTABLE,
   NFT_MSG_GETFLOWTABLE,
   NFT_MSG_DELFLOWTABLE,
+  NFT_MSG_GETRULE_RESET,
+  NFT_MSG_DESTROYTABLE,
+  NFT_MSG_DESTROYCHAIN,
+  NFT_MSG_DESTROYRULE,
+  NFT_MSG_DESTROYSET,
+  NFT_MSG_DESTROYSETELEM,
+  NFT_MSG_DESTROYOBJ,
+  NFT_MSG_DESTROYFLOWTABLE,
+  NFT_MSG_GETSETELEM_RESET,
   NFT_MSG_MAX,
 };
 enum nft_list_attributes {
@@ -106,8 +103,9 @@ enum nft_hook_attributes {
 enum nft_table_flags {
   NFT_TABLE_F_DORMANT = 0x1,
   NFT_TABLE_F_OWNER = 0x2,
+  NFT_TABLE_F_PERSIST = 0x4,
 };
-#define NFT_TABLE_F_MASK (NFT_TABLE_F_DORMANT | NFT_TABLE_F_OWNER)
+#define NFT_TABLE_F_MASK (NFT_TABLE_F_DORMANT | NFT_TABLE_F_OWNER | NFT_TABLE_F_PERSIST)
 enum nft_table_attributes {
   NFTA_TABLE_UNSPEC,
   NFTA_TABLE_NAME,
@@ -160,6 +158,7 @@ enum nft_rule_attributes {
 };
 #define NFTA_RULE_MAX (__NFTA_RULE_MAX - 1)
 enum nft_rule_compat_flags {
+  NFT_RULE_COMPAT_F_UNUSED = (1 << 0),
   NFT_RULE_COMPAT_F_INV = (1 << 1),
   NFT_RULE_COMPAT_F_MASK = NFT_RULE_COMPAT_F_INV,
 };
@@ -223,6 +222,7 @@ enum nft_set_attributes {
 #define NFTA_SET_MAX (__NFTA_SET_MAX - 1)
 enum nft_set_elem_flags {
   NFT_SET_ELEM_INTERVAL_END = 0x1,
+  NFT_SET_ELEM_CATCHALL = 0x2,
 };
 enum nft_set_elem_attributes {
   NFTA_SET_ELEM_UNSPEC,
@@ -385,6 +385,8 @@ enum nft_payload_bases {
   NFT_PAYLOAD_LL_HEADER,
   NFT_PAYLOAD_NETWORK_HEADER,
   NFT_PAYLOAD_TRANSPORT_HEADER,
+  NFT_PAYLOAD_INNER_HEADER,
+  NFT_PAYLOAD_TUN_HEADER,
 };
 enum nft_payload_csum_types {
   NFT_PAYLOAD_CSUM_NONE,
@@ -394,6 +396,28 @@ enum nft_payload_csum_types {
 enum nft_payload_csum_flags {
   NFT_PAYLOAD_L4CSUM_PSEUDOHDR = (1 << 0),
 };
+enum nft_inner_type {
+  NFT_INNER_UNSPEC = 0,
+  NFT_INNER_VXLAN,
+  NFT_INNER_GENEVE,
+};
+enum nft_inner_flags {
+  NFT_INNER_HDRSIZE = (1 << 0),
+  NFT_INNER_LL = (1 << 1),
+  NFT_INNER_NH = (1 << 2),
+  NFT_INNER_TH = (1 << 3),
+};
+#define NFT_INNER_MASK (NFT_INNER_HDRSIZE | NFT_INNER_LL | NFT_INNER_NH | NFT_INNER_TH)
+enum nft_inner_attributes {
+  NFTA_INNER_UNSPEC,
+  NFTA_INNER_NUM,
+  NFTA_INNER_TYPE,
+  NFTA_INNER_FLAGS,
+  NFTA_INNER_HDRSIZE,
+  NFTA_INNER_EXPR,
+  __NFTA_INNER_MAX
+};
+#define NFTA_INNER_MAX (__NFTA_INNER_MAX - 1)
 enum nft_payload_attributes {
   NFTA_PAYLOAD_UNSPEC,
   NFTA_PAYLOAD_DREG,
@@ -414,6 +438,8 @@ enum nft_exthdr_op {
   NFT_EXTHDR_OP_IPV6,
   NFT_EXTHDR_OP_TCPOPT,
   NFT_EXTHDR_OP_IPV4,
+  NFT_EXTHDR_OP_SCTP,
+  NFT_EXTHDR_OP_DCCP,
   __NFT_EXTHDR_OP_MAX
 };
 #define NFT_EXTHDR_OP_MAX (__NFT_EXTHDR_OP_MAX - 1)
@@ -438,7 +464,8 @@ enum nft_meta_keys {
   NFT_META_OIF,
   NFT_META_IIFNAME,
   NFT_META_OIFNAME,
-  NFT_META_IIFTYPE,
+  NFT_META_IFTYPE,
+#define NFT_META_IIFTYPE NFT_META_IFTYPE
   NFT_META_OIFTYPE,
   NFT_META_SKUID,
   NFT_META_SKGID,
@@ -465,6 +492,8 @@ enum nft_meta_keys {
   NFT_META_TIME_HOUR,
   NFT_META_SDIF,
   NFT_META_SDIFNAME,
+  NFT_META_BRI_BROUTE,
+  __NFT_META_IIFTYPE,
 };
 enum nft_rt_keys {
   NFT_RT_CLASSID,
@@ -512,6 +541,7 @@ enum nft_socket_attributes {
   NFTA_SOCKET_UNSPEC,
   NFTA_SOCKET_KEY,
   NFTA_SOCKET_DREG,
+  NFTA_SOCKET_LEVEL,
   __NFTA_SOCKET_MAX
 };
 #define NFTA_SOCKET_MAX (__NFTA_SOCKET_MAX - 1)
@@ -519,6 +549,7 @@ enum nft_socket_keys {
   NFT_SOCKET_TRANSPARENT,
   NFT_SOCKET_MARK,
   NFT_SOCKET_WILDCARD,
+  NFT_SOCKET_CGROUPV2,
   __NFT_SOCKET_MAX
 };
 #define NFT_SOCKET_MAX (__NFT_SOCKET_MAX - 1)
@@ -601,6 +632,14 @@ enum nft_counter_attributes {
   __NFTA_COUNTER_MAX
 };
 #define NFTA_COUNTER_MAX (__NFTA_COUNTER_MAX - 1)
+enum nft_last_attributes {
+  NFTA_LAST_UNSPEC,
+  NFTA_LAST_SET,
+  NFTA_LAST_MSECS,
+  NFTA_LAST_PAD,
+  __NFTA_LAST_MAX
+};
+#define NFTA_LAST_MAX (__NFTA_LAST_MAX - 1)
 enum nft_log_attributes {
   NFTA_LOG_UNSPEC,
   NFTA_LOG_GROUP,

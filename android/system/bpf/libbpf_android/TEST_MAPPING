@@ -1,7 +1,0 @@
-{
-  "presubmit": [
-    {
-      "name": "libbpf_android_test"
-    }
-  ]
-}

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __LINUX_IF_ADDR_H
 #define __LINUX_IF_ADDR_H
 #include <linux/types.h>
@@ -39,6 +27,7 @@ enum {
   IFA_FLAGS,
   IFA_RT_PRIORITY,
   IFA_TARGET_NETNSID,
+  IFA_PROTO,
   __IFA_MAX,
 };
 #define IFA_MAX (__IFA_MAX - 1)
@@ -63,4 +52,8 @@ struct ifa_cacheinfo {
 };
 #define IFA_RTA(r) ((struct rtattr *) (((char *) (r)) + NLMSG_ALIGN(sizeof(struct ifaddrmsg))))
 #define IFA_PAYLOAD(n) NLMSG_PAYLOAD(n, sizeof(struct ifaddrmsg))
+#define IFAPROT_UNSPEC 0
+#define IFAPROT_KERNEL_LO 1
+#define IFAPROT_KERNEL_RA 2
+#define IFAPROT_KERNEL_LL 3
 #endif

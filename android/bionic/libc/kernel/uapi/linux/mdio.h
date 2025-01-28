@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__LINUX_MDIO_H__
 #define _UAPI__LINUX_MDIO_H__
 #include <linux/types.h>
@@ -55,15 +43,34 @@
 #define MDIO_AN_EEE_LPABLE 61
 #define MDIO_AN_EEE_ADV2 62
 #define MDIO_AN_EEE_LPABLE2 63
+#define MDIO_AN_CTRL2 64
 #define MDIO_PMA_10GBT_SWAPPOL 130
 #define MDIO_PMA_10GBT_TXPWR 131
 #define MDIO_PMA_10GBT_SNR 133
+#define MDIO_PMA_10GBR_FSRT_CSR 147
 #define MDIO_PMA_10GBR_FECABLE 170
 #define MDIO_PCS_10GBX_STAT1 24
 #define MDIO_PCS_10GBRT_STAT1 32
 #define MDIO_PCS_10GBRT_STAT2 33
 #define MDIO_AN_10GBT_CTRL 32
 #define MDIO_AN_10GBT_STAT 33
+#define MDIO_B10L_PMA_CTRL 2294
+#define MDIO_PMA_10T1L_STAT 2295
+#define MDIO_PCS_10T1L_CTRL 2278
+#define MDIO_PMA_PMD_BT1 18
+#define MDIO_AN_T1_CTRL 512
+#define MDIO_AN_T1_STAT 513
+#define MDIO_AN_T1_ADV_L 514
+#define MDIO_AN_T1_ADV_M 515
+#define MDIO_AN_T1_ADV_H 516
+#define MDIO_AN_T1_LP_L 517
+#define MDIO_AN_T1_LP_M 518
+#define MDIO_AN_T1_LP_H 519
+#define MDIO_AN_10BT1_AN_CTRL 526
+#define MDIO_AN_10BT1_AN_STAT 527
+#define MDIO_PMA_PMD_BT1_CTRL 2100
+#define MDIO_PCS_1000BT1_CTRL 2304
+#define MDIO_PCS_1000BT1_STAT 2305
 #define MDIO_PMA_LASI_RXCTRL 0x9000
 #define MDIO_PMA_LASI_TXCTRL 0x9001
 #define MDIO_PMA_LASI_CTRL 0x9002
@@ -103,7 +110,11 @@
 #define MDIO_PMA_SPEED_1000 0x0010
 #define MDIO_PMA_SPEED_100 0x0020
 #define MDIO_PMA_SPEED_10 0x0040
+#define MDIO_PMA_SPEED_2_5G 0x2000
+#define MDIO_PMA_SPEED_5G 0x4000
 #define MDIO_PCS_SPEED_10P2B 0x0002
+#define MDIO_PCS_SPEED_2_5G 0x0040
+#define MDIO_PCS_SPEED_5G 0x0080
 #define MDIO_DEVS_PRESENT(devad) (1 << (devad))
 #define MDIO_DEVS_C22PRESENT MDIO_DEVS_PRESENT(0)
 #define MDIO_DEVS_PMAPMD MDIO_DEVS_PRESENT(MDIO_MMD_PMAPMD)
@@ -135,6 +146,7 @@
 #define MDIO_PMA_CTRL2_10BT 0x000f
 #define MDIO_PMA_CTRL2_2_5GBT 0x0030
 #define MDIO_PMA_CTRL2_5GBT 0x0031
+#define MDIO_PMA_CTRL2_BASET1 0x003D
 #define MDIO_PCS_CTRL2_TYPE 0x0003
 #define MDIO_PCS_CTRL2_10GBR 0x0000
 #define MDIO_PCS_CTRL2_10GBX 0x0001
@@ -180,7 +192,30 @@
 #define MDIO_PMA_EXTABLE_1000BKX 0x0040
 #define MDIO_PMA_EXTABLE_100BTX 0x0080
 #define MDIO_PMA_EXTABLE_10BT 0x0100
+#define MDIO_PMA_EXTABLE_BT1 0x0800
 #define MDIO_PMA_EXTABLE_NBT 0x4000
+#define MDIO_AN_C73_0_S_MASK GENMASK(4, 0)
+#define MDIO_AN_C73_0_E_MASK GENMASK(9, 5)
+#define MDIO_AN_C73_0_PAUSE BIT(10)
+#define MDIO_AN_C73_0_ASM_DIR BIT(11)
+#define MDIO_AN_C73_0_C2 BIT(12)
+#define MDIO_AN_C73_0_RF BIT(13)
+#define MDIO_AN_C73_0_ACK BIT(14)
+#define MDIO_AN_C73_0_NP BIT(15)
+#define MDIO_AN_C73_1_T_MASK GENMASK(4, 0)
+#define MDIO_AN_C73_1_1000BASE_KX BIT(5)
+#define MDIO_AN_C73_1_10GBASE_KX4 BIT(6)
+#define MDIO_AN_C73_1_10GBASE_KR BIT(7)
+#define MDIO_AN_C73_1_40GBASE_KR4 BIT(8)
+#define MDIO_AN_C73_1_40GBASE_CR4 BIT(9)
+#define MDIO_AN_C73_1_100GBASE_CR10 BIT(10)
+#define MDIO_AN_C73_1_100GBASE_KP4 BIT(11)
+#define MDIO_AN_C73_1_100GBASE_KR4 BIT(12)
+#define MDIO_AN_C73_1_100GBASE_CR4 BIT(13)
+#define MDIO_AN_C73_1_25GBASE_R_S BIT(14)
+#define MDIO_AN_C73_1_25GBASE_R BIT(15)
+#define MDIO_AN_C73_2_2500BASE_KX BIT(0)
+#define MDIO_AN_C73_2_5GBASE_KR BIT(1)
 #define MDIO_PHYXS_LNSTAT_SYNC0 0x0001
 #define MDIO_PHYXS_LNSTAT_SYNC1 0x0002
 #define MDIO_PHYXS_LNSTAT_SYNC2 0x0004
@@ -197,9 +232,11 @@
 #define MDIO_PMA_10GBT_SNR_MAX 127
 #define MDIO_PMA_10GBR_FECABLE_ABLE 0x0001
 #define MDIO_PMA_10GBR_FECABLE_ERRABLE 0x0002
+#define MDIO_PMA_10GBR_FSRT_ENABLE 0x0001
 #define MDIO_PCS_10GBRT_STAT1_BLKLK 0x0001
 #define MDIO_PCS_10GBRT_STAT2_ERR 0x00ff
 #define MDIO_PCS_10GBRT_STAT2_BER 0x3f00
+#define MDIO_AN_10GBT_CTRL_ADVFSRT2_5G 0x0020
 #define MDIO_AN_10GBT_CTRL_ADV2_5G 0x0080
 #define MDIO_AN_10GBT_CTRL_ADV5G 0x0100
 #define MDIO_AN_10GBT_CTRL_ADV10G 0x1000
@@ -212,6 +249,57 @@
 #define MDIO_AN_10GBT_STAT_LOCOK 0x2000
 #define MDIO_AN_10GBT_STAT_MS 0x4000
 #define MDIO_AN_10GBT_STAT_MSFLT 0x8000
+#define MDIO_PMA_10T1L_CTRL_LB_EN 0x0001
+#define MDIO_PMA_10T1L_CTRL_EEE_EN 0x0400
+#define MDIO_PMA_10T1L_CTRL_LOW_POWER 0x0800
+#define MDIO_PMA_10T1L_CTRL_2V4_EN 0x1000
+#define MDIO_PMA_10T1L_CTRL_TX_DIS 0x4000
+#define MDIO_PMA_10T1L_CTRL_PMA_RST 0x8000
+#define MDIO_PMA_10T1L_STAT_LINK 0x0001
+#define MDIO_PMA_10T1L_STAT_FAULT 0x0002
+#define MDIO_PMA_10T1L_STAT_POLARITY 0x0004
+#define MDIO_PMA_10T1L_STAT_RECV_FAULT 0x0200
+#define MDIO_PMA_10T1L_STAT_EEE 0x0400
+#define MDIO_PMA_10T1L_STAT_LOW_POWER 0x0800
+#define MDIO_PMA_10T1L_STAT_2V4_ABLE 0x1000
+#define MDIO_PMA_10T1L_STAT_LB_ABLE 0x2000
+#define MDIO_PCS_10T1L_CTRL_LB 0x4000
+#define MDIO_PCS_10T1L_CTRL_RESET 0x8000
+#define MDIO_PMA_PMD_BT1_B100_ABLE 0x0001
+#define MDIO_PMA_PMD_BT1_B1000_ABLE 0x0002
+#define MDIO_PMA_PMD_BT1_B10L_ABLE 0x0004
+#define MDIO_AN_T1_ADV_L_PAUSE_CAP ADVERTISE_PAUSE_CAP
+#define MDIO_AN_T1_ADV_L_PAUSE_ASYM ADVERTISE_PAUSE_ASYM
+#define MDIO_AN_T1_ADV_L_FORCE_MS 0x1000
+#define MDIO_AN_T1_ADV_L_REMOTE_FAULT ADVERTISE_RFAULT
+#define MDIO_AN_T1_ADV_L_ACK ADVERTISE_LPACK
+#define MDIO_AN_T1_ADV_L_NEXT_PAGE_REQ ADVERTISE_NPAGE
+#define MDIO_AN_T1_ADV_M_B10L 0x4000
+#define MDIO_AN_T1_ADV_M_1000BT1 0x0080
+#define MDIO_AN_T1_ADV_M_100BT1 0x0020
+#define MDIO_AN_T1_ADV_M_MST 0x0010
+#define MDIO_AN_T1_ADV_H_10L_TX_HI_REQ 0x1000
+#define MDIO_AN_T1_ADV_H_10L_TX_HI 0x2000
+#define MDIO_AN_T1_LP_L_PAUSE_CAP LPA_PAUSE_CAP
+#define MDIO_AN_T1_LP_L_PAUSE_ASYM LPA_PAUSE_ASYM
+#define MDIO_AN_T1_LP_L_FORCE_MS 0x1000
+#define MDIO_AN_T1_LP_L_REMOTE_FAULT LPA_RFAULT
+#define MDIO_AN_T1_LP_L_ACK LPA_LPACK
+#define MDIO_AN_T1_LP_L_NEXT_PAGE_REQ LPA_NPAGE
+#define MDIO_AN_T1_LP_M_MST 0x0010
+#define MDIO_AN_T1_LP_M_B10L 0x4000
+#define MDIO_AN_T1_LP_H_10L_TX_HI_REQ 0x1000
+#define MDIO_AN_T1_LP_H_10L_TX_HI 0x2000
+#define MDIO_AN_10BT1_AN_CTRL_ADV_EEE_T1L 0x4000
+#define MDIO_AN_10BT1_AN_STAT_LPA_EEE_T1L 0x4000
+#define MDIO_PMA_PMD_BT1_CTRL_STRAP 0x000F
+#define MDIO_PMA_PMD_BT1_CTRL_STRAP_B1000 0x0001
+#define MDIO_PMA_PMD_BT1_CTRL_CFG_MST 0x4000
+#define MDIO_PCS_1000BT1_CTRL_LOW_POWER 0x0800
+#define MDIO_PCS_1000BT1_CTRL_DISABLE_TX 0x4000
+#define MDIO_PCS_1000BT1_CTRL_RESET 0x8000
+#define MDIO_PCS_1000BT1_STAT_LINK 0x0004
+#define MDIO_PCS_1000BT1_STAT_FAULT 0x0080
 #define MDIO_AN_EEE_ADV_100TX 0x0002
 #define MDIO_AN_EEE_ADV_1000T 0x0004
 #define MDIO_EEE_100TX MDIO_AN_EEE_ADV_100TX
@@ -226,6 +314,7 @@
 #define MDIO_EEE_100GR_DS 0x2000
 #define MDIO_EEE_2_5GT 0x0001
 #define MDIO_EEE_5GT 0x0002
+#define MDIO_AN_THP_BP2_5GT 0x0008
 #define MDIO_PMA_NG_EXTABLE_2_5GBT 0x0001
 #define MDIO_PMA_NG_EXTABLE_5GBT 0x0002
 #define MDIO_PMA_LASI_RX_PHYXSLFLT 0x0001

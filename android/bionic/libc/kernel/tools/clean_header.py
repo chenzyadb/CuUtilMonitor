@@ -69,7 +69,7 @@
 #   Is prepended to each generated header.
 #------------------------------------------------------------------------------
 
-import sys, cpp, kernel, glob, os, re, getopt
+import sys, cpp, kernel, glob, os, re, getopt, textwrap
 from defaults import *
 from utils import *
 
@@ -109,9 +109,6 @@ def cleanupFile(dst_file, src_file, rel_path, no_update = True):
     if arch and arch in kernel_default_arch_macros:
         macros.update(kernel_default_arch_macros[arch])
 
-    if arch and arch in kernel_arch_token_replacements:
-        blocks.replaceTokens(kernel_arch_token_replacements[arch])
-
     blocks.removeStructs(kernel_structs_to_remove)
     blocks.optimizeMacros(macros)
     blocks.optimizeIf01()
@@ -119,7 +116,14 @@ def cleanupFile(dst_file, src_file, rel_path, no_update = True):
     blocks.replaceTokens(kernel_token_replacements)
 
     out = StringOutput()
-    out.write(kernel_disclaimer)
+    out.write(textwrap.dedent("""\
+        /*
+         * This file is auto-generated. Modifications will be lost.
+         *
+         * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+         * for more information.
+         */
+        """))
     blocks.write(out)
     return out.get()
 

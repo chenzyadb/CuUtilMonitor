@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_INPUT_EVENT_CODES_H
 #define _UAPI_INPUT_EVENT_CODES_H
 #define INPUT_PROP_POINTER 0x00
@@ -248,7 +236,8 @@
 #define KEY_PAUSECD 201
 #define KEY_PROG3 202
 #define KEY_PROG4 203
-#define KEY_DASHBOARD 204
+#define KEY_ALL_APPLICATIONS 204
+#define KEY_DASHBOARD KEY_ALL_APPLICATIONS
 #define KEY_SUSPEND 205
 #define KEY_CLOSE 206
 #define KEY_PLAY 207
@@ -539,6 +528,7 @@
 #define BTN_DPAD_RIGHT 0x223
 #define KEY_ALS_TOGGLE 0x230
 #define KEY_ROTATE_LOCK_TOGGLE 0x231
+#define KEY_REFRESH_RATE_TOGGLE 0x232
 #define KEY_BUTTONCONFIG 0x240
 #define KEY_TASKMANAGER 0x241
 #define KEY_JOURNAL 0x242
@@ -548,6 +538,11 @@
 #define KEY_VOICECOMMAND 0x246
 #define KEY_ASSISTANT 0x247
 #define KEY_KBD_LAYOUT_NEXT 0x248
+#define KEY_EMOJI_PICKER 0x249
+#define KEY_DICTATE 0x24a
+#define KEY_CAMERA_ACCESS_ENABLE 0x24b
+#define KEY_CAMERA_ACCESS_DISABLE 0x24c
+#define KEY_CAMERA_ACCESS_TOGGLE 0x24d
 #define KEY_BRIGHTNESS_MIN 0x250
 #define KEY_BRIGHTNESS_MAX 0x251
 #define KEY_KBDINPUTASSIST_PREV 0x260
@@ -577,6 +572,21 @@
 #define KEY_ONSCREEN_KEYBOARD 0x278
 #define KEY_PRIVACY_SCREEN_TOGGLE 0x279
 #define KEY_SELECTIVE_SCREENSHOT 0x27a
+#define KEY_NEXT_ELEMENT 0x27b
+#define KEY_PREVIOUS_ELEMENT 0x27c
+#define KEY_AUTOPILOT_ENGAGE_TOGGLE 0x27d
+#define KEY_MARK_WAYPOINT 0x27e
+#define KEY_SOS 0x27f
+#define KEY_NAV_CHART 0x280
+#define KEY_FISHING_CHART 0x281
+#define KEY_SINGLE_RANGE_RADAR 0x282
+#define KEY_DUAL_RANGE_RADAR 0x283
+#define KEY_RADAR_OVERLAY 0x284
+#define KEY_TRADITIONAL_SONAR 0x285
+#define KEY_CLEARVU_SONAR 0x286
+#define KEY_SIDEVU_SONAR 0x287
+#define KEY_NAV_INFO 0x288
+#define KEY_BRIGHTNESS_MENU 0x289
 #define KEY_MACRO1 0x290
 #define KEY_MACRO2 0x291
 #define KEY_MACRO3 0x292
@@ -702,6 +712,7 @@
 #define ABS_TILT_Y 0x1b
 #define ABS_TOOL_WIDTH 0x1c
 #define ABS_VOLUME 0x20
+#define ABS_PROFILE 0x21
 #define ABS_MISC 0x28
 #define ABS_RESERVED 0x2e
 #define ABS_MT_SLOT 0x2f

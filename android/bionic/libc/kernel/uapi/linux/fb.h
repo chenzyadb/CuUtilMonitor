@@ -1,25 +1,14 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_FB_H
 #define _UAPI_LINUX_FB_H
 #include <linux/types.h>
 #include <linux/i2c.h>
+#include <linux/vesa.h>
 #define FB_MAX 32
 #define FBIOGET_VSCREENINFO 0x4600
 #define FBIOPUT_VSCREENINFO 0x4601
@@ -247,10 +236,6 @@ struct fb_con2fbmap {
   __u32 console;
   __u32 framebuffer;
 };
-#define VESA_NO_BLANKING 0
-#define VESA_VSYNC_SUSPEND 1
-#define VESA_HSYNC_SUSPEND 2
-#define VESA_POWERDOWN 3
 enum {
   FB_BLANK_UNBLANK = VESA_NO_BLANKING,
   FB_BLANK_NORMAL = VESA_NO_BLANKING + 1,

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__IF_TUN_H
 #define _UAPI__IF_TUN_H
 #include <linux/types.h>
@@ -57,6 +45,7 @@
 #define IFF_TAP 0x0002
 #define IFF_NAPI 0x0010
 #define IFF_NAPI_FRAGS 0x0020
+#define IFF_NO_CARRIER 0x0040
 #define IFF_NO_PI 0x1000
 #define IFF_ONE_QUEUE 0x2000
 #define IFF_VNET_HDR 0x4000
@@ -72,6 +61,8 @@
 #define TUN_F_TSO6 0x04
 #define TUN_F_TSO_ECN 0x08
 #define TUN_F_UFO 0x10
+#define TUN_F_USO4 0x20
+#define TUN_F_USO6 0x40
 #define TUN_PKT_STRIP 0x0001
 struct tun_pi {
   __u16 flags;
@@ -81,6 +72,6 @@ struct tun_pi {
 struct tun_filter {
   __u16 flags;
   __u16 count;
-  __u8 addr[0][ETH_ALEN];
+  __u8 addr[][ETH_ALEN];
 };
 #endif

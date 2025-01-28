@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_CAN_NETLINK_H
 #define _UAPI_CAN_NETLINK_H
 #include <linux/types.h>
@@ -69,6 +57,8 @@ struct can_ctrlmode {
 #define CAN_CTRLMODE_PRESUME_ACK 0x40
 #define CAN_CTRLMODE_FD_NON_ISO 0x80
 #define CAN_CTRLMODE_CC_LEN8_DLC 0x100
+#define CAN_CTRLMODE_TDC_AUTO 0x200
+#define CAN_CTRLMODE_TDC_MANUAL 0x400
 struct can_device_stats {
   __u32 bus_error;
   __u32 error_warning;
@@ -94,8 +84,30 @@ enum {
   IFLA_CAN_BITRATE_CONST,
   IFLA_CAN_DATA_BITRATE_CONST,
   IFLA_CAN_BITRATE_MAX,
-  __IFLA_CAN_MAX
+  IFLA_CAN_TDC,
+  IFLA_CAN_CTRLMODE_EXT,
+  __IFLA_CAN_MAX,
+  IFLA_CAN_MAX = __IFLA_CAN_MAX - 1
 };
-#define IFLA_CAN_MAX (__IFLA_CAN_MAX - 1)
+enum {
+  IFLA_CAN_TDC_UNSPEC,
+  IFLA_CAN_TDC_TDCV_MIN,
+  IFLA_CAN_TDC_TDCV_MAX,
+  IFLA_CAN_TDC_TDCO_MIN,
+  IFLA_CAN_TDC_TDCO_MAX,
+  IFLA_CAN_TDC_TDCF_MIN,
+  IFLA_CAN_TDC_TDCF_MAX,
+  IFLA_CAN_TDC_TDCV,
+  IFLA_CAN_TDC_TDCO,
+  IFLA_CAN_TDC_TDCF,
+  __IFLA_CAN_TDC,
+  IFLA_CAN_TDC_MAX = __IFLA_CAN_TDC - 1
+};
+enum {
+  IFLA_CAN_CTRLMODE_UNSPEC,
+  IFLA_CAN_CTRLMODE_SUPPORTED,
+  __IFLA_CAN_CTRLMODE,
+  IFLA_CAN_CTRLMODE_MAX = __IFLA_CAN_CTRLMODE - 1
+};
 #define CAN_TERMINATION_DISABLED 0
 #endif

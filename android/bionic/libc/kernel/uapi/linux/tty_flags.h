@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _LINUX_TTY_FLAGS_H
 #define _LINUX_TTY_FLAGS_H
 #define ASYNCB_HUP_NOTIFY 0
@@ -36,7 +24,6 @@
 #define ASYNCB_AUTOPROBE 15
 #define ASYNCB_MAGIC_MULTIPLIER 16
 #define ASYNCB_LAST_USER 16
-#ifndef _KERNEL_
 #define ASYNCB_INITIALIZED 31
 #define ASYNCB_SUSPENDED 30
 #define ASYNCB_NORMAL_ACTIVE 29
@@ -47,7 +34,6 @@
 #define ASYNCB_SHARE_IRQ 24
 #define ASYNCB_CONS_FLOW 23
 #define ASYNCB_FIRST_KERNEL 22
-#endif
 #define ASYNC_HUP_NOTIFY (1U << ASYNCB_HUP_NOTIFY)
 #define ASYNC_SUSPENDED (1U << ASYNCB_SUSPENDED)
 #define ASYNC_FOURPORT (1U << ASYNCB_FOURPORT)
@@ -67,12 +53,11 @@
 #define ASYNC_AUTOPROBE (1U << ASYNCB_AUTOPROBE)
 #define ASYNC_MAGIC_MULTIPLIER (1U << ASYNCB_MAGIC_MULTIPLIER)
 #define ASYNC_FLAGS ((1U << (ASYNCB_LAST_USER + 1)) - 1)
-#define ASYNC_DEPRECATED (ASYNC_SESSION_LOCKOUT | ASYNC_PGRP_LOCKOUT | ASYNC_CALLOUT_NOHUP | ASYNC_AUTOPROBE)
+#define ASYNC_DEPRECATED (ASYNC_SPLIT_TERMIOS | ASYNC_SESSION_LOCKOUT | ASYNC_PGRP_LOCKOUT | ASYNC_CALLOUT_NOHUP | ASYNC_AUTOPROBE)
 #define ASYNC_USR_MASK (ASYNC_SPD_MASK | ASYNC_CALLOUT_NOHUP | ASYNC_LOW_LATENCY)
 #define ASYNC_SPD_CUST (ASYNC_SPD_HI | ASYNC_SPD_VHI)
 #define ASYNC_SPD_WARP (ASYNC_SPD_HI | ASYNC_SPD_SHI)
 #define ASYNC_SPD_MASK (ASYNC_SPD_HI | ASYNC_SPD_VHI | ASYNC_SPD_SHI)
-#ifndef _KERNEL_
 #define ASYNC_INITIALIZED (1U << ASYNCB_INITIALIZED)
 #define ASYNC_NORMAL_ACTIVE (1U << ASYNCB_NORMAL_ACTIVE)
 #define ASYNC_BOOT_AUTOCONF (1U << ASYNCB_BOOT_AUTOCONF)
@@ -82,5 +67,4 @@
 #define ASYNC_SHARE_IRQ (1U << ASYNCB_SHARE_IRQ)
 #define ASYNC_CONS_FLOW (1U << ASYNCB_CONS_FLOW)
 #define ASYNC_INTERNAL_FLAGS (~((1U << ASYNCB_FIRST_KERNEL) - 1))
-#endif
 #endif

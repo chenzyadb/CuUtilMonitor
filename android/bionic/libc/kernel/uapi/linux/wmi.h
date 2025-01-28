@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_WMI_H
 #define _UAPI_LINUX_WMI_H
 #include <linux/ioctl.h>
@@ -30,17 +18,17 @@ struct calling_interface_buffer {
   __u16 cmd_select;
   volatile __u32 input[4];
   volatile __u32 output[4];
-} __packed;
+} __attribute__((__packed__));
 struct dell_wmi_extensions {
   __u32 argattrib;
   __u32 blength;
   __u8 data[];
-} __packed;
+} __attribute__((__packed__));
 struct dell_wmi_smbios_buffer {
   __u64 length;
   struct calling_interface_buffer std;
   struct dell_wmi_extensions ext;
-} __packed;
+} __attribute__((__packed__));
 #define CLASS_TOKEN_READ 0
 #define CLASS_TOKEN_WRITE 1
 #define SELECT_TOKEN_STD 0

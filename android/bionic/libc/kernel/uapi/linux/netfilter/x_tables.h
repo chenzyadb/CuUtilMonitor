@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_X_TABLES_H
 #define _UAPI_X_TABLES_H
 #include <linux/const.h>
@@ -36,7 +24,7 @@ struct xt_entry_match {
     } kernel;
     __u16 match_size;
   } u;
-  unsigned char data[0];
+  unsigned char data[];
 };
 struct xt_entry_target {
   union {
@@ -87,7 +75,7 @@ struct xt_counters {
 struct xt_counters_info {
   char name[XT_TABLE_MAXNAMELEN];
   unsigned int num_counters;
-  struct xt_counters counters[0];
+  struct xt_counters counters[];
 };
 #define XT_INV_PROTO 0x40
 #define XT_MATCH_ITERATE(type,e,fn,args...) \

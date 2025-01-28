@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __ETNAVIV_DRM_H__
 #define __ETNAVIV_DRM_H__
 #include "drm.h"
@@ -53,6 +41,9 @@ struct drm_etnaviv_timespec {
 #define ETNAVIV_PARAM_GPU_NUM_CONSTANTS 0x19
 #define ETNAVIV_PARAM_GPU_NUM_VARYINGS 0x1a
 #define ETNAVIV_PARAM_SOFTPIN_START_ADDR 0x1b
+#define ETNAVIV_PARAM_GPU_PRODUCT_ID 0x1c
+#define ETNAVIV_PARAM_GPU_CUSTOMER_ID 0x1d
+#define ETNAVIV_PARAM_GPU_ECO_ID 0x1e
 #define ETNA_MAX_PIPES 4
 struct drm_etnaviv_param {
   __u32 pipe;

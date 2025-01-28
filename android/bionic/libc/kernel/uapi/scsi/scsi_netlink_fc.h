@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef SCSI_NETLINK_FC_H
 #define SCSI_NETLINK_FC_H
 #include <linux/types.h>
@@ -30,6 +18,9 @@ struct fc_nl_event {
   __u16 event_datalen;
   __u32 event_num;
   __u32 event_code;
-  __u32 event_data;
+  union {
+    __u32 event_data;
+    __DECLARE_FLEX_ARRAY(__u8, event_data_flex);
+  };
 } __attribute__((aligned(sizeof(__u64))));
 #endif

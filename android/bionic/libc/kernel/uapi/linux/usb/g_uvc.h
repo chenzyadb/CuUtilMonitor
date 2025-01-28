@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __LINUX_USB_G_UVC_H
 #define __LINUX_USB_G_UVC_H
 #include <linux/ioctl.h>
@@ -29,6 +17,8 @@
 #define UVC_EVENT_SETUP (V4L2_EVENT_PRIVATE_START + 4)
 #define UVC_EVENT_DATA (V4L2_EVENT_PRIVATE_START + 5)
 #define UVC_EVENT_LAST (V4L2_EVENT_PRIVATE_START + 5)
+#define UVC_STRING_CONTROL_IDX 0
+#define UVC_STRING_STREAMING_IDX 1
 struct uvc_request_data {
   __s32 length;
   __u8 data[60];

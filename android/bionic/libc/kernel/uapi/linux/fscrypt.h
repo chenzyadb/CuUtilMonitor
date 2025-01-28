@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_FSCRYPT_H
 #define _UAPI_LINUX_FSCRYPT_H
 #include <linux/ioctl.h>
@@ -32,7 +20,10 @@
 #define FSCRYPT_MODE_AES_256_CTS 4
 #define FSCRYPT_MODE_AES_128_CBC 5
 #define FSCRYPT_MODE_AES_128_CTS 6
+#define FSCRYPT_MODE_SM4_XTS 7
+#define FSCRYPT_MODE_SM4_CTS 8
 #define FSCRYPT_MODE_ADIANTUM 9
+#define FSCRYPT_MODE_AES_256_HCTR2 10
 #define FSCRYPT_POLICY_V1 0
 #define FSCRYPT_KEY_DESCRIPTOR_SIZE 8
 struct fscrypt_policy_v1 {
@@ -57,7 +48,8 @@ struct fscrypt_policy_v2 {
   __u8 contents_encryption_mode;
   __u8 filenames_encryption_mode;
   __u8 flags;
-  __u8 __reserved[4];
+  __u8 log2_data_unit_size;
+  __u8 __reserved[3];
   __u8 master_key_identifier[FSCRYPT_KEY_IDENTIFIER_SIZE];
 };
 struct fscrypt_get_policy_ex_arg {
@@ -137,8 +129,6 @@ struct fscrypt_get_key_status_arg {
 #define FS_ENCRYPTION_MODE_AES_256_CTS FSCRYPT_MODE_AES_256_CTS
 #define FS_ENCRYPTION_MODE_AES_128_CBC FSCRYPT_MODE_AES_128_CBC
 #define FS_ENCRYPTION_MODE_AES_128_CTS FSCRYPT_MODE_AES_128_CTS
-#define FS_ENCRYPTION_MODE_SPECK128_256_XTS 7
-#define FS_ENCRYPTION_MODE_SPECK128_256_CTS 8
 #define FS_ENCRYPTION_MODE_ADIANTUM FSCRYPT_MODE_ADIANTUM
 #define FS_KEY_DESC_PREFIX FSCRYPT_KEY_DESC_PREFIX
 #define FS_KEY_DESC_PREFIX_SIZE FSCRYPT_KEY_DESC_PREFIX_SIZE

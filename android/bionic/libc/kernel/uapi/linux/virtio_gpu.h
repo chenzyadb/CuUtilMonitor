@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef VIRTIO_GPU_HW_H
 #define VIRTIO_GPU_HW_H
 #include <linux/types.h>
@@ -23,6 +11,7 @@
 #define VIRTIO_GPU_F_EDID 1
 #define VIRTIO_GPU_F_RESOURCE_UUID 2
 #define VIRTIO_GPU_F_RESOURCE_BLOB 3
+#define VIRTIO_GPU_F_CONTEXT_INIT 4
 enum virtio_gpu_ctrl_type {
   VIRTIO_GPU_UNDEFINED = 0,
   VIRTIO_GPU_CMD_GET_DISPLAY_INFO = 0x0100,
@@ -70,12 +59,14 @@ enum virtio_gpu_shm_id {
   VIRTIO_GPU_SHM_ID_HOST_VISIBLE = 1
 };
 #define VIRTIO_GPU_FLAG_FENCE (1 << 0)
+#define VIRTIO_GPU_FLAG_INFO_RING_IDX (1 << 1)
 struct virtio_gpu_ctrl_hdr {
   __le32 type;
   __le32 flags;
   __le64 fence_id;
   __le32 ctx_id;
-  __le32 padding;
+  __u8 ring_idx;
+  __u8 padding[3];
 };
 struct virtio_gpu_cursor_pos {
   __le32 scanout_id;
@@ -181,10 +172,11 @@ struct virtio_gpu_resource_create_3d {
   __le32 flags;
   __le32 padding;
 };
+#define VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK 0x000000ff
 struct virtio_gpu_ctx_create {
   struct virtio_gpu_ctrl_hdr hdr;
   __le32 nlen;
-  __le32 padding;
+  __le32 context_init;
   char debug_name[64];
 };
 struct virtio_gpu_ctx_destroy {
@@ -202,6 +194,7 @@ struct virtio_gpu_cmd_submit {
 };
 #define VIRTIO_GPU_CAPSET_VIRGL 1
 #define VIRTIO_GPU_CAPSET_VIRGL2 2
+#define VIRTIO_GPU_CAPSET_VENUS 4
 struct virtio_gpu_get_capset_info {
   struct virtio_gpu_ctrl_hdr hdr;
   __le32 capset_index;

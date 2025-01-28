@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _ISOFS_FS_H
 #define _ISOFS_FS_H
 #include <linux/types.h>
@@ -132,7 +120,7 @@ struct iso_path_table {
   __u8 name_len[2];
   __u8 extent[4];
   __u8 parent[2];
-  char name[0];
+  char name[];
 } __attribute__((packed));
 struct iso_directory_record {
   __u8 length[ISODCL(1, 1)];
@@ -145,7 +133,7 @@ struct iso_directory_record {
   __u8 interleave[ISODCL(28, 28)];
   __u8 volume_sequence_number[ISODCL(29, 32)];
   __u8 name_len[ISODCL(33, 33)];
-  char name[0];
+  char name[];
 } __attribute__((packed));
 #define ISOFS_BLOCK_BITS 11
 #define ISOFS_BLOCK_SIZE 2048

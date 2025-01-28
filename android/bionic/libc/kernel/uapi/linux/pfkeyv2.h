@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _LINUX_PFKEY2_H
 #define _LINUX_PFKEY2_H
 #include <linux/types.h>
@@ -243,6 +231,7 @@ struct sadb_x_filter {
 #define SADB_X_AALG_SHA2_512HMAC 7
 #define SADB_X_AALG_RIPEMD160HMAC 8
 #define SADB_X_AALG_AES_XCBC_MAC 9
+#define SADB_X_AALG_SM3_256HMAC 10
 #define SADB_X_AALG_NULL 251
 #define SADB_AALG_MAX 251
 #define SADB_EALG_NONE 0
@@ -261,6 +250,7 @@ struct sadb_x_filter {
 #define SADB_X_EALG_AES_GCM_ICV16 20
 #define SADB_X_EALG_CAMELLIACBC 22
 #define SADB_X_EALG_NULL_AES_GMAC 23
+#define SADB_X_EALG_SM4CBC 24
 #define SADB_EALG_MAX 253
 #define SADB_X_EALG_SERPENTCBC 252
 #define SADB_X_EALG_TWOFISHCBC 253

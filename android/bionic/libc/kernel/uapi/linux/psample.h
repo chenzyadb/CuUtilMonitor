@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __UAPI_PSAMPLE_H
 #define __UAPI_PSAMPLE_H
 enum {
@@ -28,6 +16,12 @@ enum {
   PSAMPLE_ATTR_DATA,
   PSAMPLE_ATTR_GROUP_REFCOUNT,
   PSAMPLE_ATTR_TUNNEL,
+  PSAMPLE_ATTR_PAD,
+  PSAMPLE_ATTR_OUT_TC,
+  PSAMPLE_ATTR_OUT_TC_OCC,
+  PSAMPLE_ATTR_LATENCY,
+  PSAMPLE_ATTR_TIMESTAMP,
+  PSAMPLE_ATTR_PROTO,
   __PSAMPLE_ATTR_MAX
 };
 enum psample_command {

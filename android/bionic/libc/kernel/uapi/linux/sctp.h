@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_SCTP_H
 #define _UAPI_SCTP_H
 #include <linux/types.h>
@@ -94,6 +82,7 @@ typedef __s32 sctp_assoc_t;
 #define SCTP_EXPOSE_POTENTIALLY_FAILED_STATE 131
 #define SCTP_EXPOSE_PF_STATE SCTP_EXPOSE_POTENTIALLY_FAILED_STATE
 #define SCTP_REMOTE_UDP_ENCAPS_PORT 132
+#define SCTP_PLPMTUD_PROBE_INTERVAL 133
 #define SCTP_PR_SCTP_NONE 0x0000
 #define SCTP_PR_SCTP_TTL 0x0010
 #define SCTP_PR_SCTP_RTX 0x0020
@@ -209,7 +198,7 @@ struct sctp_assoc_change {
   __u16 sac_outbound_streams;
   __u16 sac_inbound_streams;
   sctp_assoc_t sac_assoc_id;
-  __u8 sac_info[0];
+  __u8 sac_info[];
 };
 enum sctp_sac_state {
   SCTP_COMM_UP,
@@ -243,7 +232,7 @@ struct sctp_remote_error {
   __u32 sre_length;
   __be16 sre_error;
   sctp_assoc_t sre_assoc_id;
-  __u8 sre_data[0];
+  __u8 sre_data[];
 };
 struct sctp_send_failed {
   __u16 ssf_type;
@@ -252,7 +241,7 @@ struct sctp_send_failed {
   __u32 ssf_error;
   struct sctp_sndrcvinfo ssf_info;
   sctp_assoc_t ssf_assoc_id;
-  __u8 ssf_data[0];
+  __u8 ssf_data[];
 };
 struct sctp_send_failed_event {
   __u16 ssf_type;
@@ -261,7 +250,7 @@ struct sctp_send_failed_event {
   __u32 ssf_error;
   struct sctp_sndinfo ssfe_info;
   sctp_assoc_t ssf_assoc_id;
-  __u8 ssf_data[0];
+  __u8 ssf_data[];
 };
 enum sctp_ssf_flags {
   SCTP_DATA_UNSENT,
@@ -569,7 +558,7 @@ struct sctp_getaddrs_old {
 struct sctp_getaddrs {
   sctp_assoc_t assoc_id;
   __u32 addr_num;
-  __u8 addrs[0];
+  __u8 addrs[];
 };
 struct sctp_assoc_stats {
   sctp_assoc_t sas_assoc_id;
@@ -708,6 +697,13 @@ enum sctp_sched_type {
   SCTP_SS_DEFAULT = SCTP_SS_FCFS,
   SCTP_SS_PRIO,
   SCTP_SS_RR,
-  SCTP_SS_MAX = SCTP_SS_RR
+  SCTP_SS_FC,
+  SCTP_SS_WFQ,
+  SCTP_SS_MAX = SCTP_SS_WFQ
+};
+struct sctp_probeinterval {
+  sctp_assoc_t spi_assoc_id;
+  struct sockaddr_storage spi_address;
+  __u32 spi_interval;
 };
 #endif

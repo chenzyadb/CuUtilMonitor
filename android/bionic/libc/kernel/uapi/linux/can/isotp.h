@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_CAN_ISOTP_H
 #define _UAPI_CAN_ISOTP_H
 #include <linux/types.h>
@@ -44,26 +32,29 @@ struct can_isotp_ll_options {
   __u8 tx_dl;
   __u8 tx_flags;
 };
-#define CAN_ISOTP_LISTEN_MODE 0x001
-#define CAN_ISOTP_EXTEND_ADDR 0x002
-#define CAN_ISOTP_TX_PADDING 0x004
-#define CAN_ISOTP_RX_PADDING 0x008
-#define CAN_ISOTP_CHK_PAD_LEN 0x010
-#define CAN_ISOTP_CHK_PAD_DATA 0x020
-#define CAN_ISOTP_HALF_DUPLEX 0x040
-#define CAN_ISOTP_FORCE_TXSTMIN 0x080
-#define CAN_ISOTP_FORCE_RXSTMIN 0x100
-#define CAN_ISOTP_RX_EXT_ADDR 0x200
-#define CAN_ISOTP_WAIT_TX_DONE 0x400
-#define CAN_ISOTP_SF_BROADCAST 0x800
+#define CAN_ISOTP_LISTEN_MODE 0x0001
+#define CAN_ISOTP_EXTEND_ADDR 0x0002
+#define CAN_ISOTP_TX_PADDING 0x0004
+#define CAN_ISOTP_RX_PADDING 0x0008
+#define CAN_ISOTP_CHK_PAD_LEN 0x0010
+#define CAN_ISOTP_CHK_PAD_DATA 0x0020
+#define CAN_ISOTP_HALF_DUPLEX 0x0040
+#define CAN_ISOTP_FORCE_TXSTMIN 0x0080
+#define CAN_ISOTP_FORCE_RXSTMIN 0x0100
+#define CAN_ISOTP_RX_EXT_ADDR 0x0200
+#define CAN_ISOTP_WAIT_TX_DONE 0x0400
+#define CAN_ISOTP_SF_BROADCAST 0x0800
+#define CAN_ISOTP_CF_BROADCAST 0x1000
+#define CAN_ISOTP_DYN_FC_PARMS 0x2000
 #define CAN_ISOTP_DEFAULT_FLAGS 0
 #define CAN_ISOTP_DEFAULT_EXT_ADDRESS 0x00
 #define CAN_ISOTP_DEFAULT_PAD_CONTENT 0xCC
-#define CAN_ISOTP_DEFAULT_FRAME_TXTIME 0
+#define CAN_ISOTP_DEFAULT_FRAME_TXTIME 50000
 #define CAN_ISOTP_DEFAULT_RECV_BS 0
 #define CAN_ISOTP_DEFAULT_RECV_STMIN 0x00
 #define CAN_ISOTP_DEFAULT_RECV_WFTMAX 0
 #define CAN_ISOTP_DEFAULT_LL_MTU CAN_MTU
 #define CAN_ISOTP_DEFAULT_LL_TX_DL CAN_MAX_DLEN
 #define CAN_ISOTP_DEFAULT_LL_TX_FLAGS 0
+#define CAN_ISOTP_FRAME_TXTIME_ZERO 0xFFFFFFFF
 #endif

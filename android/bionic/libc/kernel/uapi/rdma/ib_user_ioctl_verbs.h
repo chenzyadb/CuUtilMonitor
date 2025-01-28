@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef IB_USER_IOCTL_VERBS_H
 #define IB_USER_IOCTL_VERBS_H
 #include <linux/types.h>
@@ -37,6 +25,8 @@ enum ib_uverbs_access_flags {
   IB_UVERBS_ACCESS_ZERO_BASED = 1 << 5,
   IB_UVERBS_ACCESS_ON_DEMAND = 1 << 6,
   IB_UVERBS_ACCESS_HUGETLB = 1 << 7,
+  IB_UVERBS_ACCESS_FLUSH_GLOBAL = 1 << 8,
+  IB_UVERBS_ACCESS_FLUSH_PERSISTENT = 1 << 9,
   IB_UVERBS_ACCESS_RELAXED_ORDERING = IB_UVERBS_ACCESS_OPTIONAL_FIRST,
   IB_UVERBS_ACCESS_OPTIONAL_RANGE = ((IB_UVERBS_ACCESS_OPTIONAL_LAST << 1) - 1) & ~(IB_UVERBS_ACCESS_OPTIONAL_FIRST - 1)
 };
@@ -161,7 +151,8 @@ enum ib_uverbs_advise_mr_flag {
 struct ib_uverbs_query_port_resp_ex {
   struct ib_uverbs_query_port_resp legacy_resp;
   __u16 port_cap_flags2;
-  __u8 reserved[6];
+  __u8 reserved[2];
+  __u32 active_speed_ex;
 };
 struct ib_uverbs_qp_cap {
   __u32 max_send_wr;
@@ -181,6 +172,7 @@ enum rdma_driver_id {
   RDMA_DRIVER_OCRDMA,
   RDMA_DRIVER_NES,
   RDMA_DRIVER_I40IW,
+  RDMA_DRIVER_IRDMA = RDMA_DRIVER_I40IW,
   RDMA_DRIVER_VMW_PVRDMA,
   RDMA_DRIVER_QEDR,
   RDMA_DRIVER_HNS,
@@ -190,6 +182,8 @@ enum rdma_driver_id {
   RDMA_DRIVER_QIB,
   RDMA_DRIVER_EFA,
   RDMA_DRIVER_SIW,
+  RDMA_DRIVER_ERDMA,
+  RDMA_DRIVER_MANA,
 };
 enum ib_uverbs_gid_type {
   IB_UVERBS_GID_TYPE_IB,

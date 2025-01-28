@@ -50,25 +50,28 @@ typedef struct __iconv_t* iconv_t;
  * [iconv_open(3)](http://man7.org/linux/man-pages/man3/iconv_open.3.html) allocates a new converter
  * from `__src_encoding` to `__dst_encoding`.
  *
+ * Android supports the `utf8`, `ascii`, `usascii`, `utf16be`, `utf16le`, `utf32be`, `utf32le`,
+ * and `wchart` encodings for both source and destination.
+ *
+ * Android supports the GNU `//IGNORE` and `//TRANSLIT` extensions for the
+ * destination encoding.
+ *
  * Returns a new `iconv_t` on success and returns `((iconv_t) -1)` and sets `errno` on failure.
  *
  * Available since API level 28.
  */
-iconv_t iconv_open(const char* __src_encoding, const char* __dst_encoding) __INTRODUCED_IN(28);
+iconv_t _Nonnull iconv_open(const char* _Nonnull __dst_encoding, const char* _Nonnull __src_encoding) __INTRODUCED_IN(28);
 
 /**
  * [iconv(3)](http://man7.org/linux/man-pages/man3/iconv.3.html) converts characters from one
  * encoding to another.
- *
- * Android supports the `utf8`, `ascii`, `usascii`, `utf16be`, `utf16le`, `utf32be`, `utf32le`,
- * and `wchart` encodings. Android also supports the GNU `//IGNORE` and `//TRANSLIT` extensions.
  *
  * Returns the number of characters converted on success and returns `((size_t) -1)` and
  * sets `errno` on failure.
  *
  * Available since API level 28.
  */
-size_t iconv(iconv_t __converter, char** __src_buf, size_t* __src_bytes_left, char** __dst_buf, size_t* __dst_bytes_left) __INTRODUCED_IN(28);
+size_t iconv(iconv_t _Nonnull __converter, char* _Nullable * _Nullable __src_buf, size_t* __BIONIC_COMPLICATED_NULLNESS __src_bytes_left, char* _Nullable * _Nullable __dst_buf, size_t* __BIONIC_COMPLICATED_NULLNESS __dst_bytes_left) __INTRODUCED_IN(28);
 
 /**
  * [iconv_close(3)](http://man7.org/linux/man-pages/man3/iconv_close.3.html) deallocates a converter
@@ -78,6 +81,6 @@ size_t iconv(iconv_t __converter, char** __src_buf, size_t* __src_bytes_left, ch
  *
  * Available since API level 28.
  */
-int iconv_close(iconv_t __converter) __INTRODUCED_IN(28);
+int iconv_close(iconv_t _Nonnull __converter) __INTRODUCED_IN(28);
 
 __END_DECLS

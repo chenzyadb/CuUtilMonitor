@@ -1,26 +1,14 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _LINUX_FUSE_H
 #define _LINUX_FUSE_H
 #include <stdint.h>
 #define FUSE_KERNEL_VERSION 7
-#define FUSE_KERNEL_MINOR_VERSION 33
+#define FUSE_KERNEL_MINOR_VERSION 40
 #define FUSE_ROOT_ID 1
 struct fuse_attr {
   uint64_t ino;
@@ -39,6 +27,34 @@ struct fuse_attr {
   uint32_t rdev;
   uint32_t blksize;
   uint32_t flags;
+};
+struct fuse_sx_time {
+  int64_t tv_sec;
+  uint32_t tv_nsec;
+  int32_t __reserved;
+};
+struct fuse_statx {
+  uint32_t mask;
+  uint32_t blksize;
+  uint64_t attributes;
+  uint32_t nlink;
+  uint32_t uid;
+  uint32_t gid;
+  uint16_t mode;
+  uint16_t __spare0[1];
+  uint64_t ino;
+  uint64_t size;
+  uint64_t blocks;
+  uint64_t attributes_mask;
+  struct fuse_sx_time atime;
+  struct fuse_sx_time btime;
+  struct fuse_sx_time ctime;
+  struct fuse_sx_time mtime;
+  uint32_t rdev_major;
+  uint32_t rdev_minor;
+  uint32_t dev_major;
+  uint32_t dev_minor;
+  uint64_t __spare2[14];
 };
 struct fuse_kstatfs {
   uint64_t blocks;
@@ -75,6 +91,9 @@ struct fuse_file_lock {
 #define FOPEN_NONSEEKABLE (1 << 2)
 #define FOPEN_CACHE_DIR (1 << 3)
 #define FOPEN_STREAM (1 << 4)
+#define FOPEN_NOFLUSH (1 << 5)
+#define FOPEN_PARALLEL_DIRECT_WRITES (1 << 6)
+#define FOPEN_PASSTHROUGH (1 << 7)
 #define FUSE_ASYNC_READ (1 << 0)
 #define FUSE_POSIX_LOCKS (1 << 1)
 #define FUSE_FILE_OPS (1 << 2)
@@ -104,7 +123,18 @@ struct fuse_file_lock {
 #define FUSE_MAP_ALIGNMENT (1 << 26)
 #define FUSE_SUBMOUNTS (1 << 27)
 #define FUSE_HANDLE_KILLPRIV_V2 (1 << 28)
-#define FUSE_PASSTHROUGH (1 << 31)
+#define FUSE_SETXATTR_EXT (1 << 29)
+#define FUSE_INIT_EXT (1 << 30)
+#define FUSE_INIT_RESERVED (1 << 31)
+#define FUSE_SECURITY_CTX (1ULL << 32)
+#define FUSE_HAS_INODE_DAX (1ULL << 33)
+#define FUSE_CREATE_SUPP_GROUP (1ULL << 34)
+#define FUSE_HAS_EXPIRE_ONLY (1ULL << 35)
+#define FUSE_DIRECT_IO_ALLOW_MMAP (1ULL << 36)
+#define FUSE_PASSTHROUGH (1ULL << 37)
+#define FUSE_NO_EXPORT_SUPPORT (1ULL << 38)
+#define FUSE_HAS_RESEND (1ULL << 39)
+#define FUSE_DIRECT_IO_RELAX FUSE_DIRECT_IO_ALLOW_MMAP
 #define CUSE_UNRESTRICTED_IOCTL (1 << 0)
 #define FUSE_RELEASE_FLUSH (1 << 0)
 #define FUSE_RELEASE_FLOCK_UNLOCK (1 << 1)
@@ -125,7 +155,14 @@ struct fuse_file_lock {
 #define FUSE_POLL_SCHEDULE_NOTIFY (1 << 0)
 #define FUSE_FSYNC_FDATASYNC (1 << 0)
 #define FUSE_ATTR_SUBMOUNT (1 << 0)
+#define FUSE_ATTR_DAX (1 << 1)
 #define FUSE_OPEN_KILL_SUIDGID (1 << 0)
+#define FUSE_SETXATTR_ACL_KILL_SGID (1 << 0)
+#define FUSE_EXPIRE_ONLY (1 << 0)
+enum fuse_ext_type {
+  FUSE_MAX_NR_SECCTX = 31,
+  FUSE_EXT_GROUPS = 32,
+};
 enum fuse_opcode {
   FUSE_LOOKUP = 1,
   FUSE_FORGET = 2,
@@ -174,7 +211,9 @@ enum fuse_opcode {
   FUSE_COPY_FILE_RANGE = 47,
   FUSE_SETUPMAPPING = 48,
   FUSE_REMOVEMAPPING = 49,
-  FUSE_CANONICAL_PATH = 2016,
+  FUSE_SYNCFS = 50,
+  FUSE_TMPFILE = 51,
+  FUSE_STATX = 52,
   CUSE_INIT = 4096,
   CUSE_INIT_BSWAP_RESERVED = 1048576,
   FUSE_INIT_BSWAP_RESERVED = 436207616,
@@ -186,6 +225,7 @@ enum fuse_notify_code {
   FUSE_NOTIFY_STORE = 4,
   FUSE_NOTIFY_RETRIEVE = 5,
   FUSE_NOTIFY_DELETE = 6,
+  FUSE_NOTIFY_RESEND = 7,
   FUSE_NOTIFY_CODE_MAX,
 };
 #define FUSE_MIN_READ_BUFFER 8192
@@ -221,6 +261,20 @@ struct fuse_attr_out {
   uint32_t attr_valid_nsec;
   uint32_t dummy;
   struct fuse_attr attr;
+};
+struct fuse_statx_in {
+  uint32_t getattr_flags;
+  uint32_t reserved;
+  uint64_t fh;
+  uint32_t sx_flags;
+  uint32_t sx_mask;
+};
+struct fuse_statx_out {
+  uint64_t attr_valid;
+  uint32_t attr_valid_nsec;
+  uint32_t flags;
+  uint64_t spare[2];
+  struct fuse_statx stat;
 };
 #define FUSE_COMPAT_MKNOD_IN_SIZE 8
 struct fuse_mknod_in {
@@ -275,7 +329,7 @@ struct fuse_create_in {
 struct fuse_open_out {
   uint64_t fh;
   uint32_t open_flags;
-  uint32_t passthrough_fh;
+  int32_t backing_id;
 };
 struct fuse_release_in {
   uint64_t fh;
@@ -321,9 +375,12 @@ struct fuse_fsync_in {
   uint32_t fsync_flags;
   uint32_t padding;
 };
+#define FUSE_COMPAT_SETXATTR_IN_SIZE 8
 struct fuse_setxattr_in {
   uint32_t size;
   uint32_t flags;
+  uint32_t setxattr_flags;
+  uint32_t padding;
 };
 struct fuse_getxattr_in {
   uint32_t size;
@@ -352,6 +409,8 @@ struct fuse_init_in {
   uint32_t minor;
   uint32_t max_readahead;
   uint32_t flags;
+  uint32_t flags2;
+  uint32_t unused[11];
 };
 #define FUSE_COMPAT_INIT_OUT_SIZE 8
 #define FUSE_COMPAT_22_INIT_OUT_SIZE 24
@@ -366,7 +425,9 @@ struct fuse_init_out {
   uint32_t time_gran;
   uint16_t max_pages;
   uint16_t map_alignment;
-  uint32_t unused[8];
+  uint32_t flags2;
+  uint32_t max_stack_depth;
+  uint32_t unused[6];
 };
 #define CUSE_INIT_INFO_MAX 4096
 struct cuse_init_in {
@@ -435,6 +496,7 @@ struct fuse_fallocate_in {
   uint32_t mode;
   uint32_t padding;
 };
+#define FUSE_UNIQUE_RESEND (1ULL << 63)
 struct fuse_in_header {
   uint32_t len;
   uint32_t opcode;
@@ -443,12 +505,8 @@ struct fuse_in_header {
   uint32_t uid;
   uint32_t gid;
   uint32_t pid;
-  uint32_t padding;
-};
-struct fuse_passthrough_out {
-  uint32_t fd;
-  uint32_t len;
-  void * vec;
+  uint16_t total_extlen;
+  uint16_t padding;
 };
 struct fuse_out_header {
   uint32_t len;
@@ -462,8 +520,9 @@ struct fuse_dirent {
   uint32_t type;
   char name[];
 };
+#define FUSE_REC_ALIGN(x) (((x) + sizeof(uint64_t) - 1) & ~(sizeof(uint64_t) - 1))
 #define FUSE_NAME_OFFSET offsetof(struct fuse_dirent, name)
-#define FUSE_DIRENT_ALIGN(x) (((x) + sizeof(uint64_t) - 1) & ~(sizeof(uint64_t) - 1))
+#define FUSE_DIRENT_ALIGN(x) FUSE_REC_ALIGN(x)
 #define FUSE_DIRENT_SIZE(d) FUSE_DIRENT_ALIGN(FUSE_NAME_OFFSET + (d)->namelen)
 struct fuse_direntplus {
   struct fuse_entry_out entry_out;
@@ -479,7 +538,7 @@ struct fuse_notify_inval_inode_out {
 struct fuse_notify_inval_entry_out {
   uint64_t parent;
   uint32_t namelen;
-  uint32_t padding;
+  uint32_t flags;
 };
 struct fuse_notify_delete_out {
   uint64_t parent;
@@ -508,9 +567,15 @@ struct fuse_notify_retrieve_in {
   uint64_t dummy3;
   uint64_t dummy4;
 };
+struct fuse_backing_map {
+  int32_t fd;
+  uint32_t flags;
+  uint64_t padding;
+};
 #define FUSE_DEV_IOC_MAGIC 229
 #define FUSE_DEV_IOC_CLONE _IOR(FUSE_DEV_IOC_MAGIC, 0, uint32_t)
-#define FUSE_DEV_IOC_PASSTHROUGH_OPEN _IOW(FUSE_DEV_IOC_MAGIC, 127, struct fuse_passthrough_out)
+#define FUSE_DEV_IOC_BACKING_OPEN _IOW(FUSE_DEV_IOC_MAGIC, 1, struct fuse_backing_map)
+#define FUSE_DEV_IOC_BACKING_CLOSE _IOW(FUSE_DEV_IOC_MAGIC, 2, uint32_t)
 struct fuse_lseek_in {
   uint64_t fh;
   uint64_t offset;
@@ -546,4 +611,23 @@ struct fuse_removemapping_one {
   uint64_t len;
 };
 #define FUSE_REMOVEMAPPING_MAX_ENTRY (PAGE_SIZE / sizeof(struct fuse_removemapping_one))
+struct fuse_syncfs_in {
+  uint64_t padding;
+};
+struct fuse_secctx {
+  uint32_t size;
+  uint32_t padding;
+};
+struct fuse_secctx_header {
+  uint32_t size;
+  uint32_t nr_secctx;
+};
+struct fuse_ext_header {
+  uint32_t size;
+  uint32_t type;
+};
+struct fuse_supp_groups {
+  uint32_t nr_groups;
+  uint32_t groups[];
+};
 #endif

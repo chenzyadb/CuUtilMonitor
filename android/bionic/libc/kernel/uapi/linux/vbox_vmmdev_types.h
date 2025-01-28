@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef __UAPI_VBOX_VMMDEV_TYPES_H__
 #define __UAPI_VBOX_VMMDEV_TYPES_H__
 #include <asm/bitsperlong.h>
@@ -157,7 +145,7 @@ struct vmmdev_hgcm_function_parameter32 {
       __u32 offset;
     } page_list;
   } u;
-} __packed;
+} __attribute__((__packed__));
 struct vmmdev_hgcm_function_parameter64 {
   enum vmmdev_hgcm_function_parameter_type type;
   union {
@@ -169,13 +157,13 @@ struct vmmdev_hgcm_function_parameter64 {
         __u64 phys_addr;
         __u64 linear_addr;
       } u;
-    } __packed pointer;
+    } __attribute__((__packed__)) pointer;
     struct {
       __u32 size;
       __u32 offset;
     } page_list;
-  } __packed u;
-} __packed;
+  } __attribute__((__packed__)) u;
+} __attribute__((__packed__));
 #if __BITS_PER_LONG == 64
 #define vmmdev_hgcm_function_parameter vmmdev_hgcm_function_parameter64
 #else

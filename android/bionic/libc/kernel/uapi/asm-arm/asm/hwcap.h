@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__ASMARM_HWCAP_H
 #define _UAPI__ASMARM_HWCAP_H
 #define HWCAP_SWP (1 << 0)
@@ -41,9 +29,17 @@
 #define HWCAP_IDIV (HWCAP_IDIVA | HWCAP_IDIVT)
 #define HWCAP_LPAE (1 << 20)
 #define HWCAP_EVTSTRM (1 << 21)
+#define HWCAP_FPHP (1 << 22)
+#define HWCAP_ASIMDHP (1 << 23)
+#define HWCAP_ASIMDDP (1 << 24)
+#define HWCAP_ASIMDFHM (1 << 25)
+#define HWCAP_ASIMDBF16 (1 << 26)
+#define HWCAP_I8MM (1 << 27)
 #define HWCAP2_AES (1 << 0)
 #define HWCAP2_PMULL (1 << 1)
 #define HWCAP2_SHA1 (1 << 2)
 #define HWCAP2_SHA2 (1 << 3)
 #define HWCAP2_CRC32 (1 << 4)
+#define HWCAP2_SB (1 << 5)
+#define HWCAP2_SSBS (1 << 6)
 #endif

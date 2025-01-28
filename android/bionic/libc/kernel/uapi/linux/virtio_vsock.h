@@ -1,26 +1,15 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_VIRTIO_VSOCK_H
 #define _UAPI_LINUX_VIRTIO_VSOCK_H
 #include <linux/types.h>
 #include <linux/virtio_ids.h>
 #include <linux/virtio_config.h>
+#define VIRTIO_VSOCK_F_SEQPACKET 1
 struct virtio_vsock_config {
   __le64 guest_cid;
 } __attribute__((packed));
@@ -44,6 +33,7 @@ struct virtio_vsock_hdr {
 } __attribute__((packed));
 enum virtio_vsock_type {
   VIRTIO_VSOCK_TYPE_STREAM = 1,
+  VIRTIO_VSOCK_TYPE_SEQPACKET = 2,
 };
 enum virtio_vsock_op {
   VIRTIO_VSOCK_OP_INVALID = 0,
@@ -58,5 +48,9 @@ enum virtio_vsock_op {
 enum virtio_vsock_shutdown {
   VIRTIO_VSOCK_SHUTDOWN_RCV = 1,
   VIRTIO_VSOCK_SHUTDOWN_SEND = 2,
+};
+enum virtio_vsock_rw {
+  VIRTIO_VSOCK_SEQ_EOM = 1,
+  VIRTIO_VSOCK_SEQ_EOR = 2,
 };
 #endif

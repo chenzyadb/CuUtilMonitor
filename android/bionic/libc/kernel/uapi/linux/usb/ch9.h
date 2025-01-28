@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI__LINUX_USB_CH9_H
 #define _UAPI__LINUX_USB_CH9_H
 #include <linux/types.h>
@@ -203,7 +191,10 @@ struct usb_config_descriptor {
 struct usb_string_descriptor {
   __u8 bLength;
   __u8 bDescriptorType;
-  __le16 wData[1];
+  union {
+    __le16 legacy_padding;
+    __DECLARE_FLEX_ARRAY(__le16, wData);
+  };
 } __attribute__((packed));
 struct usb_interface_descriptor {
   __u8 bLength;
@@ -295,6 +286,7 @@ struct usb_otg20_descriptor {
 #define USB_OTG_SRP (1 << 0)
 #define USB_OTG_HNP (1 << 1)
 #define USB_OTG_ADP (1 << 2)
+#define USB_OTG_RSP (1 << 3)
 #define OTG_STS_SELECTOR 0xF000
 struct usb_debug_descriptor {
   __u8 bLength;
@@ -324,7 +316,7 @@ struct usb_key_descriptor {
   __u8 bDescriptorType;
   __u8 tTKID[3];
   __u8 bReserved;
-  __u8 bKeyData[0];
+  __u8 bKeyData[];
 } __attribute__((packed));
 struct usb_encryption_descriptor {
   __u8 bLength;
@@ -417,6 +409,16 @@ struct usb_ss_container_id_descriptor {
   __u8 ContainerID[16];
 } __attribute__((packed));
 #define USB_DT_USB_SS_CONTN_ID_SIZE 20
+#define USB_PLAT_DEV_CAP_TYPE 5
+struct usb_plat_dev_cap_descriptor {
+  __u8 bLength;
+  __u8 bDescriptorType;
+  __u8 bDevCapabilityType;
+  __u8 bReserved;
+  __u8 UUID[16];
+  __u8 CapabilityData[];
+} __attribute__((packed));
+#define USB_DT_USB_PLAT_DEV_CAP_SIZE(capability_data_size) (20 + capability_data_size)
 #define USB_SSP_CAP_TYPE 0xa
 struct usb_ssp_cap_descriptor {
   __u8 bLength;
@@ -431,7 +433,10 @@ struct usb_ssp_cap_descriptor {
 #define USB_SSP_MIN_RX_LANE_COUNT (0xf << 8)
 #define USB_SSP_MIN_TX_LANE_COUNT (0xf << 12)
   __le16 wReserved;
-  __le32 bmSublinkSpeedAttr[1];
+  union {
+    __le32 legacy_padding;
+    __DECLARE_FLEX_ARRAY(__le32, bmSublinkSpeedAttr);
+  };
 #define USB_SSP_SUBLINK_SPEED_SSID (0xf)
 #define USB_SSP_SUBLINK_SPEED_LSE (0x3 << 4)
 #define USB_SSP_SUBLINK_SPEED_LSE_BPS 0

@@ -1,21 +1,9 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ***   To edit the content of this header, modify the corresponding
- ***   source file (e.g. under external/kernel-headers/original/) then
- ***   run bionic/libc/kernel/tools/update_all.py
- ***
- ***   Any manual change here will be lost the next time this script will
- ***   be run. You've been warned!
- ***
- ****************************************************************************
- ****************************************************************************/
+/*
+ * This file is auto-generated. Modifications will be lost.
+ *
+ * See https://android.googlesource.com/platform/bionic/+/master/libc/kernel/
+ * for more information.
+ */
 #ifndef _UAPI_LINUX_NFS4_H
 #define _UAPI_LINUX_NFS4_H
 #include <linux/types.h>
@@ -45,6 +33,7 @@
 #define NFS4_FH_VOL_RENAME 0x0008
 #define NFS4_OPEN_RESULT_CONFIRM 0x0002
 #define NFS4_OPEN_RESULT_LOCKTYPE_POSIX 0x0004
+#define NFS4_OPEN_RESULT_PRESERVE_UNLINKED 0x0008
 #define NFS4_OPEN_RESULT_MAY_NOTIFY_LOCK 0x0020
 #define NFS4_SHARE_ACCESS_MASK 0x000F
 #define NFS4_SHARE_ACCESS_READ 0x0001
